@@ -1,0 +1,12 @@
+move(a,b) <-- .
+move(a,c) <-- .
+move(b,d) <-- .
+move(b,e) <-- .
+move(c,e) <-- .
+move(c,i) <-- .
+move(c,f) <-- .
+move(d,g) <-- .
+move(d,h) <-- .
+move(e,i) <-- .
+move(f,j) <-- .
+@@@@@@@@@@@@@

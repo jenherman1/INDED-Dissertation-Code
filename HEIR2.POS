@@ -1,0 +1,6 @@
+heir(mary,henry) .
+heir(mary,george) .
+heir(mary,catherine) .
+heir(catherine,george) .
+heir(henry,elizabeth) .
+@@@@@@@@@@@@@@@@@@@@@@@@@@

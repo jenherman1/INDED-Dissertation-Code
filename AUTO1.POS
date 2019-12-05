@@ -1,0 +1,3 @@
+accident(car_A, car_D).
+accident(car_D, car_A).
+@@@@@@@@@@@@@@@

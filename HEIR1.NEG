@@ -1,0 +1,5 @@
+~heir(bob, george) .
+~heir(bob, catherine) .
+~heir(catherine, george) .
+~heir(george, catherine) .
+@@@@@@@@@@@@@@@@@@@@@@@

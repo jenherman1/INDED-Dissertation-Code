@@ -1,0 +1,15 @@
+~accident(car_A, car_A).
+~accident(car_A, car_B).
+~accident(car_A, car_C).
+~accident(car_D, car_B).
+~accident(car_D, car_C).
+~accident(car_D, car_D).
+~accident(car_B, car_B).
+~accident(car_B, car_A).
+~accident(car_B, car_C).
+~accident(car_B, car_D).
+~accident(car_C, car_C).
+~accident(car_C, car_A).
+~accident(car_C, car_B).
+~accident(car_C, car_D).
+@@@@@@@@@@@@@@@@@@@@@@

@@ -1,0 +1,7 @@
+father(george, catherine) <-- .
+mother(catherine, mary) <-- .
+married(catherine, henry) <-- .
+father(henry, mary) <-- .
+mother(elizabeth, henry) <-- .
+married(mary, bob) <-- .
+@@@@@@@@@@@@@@@

@@ -1,0 +1,2 @@
+winning(X) <-- move(X,Y), ~winning(Y) .
+@@@@@@@@@@@@@

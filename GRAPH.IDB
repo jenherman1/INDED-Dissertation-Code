@@ -1,0 +1,9 @@
+source(X) <-- zero_indegree(X) .
+
+sink(X) <-- zero_outdegree(X) .
+
+connected(X,X) <-- .
+connected(X,Y) <-- edge(X,Y) .
+connected(X,Z) <-- edge(X,Y), connected(Y,Z) .
+
+@@@@@@@@@@@@@@@@@@@@@@@

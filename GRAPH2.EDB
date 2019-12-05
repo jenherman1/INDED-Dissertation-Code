@@ -1,0 +1,11 @@
+edge(a,c) <-- .
+edge(c,a) <-- .
+edge(a,b) <-- .
+edge(b,c) <-- .
+edge(d,c) <-- .
+zero_indegree(d) <-- .
+zero_indegree(e) <-- .
+zero_indegree(f) <-- .
+zero_outdegree(e) <-- .
+zero_outdegree(f) <-- .
+@@@@@@@@@@@@@@@

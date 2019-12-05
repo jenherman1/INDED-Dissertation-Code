@@ -1,0 +1,6 @@
+going(X) <--    green_light(X), going(Y), predecessor(Y,X), ~stopped(X).
+going(X) <--   ~stopped(X).
+stopped(X)  <-- ~going(Y), predecessor(Y,X), ~going(X).
+stopped(X) <--  ~going(X) \\
+green_light(X) <--  green_light(Y), predecessor(Y,X).
+@@@@@@@@@@@@@@

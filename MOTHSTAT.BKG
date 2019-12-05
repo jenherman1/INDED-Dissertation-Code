@@ -1,0 +1,104 @@
+ insect(specimen_1) .
+ insect(specimen_2) .
+ has_2_sets_of_wings(specimen_1) .
+ has_2_sets_of_wings(specimen_2) .
+ has_powdery_scaled_wings(specimen_1) .
+ has_powdery_scaled_wings(specimen_2) .
+ smells_with_atennae(specimen_1) .
+ smells_with_atennae(specimen_2) .
+ spins_cacoon(specimen_1) .
+ spins_cacoon(specimen_2) .
+ at_rest_wings_upright(specimen_1) .
+ connected_wing_pairs(specimen_2) .
+ flies_during_daylight(specimen_1) .
+ has_thin_body(specimen_1) .
+ has_bare_body(specimen_1) .
+ has_thin_atennae(specimen_1) .
+ eats_wool(specimen_2) .
+ produces_usable_silk(specimen_2) .
+ insect(specimen_3) .
+ insect(specimen_4) .
+ has_4_sets_of_wings(specimen_3) .
+ has_4_sets_of_wings(specimen_4) .
+ has_powdery_scaled_wings(specimen_3) .
+ has_powdery_scaled_wings(specimen_4) .
+ smells_with_atennae(specimen_3) .
+ smells_with_atennae(specimen_4) .
+ spins_cacoon(specimen_3) .
+ spins_cacoon(specimen_4) .
+ at_rest_wings_upright(specimen_3) .
+ connected_wing_pairs(specimen_4) .
+ flies_during_daylight(specimen_3) .
+ has_thin_body(specimen_3) .
+ has_bare_body(specimen_3) .
+ has_thin_atennae(specimen_3) .
+ eats_wool(specimen_4) .
+ produces_usable_silk(specimen_4) .
+ insect(specimen_5) .
+ insect(specimen_6) .
+ has_6_sets_of_wings(specimen_5) .
+ has_6_sets_of_wings(specimen_6) .
+ has_powdery_scaled_wings(specimen_5) .
+ has_powdery_scaled_wings(specimen_6) .
+ smells_with_atennae(specimen_5) .
+ smells_with_atennae(specimen_6) .
+ spins_cacoon(specimen_5) .
+ spins_cacoon(specimen_6) .
+ at_rest_wings_upright(specimen_5) .
+ connected_wing_pairs(specimen_6) .
+ flies_during_daylight(specimen_5) .
+ has_thin_body(specimen_5) .
+ has_bare_body(specimen_5) .
+ has_thin_atennae(specimen_5) .
+ eats_wool(specimen_6) .
+ produces_usable_silk(specimen_6) .
+ Moth(specimen_2) .
+ Moth(specimen_4) .
+ Moth(specimen_6) .
+~at_rest_wings_upright(specimen_2) .
+~flies_during_daylight(specimen_2) .
+~has_thin_body(specimen_2) .
+~has_bare_body(specimen_2) .
+~has_thin_antennae(specimen_2) .
+~at_rest_wings_upright(specimen_4) .
+~flies_during_daylight(specimen_4) .
+~has_thin_body(specimen_4) .
+~has_bare_body(specimen_4) .
+~has_thin_antennae(specimen_4) .
+~at_rest_wings_upright(specimen_6) .
+~flies_during_daylight(specimen_6) .
+~has_thin_body(specimen_6) .
+~has_bare_body(specimen_6) .
+~has_thin_antennae(specimen_6) .
+~Butterfly(specimen_1) .
+~is_an_insect(specimen_1) .
+~smells_with_antennae(specimen_1) .
+~Butterfly(specimen_2) .
+~is_an_insect(specimen_2) .
+~smells_with_antennae(specimen_2) .
+~has_thin_atennae(specimen_2) .
+~Butterfly(specimen_3) .
+~is_an_insect(specimen_3) .
+~has_2_sets_of_wings(specimen_3) .
+~smells_with_antennae(specimen_3) .
+~Butterfly(specimen_4) .
+~is_an_insect(specimen_4) .
+~has_2_sets_of_wings(specimen_4) .
+~smells_with_antennae(specimen_4) .
+~has_thin_atennae(specimen_4) .
+~Butterfly(specimen_5) .
+~is_an_insect(specimen_5) .
+~has_2_sets_of_wings(specimen_5) .
+~smells_with_antennae(specimen_5) .
+~Butterfly(specimen_6) .
+~is_an_insect(specimen_6) .
+~has_2_sets_of_wings(specimen_6) .
+~smells_with_antennae(specimen_6) .
+~has_thin_atennae(specimen_6) .
+~Moth(specimen_1) .
+~connected_wing_pairs(specimen_1) .
+~Moth(specimen_3) .
+~connected_wing_pairs(specimen_3) .
+~Moth(specimen_5) .
+~connected_wing_pairs(specimen_5) .
+@@@@@@@@@@@@@@@@@@@@

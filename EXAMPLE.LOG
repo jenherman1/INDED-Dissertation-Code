@@ -1,0 +1,148 @@
+------------------------------------------------------
+TO ILLUSTRATE THE CANONICAL FAMILY TREE PARADIGM
+------------------------------------------------
+heir.posexamp     //files for family relationships using
+    .negexamp               smallfam.edb and family.idb   OR
+                            family.edb and family.idb
+guardian.posexamp //files for family relationships using
+        .negexamp           smallfam.edb and family.idb   OR
+                            family.edb and family.idb
+-------------------------------------------------------
+TO ILLUSTRATE GRAPH THEORETIC PREDICATES
+----------------------------------------
+cycle1.posexamp   //files for graph1 using graph1.edb and graph.idb
+      .negexamp
+cycle2.posexamp   //files for graph2 using graph2.edb and graph.idb
+      .negexamp
+adjacent1.posexamp //files for graph1 using graph1.edb and graph.idb
+         .negexamp
+adjacent2.posexamp //files for graph2 using graph2.edb and graph.idb
+         .posexamp
+-------------------------------------------------------
+TO ILLUSTRATE NEGATIVE RECURSION
+--------------------------------
+negrec.edb        // has ground facts in the form of p(c)
+                  //     where c is a constant and ground rules 
+empty.idb         // HAS NO INTENSIONAL RULES...NULL SET    
+
+negrec.posexamp   // learns the general predicate p(X) 
+      .negexamp   //   "
+--------------------------------------------------------
+vangel.idb        // has the intensional version of Van Gelder's
+                  //    example
+vangel.edb        // has the extensional version of Van Gelder's example
+--------------------------------------------------------
+TO ILLUSTRATE PROGRAM REQUIRING STABLE MODEL ...NOT JUST WF
+-------------------------------------------
+stablemod.edb     // cat(X) <-- ~dog(X),etc.
+         .idb
+------------------------------------------------------------
+
+TO ILLUSTRATE STABLE MODEL AND NEGATIVE RECURSION...USES 10 CONSTANTS
+game.edb
+    .idb         // winning(X) <-- move(X,Y), ~winning(Y)
+------------------------------------------------------------------
+TO ILLUSTRATE DEPENDENCY OF LEARNED RULE QUALITY TO EDB, E+, AND E-
+------------------------------------------------------------------
+Run #1:  use smallfam.edb   (using learn parms:  8,  2,  0.9, and 0.25)
+             family.idb
+             heir1.posexamp  //INDICATES MARRIED PERSONS AS HEIRS OF
+                             //  ONE ANOTHER
+             heir1.negexamp
+             guardian1.posexamp
+             guardian1.negexamp
+
+   THE PRODUCED RULE FOR HEIR IS:
+
+    heir(A,  B) <-- married(B, A) #
+    heir(A,  B) <-- ancestor(A, B) #
+    heir(A,  B) <-- relative(B, A) #   
+
+ THE PRODUCED RULE FOR GUARDIAN IS:
+
+    guardian(A,  B) <-- father(A, B) #
+    guardian(A,  B) <-- mother(A, B) #      
+
+
+
+
+
+Run #2:  use family.edb   (using learn parms:  8,  2,  0.9, and 0.25) 
+             family.idb
+             heir2.posexamp  //INDICATES MARRIED PERSONS AS 
+                             // NOT BEING HEIRS OF ONE ANOTHER
+             heir2.negexamp
+             guardian2.posexamp
+             guardian2.negexamp
+
+ THE PRODUCED RULE FOR HEIR IS:
+
+   heir(A,  B) <-- mother(B, A) #
+   heir(A,  B) <-- ancestor(B, A) #      
+
+ THE PRODUCED RULE FOR GUARDIAN IS:
+
+guardian(A,  B) <-- father(A, B) #
+guardian(A,  B) <-- mother(A, B) #   
+
+
+
+   
+
+-------------------------------------------------------------------
+TO ILLUSTRATE CONSISTENCY CHECKING and NEGATION AS FAILURE TO LEARN
+-------------------------------------------------------------------
+
+     files:    
+               red.posexamp
+               red.negexamp
+
+   If the number of tuples * 2 appearing in both E+ and E-
+   exceeds the user input max inconsistency coefficient,
+            the system FAILS TO LEARN and offers to 
+            input the negation of the target predicate 
+            into the deduction engine IDB.
+
+-----------------------------------------------------------------
+TO ILLUSTRATE THE PRESENCE OF INCONSISTENCIES IN THE EXAMPLE SETS
+------------------------------------------------------------------
+    files:    
+              oldfamily.edb
+              oldfamily.idb
+              oldheir.posexamp
+              oldheir.negexamp
+
+    user inputs a maximum inconsistency of 0.3
+
+-------------------------------------------------------------------
+TO ILLUSTRATE THE LEARNING OF CLOSE CONCEPTS
+---------------------------------------------------------------------
+    directory: close_concepts/moth
+    files:
+               insect.edb
+               insect.idb   
+               moth.posexamp
+               moth.negexamp
+
+RUN #1
+------
+[Notice:  3 different runs produced the same rule.]
+
+Rule learned with user input parms of 8, 2, 1.0, 0.0
+                                      2, 1, 1.0, 0.0
+                                      6, 1, 1.0, 0.0
+
+       Moth(A) <-- connected_wing_pairs(A) .
+
+
+RUN #2
+------
+
+Rule learned with user input parms of 8, 2, 1.0, 0.0
+                                      2, 1, 1.0, 0.0
+                                      6, 1, 1.0, 0.0
+
+       Moth(A) <-- connected_wing_pairs(A) .
+
+
+

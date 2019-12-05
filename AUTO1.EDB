@@ -1,0 +1,9 @@
+going(noPRED) <--  .
+green_light(car_A) <--  .
+green_light(car_A) <--  ~green_light(car_D) .
+green_light(car_D) <--  ~green_light(car_A) .
+predecessor(noPRED,car_A) <--   .
+predecessor(noPRED,car_D) <--   .
+predecessor(car_A, car_B) <--   .
+predecessor(car_B, car_C) <--   .
+@@@@@@@@@@@@@@@@@@@

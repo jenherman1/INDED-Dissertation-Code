@@ -1,0 +1,11 @@
+Butterfly(X) <--  is_an_insect(X),
+                  has_2_sets_of_wings(X),
+                  at_rest_wings_upright(X),
+                  has_powdery_scaled_wings(X),
+                  spins_cacoon(X),
+                  flies_during_daylight(X),
+                  has_thin_body(X),
+                  has_bare_body(X),
+                  smells_with_antennae(X),
+                  has_thin_antennae(X).
+@@@@@@@@@@@@@@@@@@

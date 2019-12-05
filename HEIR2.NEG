@@ -1,0 +1,14 @@
+~heir(bob, george) .
+~heir(bob, catherine) .
+~heir(catherine, george) .
+~heir(george, catherine) .
+~heir(bob,mary) .
+~heir(george,mary) .
+~heir(catherine,mary) .
+~heir(mary,bob) .
+~heir(catherine,henry) .
+~heir(henry,catherine) .
+@@@@@@@@@@@@@@@@@@@@@@@
+
+
+//This file assumes married persons are not heirs of one another.

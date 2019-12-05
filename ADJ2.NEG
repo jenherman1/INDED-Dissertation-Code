@@ -1,0 +1,19 @@
+~adjacent(e,c) .
+~adjacent(c,e) .
+~adjacent(e,d) .
+~adjacent(d,e) .
+~adjacent(e,b) .
+~adjacent(b,e) .
+~adjacent(b,d) .
+~adjacent(d,b) .
+~adjacent(a,d) .
+~adjacent(f,c) .
+~adjacent(c,f) .
+~adjacent(f,d) .
+~adjacent(d,f) .
+~adjacent(f,b) .
+~adjacent(b,f) .
+~adjacent(e,c) .
+~adjacent(f,e) .
+~adjacent(e,f) .
+@@@@@@@@@@@@@@@@

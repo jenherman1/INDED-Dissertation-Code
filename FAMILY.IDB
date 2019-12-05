@@ -1,0 +1,17 @@
+married(X,Y) <-- married(Y,X) .
+
+ancestor(X,X)<--.
+
+ancestor(X,Z)<--ancestor(X,Y), mother(Y,Z) .
+
+ancestor(X,Z)<--ancestor(X,Y), father(Y,Z) .
+
+relative(Y,Z) <-- ancestor(X,Y), ancestor(X,Z) .
+
+relative(X,Y) <-- relative(Y,X) .
+
+inlaw(X,Z) <-- relative(X,Y), married(Y,Z), ~relative(X,Z) .
+
+inlaw(X,Y) <-- inlaw(Y,X) .
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
