@@ -1,9 +1,36 @@
-cmake_minimum_required(VERSION 2.8)
-
 project(INDED)
 
-include_directories(".")
+cmake_minimum_required(VERSION 2.8)
 
-add_executable(INDED MAIN.cc ".")
+SET(SRC_LIST
+        ATOM.CC
+	CONCLASS.CC
+	INDUC.CC
+	LIST.CC
+        MAIN.cpp
+	PREDLOG.CC
+	UTILITY.CC
+	BACK.CC
+	EEEKS.CC
+	INTRULE.CC
+	LITERAL.CC
+	NODE.CC
+	PREDSYM.CC
+	VARIABLE.CC
+	BODY.CC
+	EXAMPSET.CC
+	INTSET.CC
+	LOGIC_PR.CC
+	POS.CC
+	RULE.CC
+	VERTEX.CC
+	CONAPP.CC
+	FULL.CC
+	KB.CC
+	LPCONS.CC
+	PREDEXP.CC
+	SPANTREE.CC
+	VERTPTR.CC
+)
 
-
+add_executable(${PROJECT_NAME} MAIN.cpp ${SRC_LIST})
