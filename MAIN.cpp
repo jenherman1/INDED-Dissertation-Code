@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 #include <string.h>
 #include <ctype.h>
 // -------------    P R O T O T Y P E   F I L E S    -------------------
@@ -31,7 +31,7 @@ class atom_class;
 #include "vertex.h"
 #include "predlog.h"
 #include "exampset.h"
-#include "logic_prog.h"
+#include "logic_pr.h"
 #include "predexp.h"
 #include "intrule.h"
 #include "intset.h"
@@ -42,6 +42,7 @@ class atom_class;
 
 //--------------   G L O B A L   V A R I A B L E S   -----------
 
+using namespace std;
 
 int                                Distribution;
 int                                Body_Length;
@@ -94,7 +95,7 @@ double                             NECESSITY_STOP_CRITEREON =
 #include "vertex.cc"
 #include "vertptr.cc"
 #include "spantree.cc"
-#include "logic_prog.cc"
+#include "logic_pr.cc"
 #include "exampset.cc"
 #include "intset.cc"
 #include "back.cc"
