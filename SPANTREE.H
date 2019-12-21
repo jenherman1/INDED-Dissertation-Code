@@ -1,3 +1,5 @@
+#pragma once
+
 class spantree_class 
   {
   public:
