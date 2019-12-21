@@ -1,3 +1,13 @@
+#pragma once
+
+#include "ATOM.H"
+#include "BODY.H"
+#include "CONST.H"
+#include "LIST.CC"
+#include "LOGIC_PR.H"
+#include "NODE.H"
+#include "RULE.H"
+
 class vertex_class : public node_class
   {
   public:
