@@ -1,8 +1,18 @@
+#pragma once
+
+#include <fstream>
+
+#include "ATOM.H"
+#include "CONST.H"
+#include "LIST.CC"
+#include "PREDLOG.H"
+#include "POS.H"
+
 class example_set_class
 {
    public:
         example_set_class();
-        example_set_class(ifstream& infile);
+        example_set_class(std::ifstream& infile);
   
         ~example_set_class();
 
@@ -20,9 +30,9 @@ class example_set_class
         
         void output();
         void clear();
-        void display(ostream& fout);
-        void display_atoms(ostream& fout);
-        void display_log(ostream& fout);
+        void display(std::ostream& fout);
+        void display_atoms(std::ostream& fout);
+        void display_log(std::ostream& fout);
      
         void name_example_variables();
         void initialize_position_rankings();
