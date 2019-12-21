@@ -107,7 +107,7 @@ double                             NECESSITY_STOP_CRITEREON =
 
 
 
-void main()
+int main(int argc, char **argv)
 ///////////////////////////////////////////////////////////////////////
 ///    Main samp57_learn24
 ///
@@ -395,5 +395,6 @@ void main()
 //
 //
 
+    return 0;
 }  // MAIN
 
