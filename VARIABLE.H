@@ -1,3 +1,8 @@
+#pragma once
+
+#include "CONCLASS.H"
+#include "CONST.H"
+
 class variable_class 
    {
   public:
