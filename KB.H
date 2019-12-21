@@ -1,10 +1,24 @@
+#pragma once
+
+#include <fstream>
+
+#include "BODY.H"
+#include "CONCLASS.H"
+#include "CONST.H"
+#include "INTRULE.H"
+#include "INTSET.H"
+#include "LOGIC_PR.H"
+#include "PREDEXP.H"
+#include "VARIABLE.H"
+#include "VERTEX.H"
+
 class knowledge_base_class
 {
    public:
         knowledge_base_class();
-        knowledge_base_class(ifstream& edbfile, ifstream& idbfile);
-        knowledge_base_class(ifstream& edbfile, ifstream& idbfile,
-                             ifstream& learnfile);
+        knowledge_base_class(std::ifstream& edbfile, std::ifstream& idbfile);
+        knowledge_base_class(std::ifstream& edbfile, std::ifstream& idbfile,
+                             std::ifstream& learnfile);
 
         ~knowledge_base_class();
 
@@ -34,17 +48,17 @@ class knowledge_base_class
 
 
 
-        void add_fact_KB(istream& fin);
-        void nonmonotonically_update(istream& fin);
+        void add_fact_KB(std::istream& fin);
+        void nonmonotonically_update(std::istream& fin);
         
                                        
         void output();
         void clear();
         void output_constants();
-        void display_KB(ostream& fout);
-        void display_constant_appearances(ostream& fout);
+        void display_KB(std::ostream& fout);
+        void display_constant_appearances(std::ostream& fout);
  
-        void show_current_state(ostream& fout);
+        void show_current_state(std::ostream& fout);
         void compute_current_state();
         void create_background_knowledge_file(char filename[STRING_LENGTH]);
         void create_ground_instantiation_file(char filename[STRING_LENGTH]);
