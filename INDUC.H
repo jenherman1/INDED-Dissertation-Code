@@ -1,10 +1,24 @@
+#pragma once
+
+#include <fstream>
+
+#include "ATOM.H"
+#include "BACK.H"
+#include "CONST.H"
+#include "EXAMPSET.H"
+#include "INTRULE.H"
+#include "INTSET.H"
+#include "POS.H"
+#include "PREDEXP.H"
+#include "PREDLOG.H"
+
 class inductive_engine_class
 {
    public:
         inductive_engine_class();
-        inductive_engine_class(ifstream& posexamplefile, 
-                               ifstream& negexamplefile,
-                               ifstream& backgroundknowfile);
+        inductive_engine_class(std::ifstream& posexamplefile,
+                               std::ifstream& negexamplefile,
+                               std::ifstream& backgroundknowfile);
 
         ~inductive_engine_class();
 
@@ -29,11 +43,11 @@ class inductive_engine_class
 
         void output();
         void clear();
-        void display(ostream& fout);
-        void display_example_set(ostream& fout);
-        void display_positive_examples(ostream& fout);  
-        void display_negative_examples(ostream& fout);  
-        void display_background_knowledge(ostream& fout);
+        void display(std::ostream& fout);
+        void display_example_set(std::ostream& fout);
+        void display_positive_examples(std::ostream& fout);
+        void display_negative_examples(std::ostream& fout);
+        void display_background_knowledge(std::ostream& fout);
 
        int_ruleset_class       *learn_rule();
        int_ruleset_class       *learn_rule_defaults();
