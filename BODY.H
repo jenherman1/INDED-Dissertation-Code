@@ -1,3 +1,10 @@
+#pragma once
+
+#include "LITERAL.H"
+#include "LOGIC_PR.H"
+#include "NODE.H"
+#include "VERTEX.H"
+
 class body_node_class : public node_class
    {
   public:
