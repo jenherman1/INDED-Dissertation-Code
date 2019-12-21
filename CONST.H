@@ -1,3 +1,5 @@
+#pragma once
+
 //  Possible Body status values
 #define  UNDETERMINED 0;
 #define  ELIMINATED   1;
