@@ -1,3 +1,9 @@
+#pragma once
+
+#include "BODY.H"
+#include "NODE.H"
+#include "VERTEX.H"
+
 class literal_class : public node_class
    {
   public:
