@@ -1,3 +1,8 @@
+#pragma once
+
+#include "BODY.H"
+#include "VERTEX.H"
+
 class node_class
     {
  public:
