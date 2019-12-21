@@ -1,10 +1,22 @@
+#pragma once
+
+#include <fstream>
+
+#include "BODY.H"
+#include "CONST.H"
+#include "LIST.CC"
+#include "LITERAL.H"
+#include "RULE.H"
+#include "SPANTREE.H"
+#include "VERTEX.H"
+
 class logic_program_class
 {
    public:
         logic_program_class();
         logic_program_class(int distribution);
         logic_program_class(char *filename);
-        logic_program_class(ifstream& infile);
+        logic_program_class(std::ifstream& infile);
   
         ~logic_program_class();
 
@@ -36,13 +48,13 @@ class logic_program_class
         void display();
         void display_head_groups();
         void display_model();
-        void show_state(ostream& fout);
+        void show_state(std::ostream& fout);
         void update_state();
-        void add_fact(istream& infile);
+        void add_fact(std::istream& infile);
         vertex_class *add_fact(char tempstr[LONG_STRING_LENGTH], int is_negative_fact);
 
-        void nonmonotonically_update(istream& infile);
-        void display_ground_instantiation(ostream& outfile);
+        void nonmonotonically_update(std::istream& infile);
+        void display_ground_instantiation(std::ostream& outfile);
   
         void update_graph();
         void initialize_graph();
@@ -64,7 +76,7 @@ class logic_program_class
         void                     form_all_spanning_trees();
         void                     print_spanning_trees();
 
-        void print_truth_atoms(ostream& fout, int t_val);
+        void print_truth_atoms(std::ostream& fout, int t_val);
         int compute_num_assignments(int num_vars);
 
 
@@ -130,7 +142,7 @@ class logic_program_class
                           body_node_class *b_ptr);
         void display_extensional_rule( vertex_class    *head_v_ptr,
                                        body_node_class *body_b_ptr,
-                                       ostream& fout );
+                                       std::ostream& fout );
 
         void print_truth_vals(int t_val);
         void print_postorder_nums();
