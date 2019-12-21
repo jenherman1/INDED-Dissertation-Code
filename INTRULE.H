@@ -1,3 +1,12 @@
+#pragma once
+
+#include <fstream>
+
+#include "CONST.H"
+#include "LIST.CC"
+#include "PREDEXP.H"
+#include "VARIABLE.H"
+
 class intensional_rule_class
   {
   public:
@@ -7,7 +16,7 @@ class intensional_rule_class
 
       void output();
       void clear();
-      void display_intensional_rule(ostream& fout);
+      void display_intensional_rule(std::ostream& fout);
 
 
       void assign_val(int n);
