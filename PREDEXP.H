@@ -1,3 +1,12 @@
+#pragma once
+
+#include "CONST.H"
+#include "FULL.H"
+#include "LIST.CC"
+#include "NODE.H"
+#include "PREDSYM.H"
+#include "VARIABLE.H"
+
 class predicate_expression_class : public node_class
    {
   public:
@@ -34,7 +43,7 @@ class predicate_expression_class : public node_class
 
 
       void display();      //Display the entire string as a predicate expression
-      void display(ostream& fout);
+      void display(std::ostream& fout);
 
   protected:
       int                              IS_NEGATIVE;
