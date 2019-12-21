@@ -1,3 +1,9 @@
+#pragma once
+
+#include "CONAPP.H"
+#include "CONST.H"
+#include "LIST.CC"
+
 class constant_class 
    {
   public:
@@ -18,8 +24,8 @@ class constant_class
       constant_appearance_class *get_first_con_appearance();
 
       void  display();
-      void  display(ostream& fout);
-      void  display_appearance_list(ostream& fout);
+      void  display(std::ostream& fout);
+      void  display_appearance_list(std::ostream& fout);
 
       void      add_constant_appearance(vertex_class *v_ptr);
       void      add_constant_appearance(int headval, vertex_class *v_ptr);
