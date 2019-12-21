@@ -1,3 +1,9 @@
+#pragma once
+
+#include "BODY.H"
+#include "LITERAL.H"
+#include "VERTEX.H"
+
 class rule_class : public literal_class
    {
   public:
