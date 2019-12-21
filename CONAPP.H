@@ -1,3 +1,9 @@
+#pragma once
+
+#include <fstream>
+
+#include "VERTEX.H"
+
 class constant_appearance_class 
    {
   public:
@@ -16,7 +22,7 @@ class constant_appearance_class
      int                        get_value();
 
      void              output();
-     void              display_appearance(ostream& fout);
+     void              display_appearance(std::ostream& fout);
 
      void clear();
 
