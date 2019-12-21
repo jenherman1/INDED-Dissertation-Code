@@ -1,3 +1,7 @@
+#pragma once
+
+#include "CONST.H"
+
 class predicate_symbol_class 
    {
   public:
