@@ -1,3 +1,14 @@
+#pragma once
+
+#include <fstream>
+
+#include "CONCLASS.H"
+#include "CONST.H"
+#include "FULL.H"
+#include "LIST.CC"
+#include "NODE.H"
+#include "PREDSYM.H"
+
 class atom_class : public node_class
    {
   public:
@@ -37,7 +48,7 @@ class atom_class : public node_class
 
 
       void display();      //Display the entire string as a ground predicate
-      void display(ostream& fout);
+      void display(std::ostream& fout);
 
       void initialize_covered();
       void mark_covered();
