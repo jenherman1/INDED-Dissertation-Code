@@ -1,14 +1,20 @@
+#include <iostream>
+
+#include "ATOM.H"
+
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////////////
 //  Constructors
 ////////////////////////////////////////////////////////////////////////////
 
 atom_class::atom_class() : node_class()
 {
-   anextnode = NULL;
-   constantlist.set_first(NULL);
-   constantlist.set_last(NULL);
+   anextnode = nullptr;
+   constantlist.set_first(nullptr);
+   constantlist.set_last(nullptr);
    constantlist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol("");
    fullstring.assign_IS_NEGATIVE(0);
 
@@ -16,11 +22,11 @@ atom_class::atom_class() : node_class()
 
 atom_class::atom_class(int num) : node_class(num)
 {
-   anextnode = NULL;
-   constantlist.set_first(NULL);
-   constantlist.set_last(NULL);
+   anextnode = nullptr;
+   constantlist.set_first(nullptr);
+   constantlist.set_last(nullptr);
    constantlist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol("");
    fullstring.assign_IS_NEGATIVE(0);
  
@@ -32,7 +38,7 @@ atom_class::atom_class( list_class<constant_class> participating_constants,
    
    char        fullstring2[LONG_STRING_LENGTH];
 
-   anextnode = NULL;
+   anextnode = nullptr;
    constantlist = participating_constants;
    predicate_symbol.assign_symbol(pred_symb);
    fullstring.assign_symbol("");
@@ -67,11 +73,11 @@ atom_class::atom_class( list_class<constant_class> participating_constants,
 
 atom_class::atom_class(char full_s[LONG_STRING_LENGTH])   
 {
-   anextnode = NULL;
-   constantlist.set_first(NULL);
-   constantlist.set_last(NULL);
+   anextnode = nullptr;
+   constantlist.set_first(nullptr);
+   constantlist.set_last(nullptr);
    constantlist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol(full_s);
    fullstring.assign_IS_NEGATIVE(0);
 
@@ -88,7 +94,7 @@ atom_class::atom_class(char full_s[LONG_STRING_LENGTH])
   strcpy(cons, "");
 
   ptr = strtok( instr, "(,)" );  
-  while (ptr != NULL)
+  while (ptr != nullptr)
      {
            if (token_num++ == 1)
                  predicate_symbol.assign_symbol(ptr);
@@ -98,7 +104,7 @@ atom_class::atom_class(char full_s[LONG_STRING_LENGTH])
                  constantlist.add_ptr(c_ptr);
             } // ELSE
 
-           ptr = strtok(NULL, ",)" );
+           ptr = strtok(nullptr, ",)" );
      } //WHILE
 
 }  //CONSTRUCTOR that parses a full string     
@@ -107,11 +113,11 @@ atom_class::atom_class(char full_s[LONG_STRING_LENGTH])
 atom_class::atom_class(char full_s[LONG_STRING_LENGTH],
                        int is_negative_val)   
 {
-   anextnode = NULL;
-   constantlist.set_first(NULL);
-   constantlist.set_last(NULL);
+   anextnode = nullptr;
+   constantlist.set_first(nullptr);
+   constantlist.set_last(nullptr);
    constantlist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol(full_s);
    fullstring.assign_IS_NEGATIVE(is_negative_val);
 
@@ -128,7 +134,7 @@ atom_class::atom_class(char full_s[LONG_STRING_LENGTH],
   strcpy(cons, "");
 
   ptr = strtok( instr, "(,)" );  
-  while (ptr != NULL)
+  while (ptr != nullptr)
      {
            if (token_num++ == 1)
                  predicate_symbol.assign_symbol(ptr);
@@ -138,7 +144,7 @@ atom_class::atom_class(char full_s[LONG_STRING_LENGTH],
                  constantlist.add_ptr(c_ptr);
             } // ELSE
 
-           ptr = strtok(NULL, ",)" );
+           ptr = strtok(nullptr, ",)" );
      } //WHILE
 
 }  //CONSTRUCTOR that parses a full string and assigns negation 
@@ -161,12 +167,12 @@ atom_class::~atom_class()
 
 void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num)   
 {
-   anextnode = NULL;
+   anextnode = nullptr;
    assign_val(num);
-   constantlist.set_first(NULL);
-   constantlist.set_last(NULL);
+   constantlist.set_first(nullptr);
+   constantlist.set_last(nullptr);
    constantlist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol(full_s);
    fullstring.assign_IS_NEGATIVE(0);
 
@@ -183,7 +189,7 @@ void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num)
   strcpy(cons, "");
 
   ptr = strtok( instr, "(,)" );  
-  while (ptr != NULL)
+  while (ptr != nullptr)
      {
            if (token_num++ == 1)
                  predicate_symbol.assign_symbol(ptr);
@@ -193,7 +199,7 @@ void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num)
                  constantlist.add_ptr(c_ptr);
             } // ELSE
 
-           ptr = strtok(NULL, ",)" );
+           ptr = strtok(nullptr, ",)" );
      } //WHILE
 
 }  // ASSIGN_ATOM_INFO
@@ -205,12 +211,12 @@ void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num)
 void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num,
                                   int is_negative_val)   
 {
-   anextnode = NULL;
+   anextnode = nullptr;
    assign_val(num);
-   constantlist.set_first(NULL);
-   constantlist.set_last(NULL);
+   constantlist.set_first(nullptr);
+   constantlist.set_last(nullptr);
    constantlist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol(full_s);
    fullstring.assign_IS_NEGATIVE(is_negative_val);
 
@@ -227,7 +233,7 @@ void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num,
   strcpy(cons, "");
 
   ptr = strtok( instr, "(,)" );  
-  while (ptr != NULL)
+  while (ptr != nullptr)
      {
            if (token_num++ == 1)
                  predicate_symbol.assign_symbol(ptr);
@@ -237,7 +243,7 @@ void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num,
                  constantlist.add_ptr(c_ptr);
             } // ELSE
 
-           ptr = strtok(NULL, ",)" );
+           ptr = strtok(nullptr, ",)" );
      } //WHILE
 
 }  // ASSIGN_ATOM_INFO
@@ -247,7 +253,7 @@ void atom_class::assign_atom_info(char full_s[LONG_STRING_LENGTH], int num,
 
 void atom_class::assign_val (int n)
   {
-     node_class::assign_val(n);
+    val = n;
   }
 
 
@@ -267,7 +273,7 @@ void atom_class::output()
 
 void atom_class::clear()
   {
-   anextnode = NULL;
+   anextnode = nullptr;
    constantlist.cleanup();
    predicate_symbol.clear();
    fullstring.clear();
@@ -350,7 +356,7 @@ char *atom_class::get_ith_constant_symbol(int num)
        char              found_str[STRING_LENGTH];
  
        c_ptr = constantlist.get_ith(num);
-       if (c_ptr != NULL) {      
+       if (c_ptr != nullptr) {
            strcpy(found_str, c_ptr->get_constant_symbol());
        }
        else {
