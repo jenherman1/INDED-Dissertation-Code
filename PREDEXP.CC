@@ -1,14 +1,16 @@
+#include "PREDEXP.H"
+
 /////////////////////////////////////////////////////////////////////////////
 //  Constructors
 /////////////////////////////////////////////////////////////////////////////
 
 predicate_expression_class::predicate_expression_class() : node_class()
 {
-   prednextnode = NULL;
-   variablelist.set_first(NULL);
-   variablelist.set_last(NULL);
+   prednextnode = nullptr;
+   variablelist.set_first(nullptr);
+   variablelist.set_last(nullptr);
    variablelist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char*>(""));
    fullstring.assign_symbol("");
    IS_NEGATIVE = 0;
    fullstring.assign_IS_NEGATIVE(0);
@@ -17,11 +19,11 @@ predicate_expression_class::predicate_expression_class() : node_class()
 
 predicate_expression_class::predicate_expression_class(int num) : node_class(num)
 {
-   prednextnode = NULL;
-   variablelist.set_first(NULL);
-   variablelist.set_last(NULL);
+   prednextnode = nullptr;
+   variablelist.set_first(nullptr);
+   variablelist.set_last(nullptr);
    variablelist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char*>(""));
    fullstring.assign_symbol("");
    IS_NEGATIVE = 0;
    fullstring.assign_IS_NEGATIVE(0);
@@ -38,7 +40,7 @@ predicate_expression_class::predicate_expression_class( list_class<variable_clas
    IS_NEGATIVE = 0;                        // EEEEEEKS
    fullstring.assign_IS_NEGATIVE(0);
 
-   prednextnode = NULL;
+   prednextnode = nullptr;
    variablelist = participating_variables;
    predicate_symbol.assign_symbol(pred_symb);
    fullstring.assign_symbol("");
@@ -76,12 +78,12 @@ predicate_expression_class::predicate_expression_class( list_class<variable_clas
 
 predicate_expression_class::predicate_expression_class(char full_s[LONG_STRING_LENGTH])   
 {
-   prednextnode = NULL;
-   variablelist.set_first(NULL);
-   variablelist.set_last(NULL);
+   prednextnode = nullptr;
+   variablelist.set_first(nullptr);
+   variablelist.set_last(nullptr);
    variablelist.set_num_entries(0);
 
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char*>(""));
 
 // PARSE INPUT FULL_STRING INTO APPROPRIATE FIELDS
 
@@ -96,7 +98,7 @@ predicate_expression_class::predicate_expression_class(char full_s[LONG_STRING_L
   strcpy(new_variable, "");
 
   ptr = strtok( instr, "(,)" );  
-  while (ptr != NULL)
+  while (ptr != nullptr)
      {
            if (token_num++ == 1)
                  predicate_symbol.assign_symbol(ptr);
@@ -106,7 +108,7 @@ predicate_expression_class::predicate_expression_class(char full_s[LONG_STRING_L
                  variablelist.add_ptr(var_ptr);
             } // ELSE
 
-           ptr = strtok(NULL, ",)" );
+           ptr = strtok(nullptr, ",)" );
      } //WHILE
 
 //  ASSIGN FULL_STRING OBJECT FIELD
@@ -144,12 +146,12 @@ void predicate_expression_class::assign_pred_info(char full_s[LONG_STRING_LENGTH
    IS_NEGATIVE = 0;                   //EEEEKS... FIX THESE
    fullstring.assign_IS_NEGATIVE(0);
 
-   prednextnode = NULL;
+   prednextnode = nullptr;
    assign_val(num);
-   variablelist.set_first(NULL);
-   variablelist.set_last(NULL);
+   variablelist.set_first(nullptr);
+   variablelist.set_last(nullptr);
    variablelist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char*>(""));
 //   fullstring.assign_symbol(full_s);
 
 // PARSE INPUT FULL_STRING INTO APPROPRIATE FIELDS
@@ -165,7 +167,7 @@ void predicate_expression_class::assign_pred_info(char full_s[LONG_STRING_LENGTH
   strcpy(new_variable, "");
 
   ptr = strtok( instr, "(,)" );  
-  while (ptr != NULL)
+  while (ptr != nullptr)
      {
            if (token_num++ == 1)
                  predicate_symbol.assign_symbol(ptr);
@@ -175,7 +177,7 @@ void predicate_expression_class::assign_pred_info(char full_s[LONG_STRING_LENGTH
                  variablelist.add_ptr(var_ptr);
             } // ELSE
 
-           ptr = strtok(NULL, ",)" );
+           ptr = strtok(nullptr, ",)" );
      } //WHILE
 
 //  ASSIGN FULL_STRING OBJECT FIELD
@@ -238,11 +240,11 @@ void predicate_expression_class::output()
 
 void predicate_expression_class::clear()
   {
-   prednextnode = NULL;
-   variablelist.set_first(NULL);
-   variablelist.set_last(NULL);
+   prednextnode = nullptr;
+   variablelist.set_first(nullptr);
+   variablelist.set_last(nullptr);
    variablelist.set_num_entries(0);
-   predicate_symbol.assign_symbol("");
+   predicate_symbol.assign_symbol(const_cast<char *>(""));
    fullstring.assign_symbol("");
   }
 
@@ -339,7 +341,7 @@ int predicate_expression_class::get_position_of_variable_str
     
      cur_var_ptr = get_first_variable(); 
      int current_position = 0;
-     while ((cur_var_ptr != NULL) && (!found)){
+     while ((cur_var_ptr != nullptr) && (!found)){
            current_position++;
            strcpy(cur_var_str, cur_var_ptr->get_variable_symbol());
            if (strcmp(cur_var_str, var_str)==0) 
