@@ -1,22 +1,28 @@
+#include <iostream>
+
+#include "NODE.H"
+
+using namespace std;
+
 node_class::node_class() 
    {
       val = 0;
-      nextnode = NULL;
-      vertex_ptr = NULL;
-      body_ptr = NULL;
+      nextnode = nullptr;
+      vertex_ptr = nullptr;
+      body_ptr = nullptr;
    }
 
 node_class::node_class(int n)
    {
       val = n;
-      nextnode = NULL;
-      vertex_ptr = NULL;
-      body_ptr = NULL;
+      nextnode = nullptr;
+      vertex_ptr = nullptr;
+      body_ptr = nullptr;
    }
 node_class::node_class(int n, vertex_class *v_ptr, body_node_class *b_ptr)
    {
       val = n;
-      nextnode = NULL;
+      nextnode = nullptr;
       vertex_ptr = v_ptr;
       body_ptr = b_ptr;
    }
