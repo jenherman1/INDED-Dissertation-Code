@@ -1,6 +1,6 @@
 project(INDED)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 SET(SRC_LIST
         ATOM.CC
@@ -32,5 +32,7 @@ SET(SRC_LIST
 	SPANTREE.CC
 	VERTPTR.CC
 )
+
+set(CMAKE_CXX_STANDARD 11)
 
 add_executable(${PROJECT_NAME} MAIN.cpp ${SRC_LIST})
