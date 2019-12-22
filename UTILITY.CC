@@ -291,8 +291,8 @@ int get_random_val(int upper_bound)
 
    flt_temp = static_cast<float>(rand());
 
-   flt_temp = flt_temp / RANDOM_SCALE;    // **** activate this for LINUX
-   flt_temp = flt_temp / 32768.0;
+   flt_temp = flt_temp / RANDOM_SCALE    // **** activate this for LINUX
+   flt_temp = flt_temp / 32768.0f;
    flt_temp = flt_temp * (upper_bound + 1) ;
 
    return  static_cast<int>(flt_temp);
@@ -310,13 +310,13 @@ int get_random_val(int upper_bound)
 //////////////////////////////////////////////////////////////////////////////
 float get_include_prob()
 {
-   double flt_temp;
+   float flt_temp;
 
-   flt_temp = (float) rand();
-   flt_temp = flt_temp / RANDOM_SCALE;   // **** activate this for LINUX
-   flt_temp = flt_temp / 32768.0;
+   flt_temp = static_cast<float>(rand());
+   flt_temp = flt_temp / RANDOM_SCALE   // **** activate this for LINUX
+   flt_temp = flt_temp / 32768.0f;
 
-   return  (float) flt_temp;
+   return flt_temp;
 
 }
 
@@ -590,7 +590,7 @@ char *upper_string(char instr[STRING_LENGTH])
 {
 
            char      inchar;
-           char      upperstring[STRING_LENGTH];
+           char* upperstring = new char[STRING_LENGTH]; //TODO: issue-1 memory leak
 
            int i = 0;
 

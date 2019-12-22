@@ -353,7 +353,7 @@ void atom_class::display(ostream& fout)
 char *atom_class::get_ith_constant_symbol(int num)
 {
        constant_class   *c_ptr;
-       char              found_str[STRING_LENGTH];
+       char *found_str = new char[STRING_LENGTH]; //TODO: issue-1 memory leak
  
        c_ptr = constantlist.get_ith(num);
        if (c_ptr != nullptr) {
