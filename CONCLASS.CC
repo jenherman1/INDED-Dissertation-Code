@@ -1,8 +1,14 @@
+#include <iostream>
+
+#include "CONCLASS.H"
+
+using namespace std;
+
 //_________________________________________________________________________
 constant_class::constant_class()
 {
    val = 0;
-   cnextnode = NULL;
+   cnextnode = nullptr;
    strcpy(constant_symbol,"");
 //   appearancelist.initialize();
   }
@@ -11,7 +17,7 @@ constant_class::constant_class()
 constant_class::constant_class(int num)
 {
    val = num;
-   cnextnode = NULL;
+   cnextnode = nullptr;
    strcpy(constant_symbol,"");
 //   appearancelist.initialize();
   }
@@ -21,7 +27,7 @@ constant_class::constant_class(int num)
 constant_class::constant_class(char instr[STRING_LENGTH]) 
 {
    val = 0;
-   cnextnode = NULL;
+   cnextnode = nullptr;
    strcpy(constant_symbol,instr);
 //   appearancelist.initialize();
 
@@ -46,7 +52,7 @@ void constant_class::output()
 void constant_class::clear()
   {
    val = 0;
-   cnextnode = NULL;
+   cnextnode = nullptr;
    strcpy(constant_symbol,"");
    appearancelist.cleanup();
   }
@@ -134,7 +140,7 @@ void constant_class::display_appearance_list(ostream& fout)
 
       fout << constant_symbol << ": \n";
       capp_ptr = get_first_con_appearance();
-      while (capp_ptr != NULL) {
+      while (capp_ptr != nullptr) {
           capp_ptr->display_appearance(fout);
           capp_ptr = capp_ptr->get_next_ptr();
       } //WHILE
