@@ -1,9 +1,17 @@
+#include <fstream>
+#include <iostream>
+
+#include "INDUC.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 inductive_engine_class::inductive_engine_class()
 {
-        target_predicate_expression_ptr = NULL;
-        positive_examples= NULL;
-        negative_examples= NULL;          
-        background_knowledge = NULL;     
+        target_predicate_expression_ptr = nullptr;
+        positive_examples= nullptr;
+        negative_examples= nullptr;
+        background_knowledge = nullptr;
 } // CONSTRUCTOR for inductive_engine_class
 
 
@@ -34,7 +42,7 @@ inductive_engine_class::inductive_engine_class(ifstream& posexamplefile,
          
          //CONSTRUCT VARIABLE LIST 
          pos_ptr = get_first_positive_example_position();
-         while (pos_ptr != NULL) {
+         while (pos_ptr != nullptr) {
                 var_name_str[0] = pos_ptr->get_variable_name();
                 var_name_str[1] = '\0';
                 var_ptr = new variable_class(var_name_str);
@@ -60,16 +68,16 @@ inductive_engine_class::inductive_engine_class(ifstream& posexamplefile,
 inductive_engine_class::~inductive_engine_class()
 {
         target_predicate_expression_ptr->clear();
-        target_predicate_expression_ptr = NULL;
+        target_predicate_expression_ptr = nullptr;
 
         positive_examples->clear();
-        positive_examples= NULL;
+        positive_examples= nullptr;
 
         negative_examples->clear();
-        negative_examples= NULL;
+        negative_examples= nullptr;
 
         background_knowledge->clear();
-        background_knowledge= NULL;
+        background_knowledge= nullptr;
 
 } // CONSTRUCTOR for inductive_engine_class
 
@@ -144,7 +152,7 @@ predicate_log_class  *inductive_engine_class::get_first_background_predlog_ptr()
 //--------------------------------------------------------------------------
 char *inductive_engine_class::get_target_predicate_symbol()
 {
-        char    tempstr[STRING_LENGTH];
+        char *tempstr = new char[STRING_LENGTH];    //TODO: issue-1 memory leak
 
         strcpy(tempstr, target_predicate_expression_ptr->get_predicate_symbol()); 
         return tempstr;
@@ -153,7 +161,7 @@ char *inductive_engine_class::get_target_predicate_symbol()
 //--------------------------------------------------------------------------
 char *inductive_engine_class::get_target_predicate_fullstring()
 {
-        char    tempstr[LONG_STRING_LENGTH];
+        char *tempstr = new char[LONG_STRING_LENGTH];   //TODO: issue-1 memory leak
 
         strcpy(tempstr, target_predicate_expression_ptr->get_fullstring()); 
         return tempstr;
@@ -275,14 +283,14 @@ void inductive_engine_class::rank_simple_membership_pos_only()
     // TRAVERSE POSITIVE EXAMPLES 
      example_cur_position_ptr = get_first_positive_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
                        if ( (background_cur_predlog_ptr->has_constant
                            (example_cur_constant_ptr)) != 0)
                                 background_cur_predlog_ptr->increment_rank();
@@ -333,14 +341,14 @@ void inductive_engine_class::rank_simple_membership()
     // TRAVERSE POSITIVE EXAMPLES 
      example_cur_position_ptr = get_first_positive_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
                        if ( (background_cur_predlog_ptr->has_constant
                            (example_cur_constant_ptr)) != 0)
                                 background_cur_predlog_ptr->increment_rank();
@@ -364,14 +372,14 @@ void inductive_engine_class::rank_simple_membership()
     // TRAVERSE NEGATIVE EXAMPLES 
      example_cur_position_ptr = get_first_negative_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
                        if ( (background_cur_predlog_ptr->has_constant
                            (example_cur_constant_ptr)) != 0)
                                 background_cur_predlog_ptr->decrement_rank();
@@ -417,20 +425,20 @@ void inductive_engine_class::rank_num_times_found_each_pos_pos_only()
     // TRAVERSE POSITIVE EXAMPLES 
      example_cur_position_ptr = get_first_positive_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
 
 
                     background_cur_position_ptr = background_cur_predlog_ptr->
                               get_first_pos_ptr();
 
-                    while (background_cur_position_ptr != NULL) {
+                    while (background_cur_position_ptr != nullptr) {
                        number_occurences = 0;
 
                        // INCREASE THE RANK BY NUM TIMES CONSTANT FOUND THERE   
@@ -496,20 +504,20 @@ void inductive_engine_class::rank_num_times_found_each_pos()
     // TRAVERSE POSITIVE EXAMPLES 
      example_cur_position_ptr = get_first_positive_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
 
 
                     background_cur_position_ptr = background_cur_predlog_ptr->
                               get_first_pos_ptr();
 
-                    while (background_cur_position_ptr != NULL) {
+                    while (background_cur_position_ptr != nullptr) {
                        number_occurences = 0;
 
                        // INCREASE THE RANK BY NUM TIMES CONSTANT FOUND THERE   
@@ -541,20 +549,20 @@ void inductive_engine_class::rank_num_times_found_each_pos()
     // TRAVERSE NEGATIVE EXAMPLES 
      example_cur_position_ptr = get_first_negative_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
 
 
                     background_cur_position_ptr = background_cur_predlog_ptr->
                               get_first_pos_ptr();
 
-                    while (background_cur_position_ptr != NULL) {
+                    while (background_cur_position_ptr != nullptr) {
                         number_occurences = 0;
 
                        // INCREASE THE RANK BY NUM TIMES CONSTANT FOUND THERE   
@@ -617,16 +625,16 @@ void inductive_engine_class::rank_pos_spot_membership_one_pos_only()
      // TRAVERSE POSITIVE EXAMPLES 
      example_cur_position_ptr = get_first_positive_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
            example_spot_number=0;
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                  example_spot_number++;
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
 
                        background_cur_predlog_ptr->mark_mesh_NOT_taken();
                        cur_predlog_spot = background_cur_predlog_ptr->has_constant
@@ -642,7 +650,7 @@ void inductive_engine_class::rank_pos_spot_membership_one_pos_only()
                                cur_example_neighbor_position_ptr = 
                                       get_first_positive_example_position();
 
-                               while (cur_example_neighbor_position_ptr != NULL) {
+                               while (cur_example_neighbor_position_ptr != nullptr) {
                                     if (cur_example_neighbor_position_ptr !=
                                         example_cur_position_ptr) { // DON'T CONSIDER A CONSTANT ITS OWN NEIGHBOR
 
@@ -650,8 +658,8 @@ void inductive_engine_class::rank_pos_spot_membership_one_pos_only()
                                            cur_example_neighbor_position_ptr->
                                                get_constant_in_spot(example_spot_number);
 
-                                       if (cur_neighbor_c_ptr ==NULL) {
-                                            cout << "cur_neighbor_c_ptr  is NULL...problem with example_structure \n";
+                                       if (cur_neighbor_c_ptr ==nullptr) {
+                                            cout << "cur_neighbor_c_ptr  is nullptr...problem with example_structure \n";
                                             cout << "System is exiting.";
                                             exit(1);
                                        }
@@ -739,16 +747,16 @@ void inductive_engine_class::rank_pos_spot_membership_one()
      // TRAVERSE POSITIVE EXAMPLES 
      example_cur_position_ptr = get_first_positive_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
            example_spot_number=0;
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
                  example_spot_number++;
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
 
                        background_cur_predlog_ptr->mark_mesh_NOT_taken();
                        cur_predlog_spot = background_cur_predlog_ptr->has_constant
@@ -763,7 +771,7 @@ void inductive_engine_class::rank_pos_spot_membership_one()
                                cur_example_neighbor_position_ptr = 
                                       get_first_positive_example_position();
 
-                               while (cur_example_neighbor_position_ptr != NULL) {
+                               while (cur_example_neighbor_position_ptr != nullptr) {
                                     if (cur_example_neighbor_position_ptr !=
                                         example_cur_position_ptr) { // DON'T CONSIDER A CONSTANT ITS OWN NEIGHBOR
 
@@ -771,8 +779,8 @@ void inductive_engine_class::rank_pos_spot_membership_one()
                                            cur_example_neighbor_position_ptr->
                                                get_constant_in_spot(example_spot_number);
 
-                                       if (cur_neighbor_c_ptr ==NULL) {
-                                            cout << "cur_neighbor_c_ptr  is NULL...problem with example_structure \n";
+                                       if (cur_neighbor_c_ptr ==nullptr) {
+                                            cout << "cur_neighbor_c_ptr  is nullptr...problem with example_structure \n";
                                             cout << "System is exiting.";
                                             exit(1);
                                        }
@@ -814,17 +822,17 @@ void inductive_engine_class::rank_pos_spot_membership_one()
      // TRAVERSE NEGATIVE EXAMPLES 
      example_cur_position_ptr = get_first_negative_example_position();
      
-     while (example_cur_position_ptr != NULL) {
+     while (example_cur_position_ptr != nullptr) {
            example_cur_constant_ptr = example_cur_position_ptr->
                                               get_first_poscon_ptr();
            example_spot_number=0;
 
-           while (example_cur_constant_ptr != NULL) {
+           while (example_cur_constant_ptr != nullptr) {
 
                 example_spot_number++;
                 
                 background_cur_predlog_ptr = get_first_background_predlog_ptr();
-                while (background_cur_predlog_ptr != NULL) {
+                while (background_cur_predlog_ptr != nullptr) {
 
                        background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
@@ -842,7 +850,7 @@ void inductive_engine_class::rank_pos_spot_membership_one()
                                cur_example_neighbor_position_ptr = 
                                       get_first_negative_example_position();
 
-                               while (cur_example_neighbor_position_ptr != NULL) {
+                               while (cur_example_neighbor_position_ptr != nullptr) {
                                     if (cur_example_neighbor_position_ptr !=
                                         example_cur_position_ptr) { // DON'T CONSIDER A CONSTANT ITS OWN NEIGHBOR
 
@@ -850,8 +858,8 @@ void inductive_engine_class::rank_pos_spot_membership_one()
                                            cur_example_neighbor_position_ptr->
                                                get_constant_in_spot(example_spot_number);
 
-                                       if (cur_neighbor_c_ptr ==NULL) {
-                                            cout << "cur_neighbor_c_ptr  is NULL...problem with example_structure \n";
+                                       if (cur_neighbor_c_ptr ==nullptr) {
+                                            cout << "cur_neighbor_c_ptr  is nullptr...problem with example_structure \n";
                                             cout << "System is exiting.";
                                             exit(1);
                                        }
@@ -922,12 +930,12 @@ void inductive_engine_class::rank_predicates_by_coverage_pos_only_single()
                 
         background_cur_predlog_ptr = get_first_background_predlog_ptr();
 
-        while (background_cur_predlog_ptr != NULL) {
+        while (background_cur_predlog_ptr != nullptr) {
              background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
              // TRAVERSE POSITIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = positive_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -977,12 +985,12 @@ void inductive_engine_class::rank_predicates_by_coverage_single()
                 
         background_cur_predlog_ptr = get_first_background_predlog_ptr();
 
-        while (background_cur_predlog_ptr != NULL) {
+        while (background_cur_predlog_ptr != nullptr) {
              background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
              // TRAVERSE POSITIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = positive_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -992,7 +1000,7 @@ void inductive_engine_class::rank_predicates_by_coverage_single()
 
              // TRAVERSE NEGATIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = negative_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -1042,12 +1050,12 @@ void inductive_engine_class::rank_predicates_by_coverage_pos_only()
                 
         background_cur_predlog_ptr = get_first_background_predlog_ptr();
 
-        while (background_cur_predlog_ptr != NULL) {
+        while (background_cur_predlog_ptr != nullptr) {
              background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
              // TRAVERSE POSITIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = positive_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -1099,12 +1107,12 @@ void inductive_engine_class::rank_predicates_by_coverage()
                 
         background_cur_predlog_ptr = get_first_background_predlog_ptr();
 
-        while (background_cur_predlog_ptr != NULL) {
+        while (background_cur_predlog_ptr != nullptr) {
              background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
              // TRAVERSE POSITIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = positive_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -1114,7 +1122,7 @@ void inductive_engine_class::rank_predicates_by_coverage()
 
              // TRAVERSE NEGATIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = negative_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -1248,7 +1256,7 @@ cout << "Entered learn_rule...\n";
      
                  //CHOOSE THE NEXT LITERAL
                  chosen_predicate_ptr = construct_next_literal(DEFAULT_POS_ALGO);
-                if (chosen_predicate_ptr != NULL) {
+                if (chosen_predicate_ptr != nullptr) {
   
                          i_ptr->add_predicate_exp_ptr(chosen_predicate_ptr); 
   
@@ -1263,14 +1271,14 @@ cout << "Entered learn_rule...\n";
  
         // CHECK WHETHER OR NOT SCULPTED RULE HAS OTHER PRED EXP BESIDES TARGET
         other_pred_exp_ptr = i_ptr->get_first_predexp_ptr(); 
-        if (other_pred_exp_ptr == NULL) {
+        if (other_pred_exp_ptr == nullptr) {
               cout << "INduc.cc, learn_defaults:  Problem with rule creation... \n";
               cout << "   ...should have target pred as head...\n";
               exit(1);
         }
         else {
              other_pred_exp_ptr = other_pred_exp_ptr->get_next_ptr(); 
-             if (other_pred_exp_ptr != NULL) {     //RULE NOT EMPTY
+             if (other_pred_exp_ptr != nullptr) {     //RULE NOT EMPTY
                   learned_rule_set->add_rule(i_ptr);
              } //IF rule contains predexp's other than target
         } //ELSE
@@ -1367,7 +1375,7 @@ if (example_inconsistency  <= user_specified_inconsistency_coef) {
 
                  //CHOOSE THE NEXT LITERAL
                  chosen_predicate_ptr = construct_next_literal(user_posname_algorithm);
-                if (chosen_predicate_ptr != NULL) {
+                if (chosen_predicate_ptr != nullptr) {
   
                          i_ptr->add_predicate_exp_ptr(chosen_predicate_ptr); 
                          neg_ratio = determine_ratio_of_neg_examples_covered(i_ptr);
@@ -1381,14 +1389,14 @@ if (example_inconsistency  <= user_specified_inconsistency_coef) {
  
         // CHECK WHETHER OR NOT SCULPTED RULE HAS OTHER PRED EXP BESIDES TARGET
         other_pred_exp_ptr = i_ptr->get_first_predexp_ptr(); 
-        if (other_pred_exp_ptr == NULL) {
+        if (other_pred_exp_ptr == nullptr) {
               cout << "INduc.cc:  Problem with rule creation... \n";
               cout << "   ...should have target pred as head...\n";
               exit(1);
         }
         else {
              other_pred_exp_ptr = other_pred_exp_ptr->get_next_ptr(); 
-             if (other_pred_exp_ptr != NULL) {     //RULE NOT EMPTY
+             if (other_pred_exp_ptr != nullptr) {     //RULE NOT EMPTY
                   learned_rule_set->add_rule(i_ptr);
              } //IF rule contains predexp's other than target
         } //ELSE
@@ -1442,7 +1450,7 @@ else {
           return learned_rule_set;
    }
    else {
-         return NULL;
+         return nullptr;
    }
 
 }// ELSE !example_set_consistent 
@@ -1470,7 +1478,7 @@ predicate_expression_class *inductive_engine_class::construct_next_literal
 
     predlog_ptr = background_knowledge->get_max_unchosen_predlog();
     
-    if (predlog_ptr != NULL ) {
+    if (predlog_ptr != nullptr ) {
 
          name_chosen_predicate_variables(position_naming_choice, predlog_ptr);
 
@@ -1479,7 +1487,7 @@ predicate_expression_class *inductive_engine_class::construct_next_literal
 
          // CREATE VARIABLE LIST FOR NEW PRED EXP
           pos_ptr = predlog_ptr->get_first_pos_ptr();
-          while (pos_ptr != NULL) {
+          while (pos_ptr != nullptr) {
               var_name_str[0] = pos_ptr->get_variable_name();
               var_name_str[1] = '\0';
               var_ptr = new variable_class(var_name_str);
@@ -1494,9 +1502,9 @@ predicate_expression_class *inductive_engine_class::construct_next_literal
                predexp_ptr->assign_IS_NEGATIVE(1);
 
          return predexp_ptr;
-     } // IF predlog != NULL
+     } // IF predlog != nullptr
      else {
-         return NULL;
+         return nullptr;
      } //ELSE
 }//CONSTRUCT_NEXT_LITERAL
 
@@ -1571,10 +1579,10 @@ void inductive_engine_class::rank_and_name_positions_membership_pos_only
      nextchar++;
 
      chosen_cur_position_ptr = chosen_predlog_ptr->get_first_pos_ptr();
-     while (chosen_cur_position_ptr != NULL) {
+     while (chosen_cur_position_ptr != nullptr) {
             chosen_cur_constant_ptr = chosen_cur_position_ptr->get_first_poscon_ptr();
 
-            while (chosen_cur_constant_ptr != NULL) { 
+            while (chosen_cur_constant_ptr != nullptr) {
                 //TRAVERSE THE POSTIVE EXAMPLE SET BY POSITION 
                 //   AND ADJUST THAT EXAMPLE POSITION BY THE NUMBER OF 
                 //   TIMES THE CONSTANT APPEARS THERE 
@@ -1583,7 +1591,7 @@ void inductive_engine_class::rank_and_name_positions_membership_pos_only
                           pos_example_cur_position_ptr  = 
                                positive_examples->get_first_position_ptr();
 
-                          while (pos_example_cur_position_ptr != NULL) {
+                          while (pos_example_cur_position_ptr != nullptr) {
                                 number_pos_occurrences = 0; 
 
                                 number_pos_occurrences =  
@@ -1598,16 +1606,16 @@ void inductive_engine_class::rank_and_name_positions_membership_pos_only
                                 pos_example_cur_position_ptr = 
                                          pos_example_cur_position_ptr->get_next_ptr();
 
-                          } // WHILE example_cur_position_ptrs ARE NOT NULL
+                          } // WHILE example_cur_position_ptrs ARE NOT nullptr
                  
 
                  chosen_cur_constant_ptr = chosen_cur_constant_ptr->get_next_ptr();
-            } // WHILE chosen_cur_constant_ptr != NULL    
+            } // WHILE chosen_cur_constant_ptr != nullptr
 
             // NAME THE CHOSEN PREDICATE'S CURRENT POSITION ACCORDING TO RANKING OF POS EXAMPLES
             new_name_char = ' ';
             max_pos_ptr = positive_examples->get_max_ranked_unchosen_position_ptr();
-            if (max_pos_ptr != NULL) {
+            if (max_pos_ptr != nullptr) {
                  max_pos_ptr->mark_position_chosen(); 
                  new_name_char = max_pos_ptr->get_variable_name();
 
@@ -1618,7 +1626,7 @@ void inductive_engine_class::rank_and_name_positions_membership_pos_only
             chosen_cur_position_ptr->assign_variable_name(new_name_char);
 
             chosen_cur_position_ptr = chosen_cur_position_ptr->get_next_ptr();
-     } // WHILE (chosen_cur_position_ptr != NULL) 
+     } // WHILE (chosen_cur_position_ptr != nullptr)
 
 } // rank_and_name_positions_membership_pos_only 
 
@@ -1664,10 +1672,10 @@ void inductive_engine_class::rank_and_name_positions_membership
      nextchar++;
 
      chosen_cur_position_ptr = chosen_predlog_ptr->get_first_pos_ptr();
-     while (chosen_cur_position_ptr != NULL) {
+     while (chosen_cur_position_ptr != nullptr) {
             chosen_cur_constant_ptr = chosen_cur_position_ptr->get_first_poscon_ptr();
 
-            while (chosen_cur_constant_ptr != NULL) { 
+            while (chosen_cur_constant_ptr != nullptr) {
                 //TRAVERSE THE POSTIVE EXAMPLE SET BY POSITION 
                 //   AND ADJUST THAT EXAMPLE POSITION BY THE NUMBER OF 
                 //   TIMES THE CONSTANT APPEARS THERE 
@@ -1679,7 +1687,7 @@ void inductive_engine_class::rank_and_name_positions_membership
                           neg_example_cur_position_ptr  = 
                                negative_examples->get_first_position_ptr();
 
-                          while (pos_example_cur_position_ptr != NULL) {
+                          while (pos_example_cur_position_ptr != nullptr) {
                                 number_pos_occurrences = 0; 
                                 number_neg_occurrences = 0; 
 
@@ -1702,16 +1710,16 @@ void inductive_engine_class::rank_and_name_positions_membership
                                 neg_example_cur_position_ptr = 
                                          neg_example_cur_position_ptr->get_next_ptr();
 
-                          } // WHILE example_cur_position_ptrs ARE NOT NULL
+                          } // WHILE example_cur_position_ptrs ARE NOT nullptr
                  
 
                  chosen_cur_constant_ptr = chosen_cur_constant_ptr->get_next_ptr();
-            } // WHILE chosen_cur_constant_ptr != NULL    
+            } // WHILE chosen_cur_constant_ptr != nullptr
 
             // NAME THE CHOSEN PREDICATE'S CURRENT POSITION ACCORDING TO RANKING OF POS EXAMPLES
             new_name_char = ' ';
             max_pos_ptr = positive_examples->get_max_ranked_unchosen_position_ptr();
-            if (max_pos_ptr != NULL) {
+            if (max_pos_ptr != nullptr) {
                  max_pos_ptr->mark_position_chosen(); 
                  new_name_char = max_pos_ptr->get_variable_name();
 
@@ -1722,7 +1730,7 @@ void inductive_engine_class::rank_and_name_positions_membership
             chosen_cur_position_ptr->assign_variable_name(new_name_char);
 
             chosen_cur_position_ptr = chosen_cur_position_ptr->get_next_ptr();
-     } // WHILE (chosen_cur_position_ptr != NULL) 
+     } // WHILE (chosen_cur_position_ptr != nullptr)
 
 } // rank_and_name_positions_membership 
 
@@ -1773,7 +1781,7 @@ atom_class *inductive_engine_class::form_ground_instance
        strcat(ground_atom_str,"(");
    
        cur_source_var_ptr = nonground_predexp_ptr->get_first_variable();
-       while ( cur_source_var_ptr != NULL) {
+       while ( cur_source_var_ptr != nullptr) {
 
              strcpy(current_var_str, cur_source_var_ptr->get_variable_symbol());
 
@@ -1790,7 +1798,7 @@ atom_class *inductive_engine_class::form_ground_instance
                  strcat(ground_atom_str, found_constant);
 
              cur_source_var_ptr =  cur_source_var_ptr->get_next_ptr();
-             if (cur_source_var_ptr == NULL)
+             if (cur_source_var_ptr == nullptr)
                     strcat(ground_atom_str, ")");
              else
                     strcat(ground_atom_str, ",");
@@ -1826,7 +1834,7 @@ int inductive_engine_class::is_covered
               current_rule_literal_predexp_ptr->get_next_ptr();
 
        //VERIFY THAT GROUND INSTANCES ARE IN BACKGROUND MESH
-       while ((current_rule_literal_predexp_ptr != NULL) &&
+       while ((current_rule_literal_predexp_ptr != nullptr) &&
              (!cover_fail_flag))
 
        { //begin WHILE
@@ -1867,7 +1875,7 @@ double inductive_engine_class::determine_ratio_of_neg_examples_covered
 
      example_a_ptr = negative_examples->get_first_atom_ptr();
 
-     while ( example_a_ptr != NULL) {
+     while ( example_a_ptr != nullptr) {
             
              if (is_covered(example_a_ptr, i_ptr)==1) {
                     num_covered+=1.0;  
@@ -1893,7 +1901,7 @@ double inductive_engine_class::determine_ratio_of_pos_examples_covered
      double                       det_ratio = 0.0;
 
      example_a_ptr = positive_examples->get_first_atom_ptr();
-     while ( example_a_ptr != NULL) {
+     while ( example_a_ptr != nullptr) {
              if (example_a_ptr->get_is_covered()==1) {
                 num_covered+=1.0;
              } //IF
@@ -2100,7 +2108,7 @@ double inductive_engine_class::check_for_example_inconsistency()
 
     neg_example_mesh = negative_examples->get_predlog_object_ptr();
     cur_pos_a_ptr = get_first_positive_example(); 
-    while (cur_pos_a_ptr != NULL) {
+    while (cur_pos_a_ptr != nullptr) {
          if ( neg_example_mesh->is_member_of_mesh(cur_pos_a_ptr))
                num_inconsistent += 2.0;
          cur_pos_a_ptr = cur_pos_a_ptr->get_next_ptr(); 
