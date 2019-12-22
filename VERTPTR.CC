@@ -1,34 +1,38 @@
+#include <iostream>
+
+#include "VERTPTR.H"
 
 /////////////////////////////////////////////////////////////////////
 ///      Constructors
 /////////////////////////////////////////////////////////////////////
 
+using namespace std;
 vertex_ptr_class::vertex_ptr_class()
    { 
-      vpnext = NULL;
+      vpnext = nullptr;
       val = 0;
-      graph_spot = NULL;
-      body_spot = NULL;
+      graph_spot = nullptr;
+      body_spot = nullptr;
    }
 vertex_ptr_class::vertex_ptr_class(int n) 
    {
-      vpnext = NULL;
+      vpnext = nullptr;
       val = n;
-      graph_spot = NULL;
-      body_spot = NULL;
+      graph_spot = nullptr;
+      body_spot = nullptr;
    }
 vertex_ptr_class::vertex_ptr_class(int n, vertex_class *v_ptr)
    {
-      vpnext = NULL;
+      vpnext = nullptr;
       val = n;
       graph_spot = v_ptr;
-      body_spot = NULL;
+      body_spot = nullptr;
    }
 
 vertex_ptr_class::vertex_ptr_class(int n, vertex_class *v_ptr, 
                   body_node_class *b_ptr)        
    {
-      vpnext = NULL;
+      vpnext = nullptr;
       val = n;
       graph_spot = v_ptr;
       body_spot = b_ptr;
