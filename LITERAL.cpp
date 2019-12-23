@@ -8,26 +8,23 @@ using namespace std;
 ///   CONSTRUCTORS
 //////////////////////////////////////////////////////////////////////////////
 
-literal_class::literal_class() : node_class()
+literal_class::literal_class()
     {
        lnextnode = nullptr;
     }
-literal_class::literal_class(node_class *v_ptr)
+
+literal_class::literal_class(int n)
     {
-       lnextnode = nullptr;
-    }
-literal_class::literal_class(int n) : node_class(n)
-    {
+       val = n;
        lnextnode = nullptr;
 
     } 
-literal_class::literal_class(int n, vertex_class *v_ptr,
-                                    body_node_class *b_ptr) : 
-                                    node_class(n)
+literal_class::literal_class(int n, vertex_class *v_ptr, body_node_class *b_ptr)
     {
        lnextnode = nullptr;
-       node_class::assign_body_ptr(b_ptr);
-       node_class::assign_vertex_ptr(v_ptr);
+       val = n;
+       body_ptr = b_ptr;
+       vertex_ptr = v_ptr;
     } 
 
 
@@ -79,18 +76,18 @@ literal_class  *literal_class::get_next_ptr()
 
 void literal_class::assign_vertex_ptr(vertex_class *v_ptr)
     {
-        node_class::assign_vertex_ptr(v_ptr);
+        vertex_ptr = v_ptr;
     }
 void literal_class::assign_body_ptr(body_node_class *b_ptr)
     {
-        node_class::assign_body_ptr(b_ptr);
+        body_ptr = b_ptr;
     }
 
 vertex_class *literal_class::get_vertex_ptr()
     {
-        node_class::get_vertex_ptr();
+        return vertex_ptr;
     }
 body_node_class  *literal_class::get_body_ptr()
     {
-        node_class::get_body_ptr();
+        return body_ptr;
     }
