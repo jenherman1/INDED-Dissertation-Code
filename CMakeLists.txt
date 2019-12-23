@@ -11,7 +11,6 @@ SET(SRC_LIST
         ATOM.cpp
         CONCLASS.cpp
         INDUC.cpp
-        LIST.cpp
         MAIN.cpp
         PREDLOG.cpp
         UTILITY.cpp
@@ -36,6 +35,7 @@ SET(SRC_LIST
         PREDEXP.cpp
         SPANTREE.cpp
         VERTPTR.cpp
+        LIST.CC         # source file that basically acts like a header file
 #	ATOM.H
 #	BACK.H
 #	BODY.H
