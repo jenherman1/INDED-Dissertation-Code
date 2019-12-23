@@ -3,6 +3,9 @@
 #include "CONAPP.H"
 #include "CONST.H"
 #include "LIST.CC"
+#include "VERTEX.H"
+
+class vertex_class;
 
 class constant_class 
    {
