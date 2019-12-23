@@ -8,8 +8,9 @@ using namespace std;
 //  Constructors
 ////////////////////////////////////////////////////////////////////////////
 
-atom_class::atom_class() : node_class()
+atom_class::atom_class()
 {
+   val = 0;
    anextnode = nullptr;
    constantlist.set_first(nullptr);
    constantlist.set_last(nullptr);
@@ -20,8 +21,9 @@ atom_class::atom_class() : node_class()
 
   }
 
-atom_class::atom_class(int num) : node_class(num)
+atom_class::atom_class(int num)
 {
+   val = num;
    anextnode = nullptr;
    constantlist.set_first(nullptr);
    constantlist.set_last(nullptr);

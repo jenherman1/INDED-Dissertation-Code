@@ -2,16 +2,21 @@
 
 #include <fstream>
 
+#include "BODY.H"
 #include "CONCLASS.H"
 #include "CONST.H"
 #include "FULL.H"
 #include "LIST.CC"
 #include "NODE.H"
 #include "PREDSYM.H"
+#include "VERTEX.H"
 
+class body_node_class;
 class constant_class;
+class node_class;
+class vertex_class;
 
-class atom_class : public node_class
+class atom_class
    {
   public:
       atom_class();
@@ -59,6 +64,10 @@ class atom_class : public node_class
 
 
   protected:
+      int val;
+      vertex_class    *vertex_ptr;
+      body_node_class *body_ptr;
+      node_class      *nextnode;
       atom_class                      *anextnode;
       predicate_symbol_class           predicate_symbol;
       fullstring_class                 fullstring;
