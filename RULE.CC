@@ -1,33 +1,39 @@
+#include <iostream>
+
+#include "RULE.H"
+
+using namespace std;
+
 //////////////////////////////////////////////////////////////////////////////
 ///  Constructors
 //////////////////////////////////////////////////////////////////////////////
 rule_class::rule_class() : literal_class()
      {
-         rnextnode = NULL;
+         rnextnode = nullptr;
      }
 rule_class::rule_class(int n) : literal_class(n)
      {
-         rnextnode = NULL;
+         rnextnode = nullptr;
      }
 rule_class::rule_class(vertex_class *v_ptr, body_node_class *b_ptr)
     {
           val = 0;
-          nextnode = NULL;
+          nextnode = nullptr;
           body_ptr = b_ptr;
           vertex_ptr = v_ptr;
 
-          lnextnode = NULL;
-          rnextnode = NULL;
+          lnextnode = nullptr;
+          rnextnode = nullptr;
     }
 rule_class::rule_class(int rule_head, vertex_class *v_ptr, body_node_class *b_ptr)
     {
           val = rule_head; 
-          nextnode = NULL;
+          nextnode = nullptr;
           body_ptr = b_ptr;
           vertex_ptr = v_ptr;
 
-          lnextnode = NULL;
-          rnextnode = NULL;
+          lnextnode = nullptr;
+          rnextnode = nullptr;
     }
 
 
@@ -37,13 +43,22 @@ rule_class::rule_class(int rule_head, vertex_class *v_ptr, body_node_class *b_pt
 
 void rule_class::assign_val(int n)
     {
-       literal_class::assign_val(n);
+       val = n;
     }
 
 void rule_class::output()
     {
        cout << "------------------------------------------------ \n";
-       literal_class::output();
+       //literal_class::output();
+
+       cout << "....................................... \n";
+       //node_class::output();
+       cout << "val is " << val << "\n" ;
+
+       cout << "vertex_pointer is " << vertex_ptr << "\n";
+       cout << "literal nextnode is .. " << lnextnode << "\n";
+       cout << "....................................... \n";
+
        cout << "body_pointer is " << body_ptr << "\n";
        cout << "rule_class nextnode is  " << rnextnode << "\n";
        cout << "------------------------------------------------ \n";
@@ -52,7 +67,7 @@ void rule_class::output()
     }
 void rule_class::clear()
     {
-      literal_class::clear();
+      //literal_class::clear();
     }
    
 //////////////////////////////////////////////////////////////////////////////
