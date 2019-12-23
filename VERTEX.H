@@ -74,6 +74,8 @@ class vertex_class : public node_class
       void            print_postorder_num();
 
 
+      list_class<rule_class>           pos_appearances;
+      list_class<rule_class>           neg_appearances;
 
   protected:
       vertex_class                    *vnextnode;
@@ -85,7 +87,6 @@ class vertex_class : public node_class
       int                              access;
       int                              postorder_num;
       list_class<body_node_class>      bodylist;
-      list_class<rule_class>           pos_appearances;
-      list_class<rule_class>           neg_appearances; 
+
  };
  
