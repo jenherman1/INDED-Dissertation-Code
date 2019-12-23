@@ -326,7 +326,7 @@ int main(int argc, char **argv)
    } // WHILE
 //
 //
-    cout << "All Processes Successfully Completd!" << endl;
+    cout << "All Processes Successfully Completed! Quitting." << endl;
 
     return 0;
 }  // MAIN
