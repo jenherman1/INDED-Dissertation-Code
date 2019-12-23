@@ -267,7 +267,7 @@ int body_node_class::get_negative_fact()
      return negative_fact;
   }
      
-int node_class::get_value()
+int body_node_class::get_value()
    {
       return val;
    }
