@@ -50,7 +50,7 @@ class logic_program_class
         void display_model();
         void show_state(std::ostream& fout);
         void update_state();
-        void add_fact(std::istream& infile);
+        void add_fact_to_stream(std::istream& infile);
         vertex_class *add_fact(char tempstr[LONG_STRING_LENGTH], int is_negative_fact);
 
         void nonmonotonically_update(std::istream& infile);
