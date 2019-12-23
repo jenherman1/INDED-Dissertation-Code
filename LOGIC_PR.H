@@ -10,6 +10,8 @@
 #include "SPANTREE.H"
 #include "VERTEX.H"
 
+class literal_class;
+
 class logic_program_class
 {
    public:
