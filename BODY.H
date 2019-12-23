@@ -16,6 +16,8 @@ class body_node_class : public node_class
       void output();
       void clear();
 
+      int       get_value();
+
       void assign_next(body_node_class *b_ptr);
       body_node_class *get_next_ptr();
 

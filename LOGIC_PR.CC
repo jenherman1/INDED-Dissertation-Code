@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "LOGIC_PR.H"
+#include "LPCONS.CC"
 #include "UTILITY1.H"
 #include "UTILITY2.H"
 
@@ -185,7 +186,7 @@ while (InputFile.getline(line,80))
        while (done != 1) 
          {
              ind = intarray; 
-             neg_rule = FALSE;
+             neg_rule = FALSE
 
              // SKIP OVER THE "IF" SIGN AND BLANKS            
              while (*p == ' ' || *p == '<' || *p == '-' || *p == ',' )
@@ -205,7 +206,7 @@ while (InputFile.getline(line,80))
              *ind = '\0';
        
              if (*intarray == '~') 
-                   neg_rule = TRUE;
+                   neg_rule = TRUE
 
              if (*intarray != '\0') 
                 subgoal_val = bodystoi(intarray);
@@ -224,7 +225,7 @@ while (InputFile.getline(line,80))
                     p++; 
 
              if (*p == EOF || *p == '\n' || *p == '#')
-                  done = TRUE;  
+                  done = TRUE
 
         } // WHILE not done
 
@@ -262,9 +263,6 @@ while (InputFile.getline(line,80))
      InputFile.close();
 
 } // LOGIC_PROGRAM CONSTRUCTOR...INPUT FILE
-
-
-#include "lpcons.cc"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -362,7 +360,12 @@ void logic_program_class::add_rule( int head_val,
 {
      rule_class *r_ptr;
      
-     r_ptr = new rule_class(head_val, v_ptr, b_ptr);
+     r_ptr = new rule_class();
+
+     r_ptr->assign_val(head_val);
+     r_ptr->assign_body_ptr(b_ptr);
+     r_ptr->assign_vertex_ptr(v_ptr);
+
      rulelist.add_ptr(r_ptr);
 }
 
@@ -447,7 +450,13 @@ void logic_program_class::add_subgoals_outgoing_edge_pieces (int head_val,
           search_vertex = find_add_vertex(search_head);
          
           // ADD A POSITIVE APPEARANCE TO THIS NEWLY FOUND VERTEX
-          search_vertex->add_pos_appearance(head_val, head_ptr, body_ptr);
+          //search_vertex->add_pos_appearance(head_val, head_ptr, body_ptr);
+          rule_class *p_ptr = new rule_class();
+          p_ptr->assign_val(head_val);
+          p_ptr->assign_vertex_ptr(head_ptr);
+          p_ptr->assign_body_ptr(body_ptr);
+
+          search_vertex->pos_appearances.add_ptr(p_ptr);
 
           // ADVANCE TO THE NEXT POSITIVE LITERAL IN BODY
           cur_lit_ptr = (cur_lit_ptr->get_next_ptr()); 
@@ -465,7 +474,13 @@ void logic_program_class::add_subgoals_outgoing_edge_pieces (int head_val,
           search_vertex = find_add_vertex(search_head);
          
           // ADD A NEGATIVE APPEARANCE TO THIS NEWLY FOUND VERTEX
-          search_vertex->add_neg_appearance(head_val, head_ptr, body_ptr);
+          //search_vertex->add_neg_appearance(head_val, head_ptr, body_ptr);
+          rule_class *p_ptr = new rule_class();
+          p_ptr->assign_val(head_val);
+          p_ptr->assign_vertex_ptr(head_ptr);
+          p_ptr->assign_body_ptr(body_ptr);
+
+          search_vertex->neg_appearances.add_ptr(p_ptr);
 
           // ADVANCE TO THE NEXT POSITIVE LITERAL IN BODY
           cur_lit_ptr = (cur_lit_ptr->get_next_ptr()); 
@@ -561,7 +576,7 @@ void logic_program_class::display_rule(rule_class *r_ptr)
 {
    vertex_class     *v_ptr;
    body_node_class  *b_ptr;
-   node_class       *rule_bod;
+   body_node_class  *rule_bod;
    int              head_val;
 
    head_val = r_ptr->get_value();
@@ -913,7 +928,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
     vertex_class           *appearance_v_ptr;
     body_node_class        *appearance_b_ptr;
     rule_class             *r_ptr;
-    node_class             *rule_bod;
+    body_node_class        *rule_bod;
     int                     appearance_head;
     int                     vertex_truth_val;
 
@@ -2116,7 +2131,7 @@ body_node_class *logic_program_class::get_body_ptr(rule_class *r_ptr)
      vertex_class   *search_vertex;
      int             search_head;
      body_node_class *b_ptr;
-     node_class      *n_ptr;
+     body_node_class *n_ptr;
 
 
      search_vertex = get_vertex_ptr(r_ptr);

@@ -13,6 +13,7 @@ class rule_class : public literal_class
      rule_class(int rule_head, vertex_class *v_ptr, body_node_class *b_ptr);
 
 
+    int       get_value();
     // VIRTUALS FROM NODE_CLASS
 
     void assign_val(int n);

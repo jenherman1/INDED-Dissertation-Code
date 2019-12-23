@@ -36,6 +36,9 @@ rule_class::rule_class(int rule_head, vertex_class *v_ptr, body_node_class *b_pt
           rnextnode = nullptr;
     }
 
+int rule_class::get_value(){
+    return val;
+}
 
 //////////////////////////////////////////////////////////////////////////////
 ///  Virtuals from NODE_CLASS
