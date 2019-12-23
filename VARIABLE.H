@@ -8,13 +8,13 @@ class variable_class
   public:
       variable_class();
       variable_class(int num);
-      variable_class(const char instr[STRING_LENGTH]);
+      variable_class(char instr[STRING_LENGTH]);
 
       void output();
       void clear();
 
       void assign_next(variable_class *var_ptr);
-      void assign_symbol(const char instr[STRING_LENGTH]);
+      void assign_symbol(char instr[STRING_LENGTH]);
       void assign_instantiated_constant_ptr(constant_class *c_ptr);
 
       int               get_value();
