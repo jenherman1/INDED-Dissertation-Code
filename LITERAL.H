@@ -5,6 +5,7 @@
 #include "VERTEX.H"
 
 class body_node_class;
+class node_class;
 class vertex_class;
 
 class literal_class : public node_class

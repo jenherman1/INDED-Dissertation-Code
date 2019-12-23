@@ -9,6 +9,8 @@
 #include "NODE.H"
 #include "PREDSYM.H"
 
+class constant_class;
+
 class atom_class : public node_class
    {
   public:
