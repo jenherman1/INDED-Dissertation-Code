@@ -7,4 +7,4 @@ cmake CMakeLists.txt
 make -Bj16
 ```
 
-After installation, ./INDED to launch INDED executable.
+After installation, `./INDED` to launch `INDED` executable.
