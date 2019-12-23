@@ -12,7 +12,7 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////
 
 
-body_node_class::body_node_class() : node_class()
+body_node_class::body_node_class()
 {
    bnextnode = nullptr;
    pos_literals.set_first(nullptr);
@@ -29,7 +29,7 @@ body_node_class::body_node_class() : node_class()
    val = BOTTOM
   }
 
-body_node_class::body_node_class(int dummy) : node_class()
+body_node_class::body_node_class(int dummy)
 {
    bnextnode = nullptr;
    pos_literals.set_first(nullptr);
@@ -73,9 +73,10 @@ body_node_class::body_node_class(int distribution, int head_val)
 ///  --------------------------
 ///  node_class initializations
 
-   nextnode = nullptr;
-   vertex_ptr = nullptr;
-   body_ptr  = nullptr;
+  //Issue 1: are these unused?
+//   nextnode = nullptr;
+//   vertex_ptr = nullptr;
+//   body_ptr  = nullptr;
 
 ///---------------------
    bnextnode = nullptr;

@@ -2,10 +2,9 @@
 
 #include "LITERAL.H"
 #include "LOGIC_PR.H"
-#include "NODE.H"
 #include "VERTEX.H"
 
-class body_node_class : public node_class
+class body_node_class
    {
   public:
       body_node_class();
@@ -75,6 +74,9 @@ class body_node_class : public node_class
 
 
   protected:
+      //Issue 1: from node_class
+      int val;
+
       body_node_class                 *bnextnode;
       int num_literals_sat;           //  NUMBER LITERALS TRUE
       int pos_assess;
