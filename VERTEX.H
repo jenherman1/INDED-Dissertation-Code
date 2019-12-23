@@ -81,6 +81,7 @@ class vertex_class
       list_class<rule_class>           neg_appearances;
 
   protected:
+      int val;
       vertex_class                    *vnextnode;
       atom_class                      *atominfo;
       int                              truth_val;
