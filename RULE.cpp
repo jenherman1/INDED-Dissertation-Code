@@ -7,18 +7,21 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////////
 ///  Constructors
 //////////////////////////////////////////////////////////////////////////////
-rule_class::rule_class() : literal_class()
+rule_class::rule_class()
      {
+        lnextnode = nullptr;
          rnextnode = nullptr;
      }
-rule_class::rule_class(int n) : literal_class(n)
+rule_class::rule_class(int n)
      {
+         val = n;
+         lnextnode = nullptr;
          rnextnode = nullptr;
      }
 rule_class::rule_class(vertex_class *v_ptr, body_node_class *b_ptr)
     {
           val = 0;
-          nextnode = nullptr;
+          //nextnode = nullptr;
           body_ptr = b_ptr;
           vertex_ptr = v_ptr;
 
@@ -28,7 +31,7 @@ rule_class::rule_class(vertex_class *v_ptr, body_node_class *b_ptr)
 rule_class::rule_class(int rule_head, vertex_class *v_ptr, body_node_class *b_ptr)
     {
           val = rule_head; 
-          nextnode = nullptr;
+          //nextnode = nullptr;
           body_ptr = b_ptr;
           vertex_ptr = v_ptr;
 
@@ -91,6 +94,12 @@ void rule_class::assign_body_ptr(body_node_class *b_ptr)
     {
           body_ptr = b_ptr;
     }
+
+void rule_class::assign_vertex_ptr(vertex_class *v_ptr)
+    {
+        vertex_ptr = v_ptr;
+    }
+
 body_node_class *rule_class::get_body_ptr()
     {
           return body_ptr;

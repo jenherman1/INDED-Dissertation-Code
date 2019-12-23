@@ -6,8 +6,9 @@
 
 class vertex_class;
 class body_node_class;
+class literal_class;
 
-class rule_class : public literal_class
+class rule_class
    {
   public:
      rule_class();
@@ -28,11 +29,15 @@ class rule_class : public literal_class
     
      void              assign_body_ptr(body_node_class  *b_ptr);
      void              assign_vertex_ptr(vertex_class  *v_ptr);
-     void              display_rule();
+     void              display_rule() {};
      body_node_class  *get_body_ptr();
      vertex_class     *get_vertex_ptr();
      
 
   protected:
+     int val;
+     vertex_class    *vertex_ptr;
+     body_node_class *body_ptr;
+     literal_class  *lnextnode;
      rule_class *rnextnode;
 };
