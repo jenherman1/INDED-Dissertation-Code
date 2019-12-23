@@ -13,10 +13,10 @@ class node_class
 
 
     virtual void      assign_val(int n);
-    int               get_value();
     virtual void      output();
     virtual void      clear();
 
+    int       get_value();
 
     void              assign_next(node_class *p_ptr);
     void              assign_vertex_ptr(vertex_class *v_ptr); 

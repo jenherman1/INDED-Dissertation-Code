@@ -18,6 +18,8 @@ class vertex_class : public node_class
                    int is_negative_val);
 
 
+      int       get_value();
+
       void assign_val(int n);
       void output();
       void clear();
