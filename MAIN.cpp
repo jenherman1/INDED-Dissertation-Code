@@ -5,107 +5,43 @@
 #include <ctype.h>
 // -------------    P R O T O T Y P E   F I L E S    -------------------
 
-#include "const.h"
-#include "utility1.h"             //Global Functions using integers
-#include "full.h"
-class body_node_class;
-class vertex_class;
-#include "node.h"
-#include "conapp.h"
-#include "predsym.h"
-class constant_class;
-class position_class;
-#include "variable.h"
-#include "literal.h"
-#include "rule.h"
-#include "vertptr.h"
-#include "spantree.h"
-class logic_program_class;
-#include "list.cc"
-#include "utility2.h"              //Global Functions using strings
-#include "body.h"
-class atom_class;
-#include "conclass.h"
-#include "pos.h"
-#include "atom.h"
-#include "vertex.h"
-#include "predlog.h"
-#include "exampset.h"
-#include "logic_pr.h"
-#include "predexp.h"
-#include "intrule.h"
-#include "intset.h"
-#include "KB.h"
-#include "back.h"
-#include "INduc.h"
-
+#include "ATOM.H"
+#include "BACK.H"
+#include "BODY.H"
+#include "CONAPP.H"
+#include "CONCLASS.H"
+#include "CONST.H"
+#include "EXAMPSET.H"
+#include "FULL.H"
+#include "INDUC.H"
+#include "INTRULE.H"
+#include "INTSET.H"
+#include "KB.H"
+#include "LIST.CC"
+#include "LITERAL.H"
+#include "LOGIC_PR.H"
+#include "NODE.H"
+#include "POS.H"
+#include "PREDEXP.H"
+#include "PREDSYM.H"
+#include "PREDLOG.H"
+#include "RULE.H"
+#include "SPANTREE.H"
+#include "UTILITY1.H"             //Global Functions using integers
+#include "UTILITY2.H"              //Global Functions using strings
+#include "VARIABLE.H"
+#include "VERTEX.H"
+#include "VERTPTR.H"
 
 //--------------   G L O B A L   V A R I A B L E S   -----------
 
 using namespace std;
 
-int                                Distribution;
-int                                Body_Length;
-int                                Max_Negative_Subgoals;
-int                                Num_Variables;
-int                                Intensional_Rule_Count = 0;
-float                              Rule_to_Var_Ratio;
-int                                Num_Rules;
-float                              Var_Prob;
-float                              Neg_Subgoal_Prob;
-int                                Source;
-fstream                            InputFile, OutputFile;
-int                                Num_Trials;
-float                              Ratio_Change_Increment;
-float                              Bodiless_Percent;
-int                                Num_Bodiless_Rules;
-float                              Preassign_True_Percent;
-float                              Preassign_False_Percent;
-int                                Num_Preassign_True;
-int                                Num_Preassign_False;
-int                                Current_Postorder_Val;
-list_class<vertex_ptr_class>       Q, Stack;
-int                                my_exit_status = 0;
 
-double                             SUFFICIENCY_STOP_CRITEREON = 
-                                         DEFAULT_SUFF;
-double                             NECESSITY_STOP_CRITEREON = 
-                                         DEFAULT_NEC;
 
 
 
 // -------------   I M P L E M E N T A T I O N   F I L E S   -----------
-
-
-#include "utility.cc"
-#include "node.cc"
-#include "conapp.cc"
-#include "conclass.cc"
-#include "pos.cc"
-#include "predlog.cc"
-#include "variable.cc"
-#include "predsym.cc"
-#include "full.cc"
-#include "predexp.cc"
-#include "intrule.cc"
-#include "atom.cc"
-#include "body.cc"
-#include "literal.cc"
-#include "rule.cc"
-#include "vertex.cc"
-#include "vertptr.cc"
-#include "spantree.cc"
-#include "logic_pr.cc"
-#include "exampset.cc"
-#include "intset.cc"
-#include "back.cc"
-#include "KB.cc"
-#include "INduc.cc"
-
-
-
-
-
 
 int main(int argc, char **argv)
 ///////////////////////////////////////////////////////////////////////
@@ -186,9 +122,9 @@ int main(int argc, char **argv)
     char              posexamp_filename_str[STRING_LENGTH];      //creating IND Engine
     char              negexamp_filename_str[STRING_LENGTH];      //  "
 
-    const char        background_filename_str[STRING_LENGTH] = "newstate.bkg";  //DED output; IND input
-    const char        new_learned_int_filename_str[STRING_LENGTH] = "learned.int";  //IND output; DED input
-    const char        cummulative_intset_filename_str[STRING_LENGTH] = "cumint.mid";  //DED output; DED input
+    char              background_filename_str[STRING_LENGTH] = "newstate.bkg";  //DED output; IND input
+    char              new_learned_int_filename_str[STRING_LENGTH] = "learned.int";  //IND output; DED input
+    char              cummulative_intset_filename_str[STRING_LENGTH] = "cumint.mid";  //DED output; DED input
     
 
 
@@ -252,7 +188,7 @@ int main(int argc, char **argv)
                          clear_screen(NUM_LINES_HALFSCREEN); 
                          cout << "\n Enter new rule to add to KNOWLEDGE BASE..\n ";
                          strcpy(new_rule, "");
-                         gochar = read_rule(cin, new_rule); 
+                         gochar = *read_rule(cin, new_rule);
                          show_rule(cout, new_rule);
                          i_ptr = new intensional_rule_class(new_rule);
 
@@ -347,7 +283,7 @@ int main(int argc, char **argv)
                          my_learned_ruleset = Learner->learn_rule();
                          
                          clear_screen(NUM_LINES_CLEARSCREEN);
-                         if (my_learned_ruleset != NULL) {
+                         if (my_learned_ruleset != nullptr) {
                              my_learned_ruleset->display(cout);
 
                              waitchar = ' ';
