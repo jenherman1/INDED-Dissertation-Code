@@ -3,9 +3,6 @@ project(INDED)
 cmake_minimum_required(VERSION 3.1)
 
 set(CMAKE_CXX_STANDARD 11)
-#SET(CMAKE_CXX_FLAGS "-I"${CMAKE_CURRENT_SOURCE_DIR})
-
-#set(CMAKE_CXX_FLAGS "-I/Users/phillipseitzer/workspace/INDED-Dissertation-Code -L/Users/phillipseitzer/workspace/INDED-Dissertation-Code")
 
 SET(SRC_LIST
         ATOM.cpp
@@ -39,32 +36,6 @@ SET(SRC_LIST
         SPANTREE.cpp
         VERTPTR.cpp
         LIST.CC         # source file that basically acts like a header file
-#	ATOM.H
-#	BACK.H
-#	BODY.H
-#	CONAPP.H
-#	CONCLASS.H
-#	CONST.H
-#	EXAMPSET.H
-#	FULL.H
-#	INDUC.H
-#	INTRULE.H
-#	INTSET.H
-#	KB.H
-#	LITERAL.H
-#	LOGIC_PR.H
-#	NODE.H
-#	POS.H
-#	PREDEXP.H
-#	PREDLOG.H
-#	PREDSYM.H
-#	RULE.H
-#	SPANTREE.H
-#	UTILITY1.H
-#	UTILITY2.H
-#	VARIABLE.H
-#	VERTEX.H
-#	VERTPTR.H
 )
 
 SET(CMAKE_INCLUDE_CURRENT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
