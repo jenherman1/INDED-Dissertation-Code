@@ -15,7 +15,10 @@ SET(SRC_LIST
         PREDLOG.cpp
         UTILITY.cpp
         BACK.cpp
-        EEEKS.cpp
+        #EEEKS.cpp  # contains duplicate implementations of
+                    # inductive_engine_class::rank_predicates_by_coverage_pos_only()
+                    # and
+                    # inductive_engine_class::rank_predicates_by_coverage()
         INTRULE.cpp
         LITERAL.cpp
         NODE.cpp
