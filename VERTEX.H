@@ -10,6 +10,8 @@
 
 class atom_class;
 class constant_class;
+class logic_program_class;
+class rule_class;
 
 class vertex_class
   {

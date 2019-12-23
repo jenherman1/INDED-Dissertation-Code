@@ -4,6 +4,8 @@
 
 #include "VERTEX.H"
 
+class vertex_class;
+
 class constant_appearance_class 
    {
   public:

@@ -11,6 +11,7 @@
 #include "VERTEX.H"
 
 class literal_class;
+class rule_class;
 
 class logic_program_class
 {

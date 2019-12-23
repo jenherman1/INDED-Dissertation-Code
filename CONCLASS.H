@@ -5,6 +5,7 @@
 #include "LIST.CC"
 #include "VERTEX.H"
 
+class constant_appearance_class;
 class vertex_class;
 
 class constant_class 
