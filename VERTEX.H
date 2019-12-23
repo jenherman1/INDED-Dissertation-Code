@@ -8,6 +8,9 @@
 #include "NODE.H"
 #include "RULE.H"
 
+class atom_class;
+class constant_class;
+
 class vertex_class : public node_class
   {
   public:

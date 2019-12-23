@@ -3,6 +3,9 @@
 #include "BODY.H"
 #include "VERTEX.H"
 
+class body_node_class;
+class vertex_class;
+
 class node_class
     {
  public:

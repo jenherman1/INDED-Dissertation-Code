@@ -4,6 +4,9 @@
 #include "LITERAL.H"
 #include "VERTEX.H"
 
+class vertex_class;
+class body_node_class;
+
 class rule_class : public literal_class
    {
   public:
