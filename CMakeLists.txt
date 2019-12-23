@@ -31,7 +31,7 @@ SET(SRC_LIST
         CONAPP.cpp
         FULL.cpp
         KB.cpp
-        LPCONS.cpp
+        LPCONS.CC       # source file that basically acts like a header file
         PREDEXP.cpp
         SPANTREE.cpp
         VERTPTR.cpp
