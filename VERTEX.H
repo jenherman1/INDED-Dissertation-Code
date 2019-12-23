@@ -82,7 +82,7 @@ class vertex_class : public node_class
 
   protected:
       vertex_class                    *vnextnode;
-      atom_class                       atominfo;
+      atom_class                      *atominfo;
       int                              truth_val;
       int                              J_val;            //CREDIBILITY
       int                              W_val;

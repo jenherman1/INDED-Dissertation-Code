@@ -43,7 +43,8 @@ vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num)  : node_clas
        postorder_num = 0;
 
        strcpy(tempstr, f_str);
-       atominfo.assign_atom_info(tempstr, num);
+       atominfo = new atom_class(); //Issue 1: TODO memory leak
+       atominfo->assign_atom_info(tempstr, num);
    }
 vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num, 
                           int is_negative_val)  : node_class(num)
@@ -59,7 +60,8 @@ vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num,
        postorder_num = 0;
 
        strcpy(tempstr, f_str);
-       atominfo.assign_atom_info(tempstr, num, is_negative_val);
+       atominfo = new atom_class(); //Issue 1: TODO memory leak
+       atominfo->assign_atom_info(tempstr, num, is_negative_val);
    }
 
 int vertex_class::get_value(){
@@ -77,12 +79,13 @@ void vertex_class::assign_val(int n)
 
 void vertex_class::assign_atominfo(char full_s[LONG_STRING_LENGTH])
   {
-          atominfo.assign_fullstring(full_s);
+          atominfo = new atom_class(); //Issue 1: TODO memory leak
+          atominfo->assign_fullstring(full_s);
  }
 
 void vertex_class::assign_atom(atom_class newatom)
 {
-          atominfo = newatom;
+          atominfo = new atom_class(newatom); //Issue 1: TODO memory leak
  }
 
 
@@ -90,7 +93,7 @@ void vertex_class::output()
   {
      cout << "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV \n";   
      cout << "The ATOM Description information is...\n";
-     atominfo.output();
+     atominfo->output();
      cout << "val is " << val <<  "\n";
      switch (truth_val) {
         case 0: { cout << "truth_val is FALSE \n"; break;} 
@@ -171,17 +174,17 @@ void vertex_class:: print_postorder_num()
 
 char *vertex_class::get_atominfo()
  {
-       return atominfo.get_fullstring();
+       return atominfo->get_fullstring();
  }
 
 constant_class *vertex_class::get_first_atom_constant()
 {
-      return atominfo.get_first_constant();
+      return atominfo->get_first_constant();
 }
 
 char *vertex_class::get_predicate_symbol()
 {
-      return atominfo.get_predicate_symbol();
+      return atominfo->get_predicate_symbol();
 }
 
      
