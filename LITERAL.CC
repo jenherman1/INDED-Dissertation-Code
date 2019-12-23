@@ -41,6 +41,10 @@ void literal_class::assign_val(int n)
         val = n;
     }
 
+int literal_class::get_value(){
+    return val;
+}
+
 
 void literal_class::output()
     {

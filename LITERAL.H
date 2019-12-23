@@ -16,7 +16,9 @@ class literal_class : public node_class
      void          assign_val(int n);
      void          output();
      void          clear();
-                                 
+
+     int       get_value();
+
      void           assign_next(literal_class *p_ptr);
      literal_class *get_next_ptr();
      vertex_class  *get_vertex_ptr();
