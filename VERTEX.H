@@ -11,7 +11,7 @@
 class atom_class;
 class constant_class;
 
-class vertex_class : public node_class
+class vertex_class
   {
   public:
       vertex_class();

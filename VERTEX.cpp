@@ -9,7 +9,7 @@ using namespace std;
 ///      Constructors
 /////////////////////////////////////////////////////////////////////
 
-vertex_class::vertex_class() : node_class()
+vertex_class::vertex_class()
    { 
       vnextnode = nullptr;
       truth_val = BOTTOM
@@ -19,8 +19,9 @@ vertex_class::vertex_class() : node_class()
        access = 0;
        postorder_num = 0;
    }
-vertex_class::vertex_class(int n) : node_class(n)
+vertex_class::vertex_class(int n)
    {
+       val = n;
        vnextnode = nullptr;
        truth_val = BOTTOM
        J_val = FALSE
@@ -30,10 +31,11 @@ vertex_class::vertex_class(int n) : node_class(n)
        postorder_num = 0;
    }
 
-vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num)  : node_class(num)
+vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num)
    {
        char   tempstr[LONG_STRING_LENGTH];
 
+       val = num;
        vnextnode = nullptr;
        truth_val = BOTTOM
        J_val = FALSE
@@ -47,10 +49,11 @@ vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num)  : node_clas
        atominfo->assign_atom_info(tempstr, num);
    }
 vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num, 
-                          int is_negative_val)  : node_class(num)
+                          int is_negative_val)
    {
        char   tempstr[LONG_STRING_LENGTH];
 
+       val = num;
        vnextnode = nullptr;
        truth_val = BOTTOM
        J_val = FALSE
