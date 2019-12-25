@@ -1,3 +1,10 @@
+#include <iostream>
+
+#include "BACK.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 background_knowledge_class::background_knowledge_class()
 {
         predicateloglist.initialize();
@@ -27,14 +34,14 @@ char                          cur_atom_predsymbol[STRING_LENGTH];
 
 
   // READ IN FIRST BACKGROUND FACT 
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
 
    while (gochar == '.') {
 
         flist = new list_class<fullstring_class>();   
         extract_atom_strings(full_string, flist);       
         f_ptr = flist->get_first();      
-        while (f_ptr != NULL) {
+        while (f_ptr != nullptr) {
               strcpy(tempstr, f_ptr->get_fullstring_symbol());    
               a_ptr = new atom_class(tempstr, f_ptr->get_IS_NEGATIVE()); 
 
@@ -47,11 +54,11 @@ char                          cur_atom_predsymbol[STRING_LENGTH];
               strcpy(cur_atom_predsymbol, a_ptr->get_predicate_symbol());
 
               // CHECK TO SEE IF THE PREDICATE SYMBOL EXISTS IN THE LOG MATRIX
-              found_ptr = NULL;
+              found_ptr = nullptr;
               found_ptr = find_predicate_log(cur_atom_truthval,cur_atom_predsymbol); 
               
               //IF IT DOES NOT EXIST, CREATE ONE
-              if (found_ptr == NULL)   {
+              if (found_ptr == nullptr)   {
                        found_ptr = new predicate_log_class(a_ptr);   
 
                     // ADD the NEW LOG TO THE MATRIX
@@ -68,7 +75,7 @@ char                          cur_atom_predsymbol[STRING_LENGTH];
         
         flist->cleanup();
   //      delete flist;
-        gochar = read_rule(infile, full_string);
+        gochar = *read_rule(infile, full_string);
    } // WHILE
 
 } // CONSTRUCTOR for background_knowledge_class
@@ -106,7 +113,7 @@ void background_knowledge_class::display(ostream& fout)
      predlog_ptr = predicateloglist.get_first();
 
      fout << endl << endl;
-     while (predlog_ptr != NULL)  {
+     while (predlog_ptr != nullptr)  {
            predlog_ptr->display(fout);
            fout << endl;
            predlog_ptr = predlog_ptr->get_next_ptr();
@@ -130,7 +137,7 @@ predicate_log_class *background_knowledge_class::find_predicate_log
 
    predlog_ptr = predicateloglist.get_first();
 
-   while ((predlog_ptr != NULL) && (!found)) {
+   while ((predlog_ptr != nullptr) && (!found)) {
        cur_truth_val = predlog_ptr->get_predlog_truthval();
        if (truth_p_val == cur_truth_val) {
             strcpy(predstr1, predlog_ptr->get_predlog_symbol());
@@ -168,7 +175,7 @@ void background_knowledge_class::reinitialize_chosen_mesh()
 
    predlog_ptr = predicateloglist.get_first();
 
-   while (predlog_ptr != NULL) {
+   while (predlog_ptr != nullptr) {
         predlog_ptr->reinitialize_chosen(); 
         predlog_ptr = predlog_ptr->get_next_ptr();
    }// WHILE
@@ -181,7 +188,7 @@ void background_knowledge_class::initialize_predicate_rankings()
 
    predlog_ptr = predicateloglist.get_first();
 
-   while (predlog_ptr != NULL) {
+   while (predlog_ptr != nullptr) {
         predlog_ptr->reset_rank(); 
         predlog_ptr = predlog_ptr->get_next_ptr();
    }// WHILE
@@ -194,7 +201,7 @@ void background_knowledge_class::initialize_mesh_chosen_and_predrank()
 
    predlog_ptr = predicateloglist.get_first();
 
-   while (predlog_ptr != NULL) {
+   while (predlog_ptr != nullptr) {
         predlog_ptr->reset_rank(); 
         predlog_ptr->reinitialize_chosen(); 
         predlog_ptr = predlog_ptr->get_next_ptr();
@@ -215,18 +222,18 @@ predicate_log_class *background_knowledge_class::get_max_unchosen_predlog()
 
 
    // ADVANCE TO THE FIRST UNCHOSEN PRELOG AND INITIALIZE MAX AT THAT RANK
-   while ( (predlog_ptr != NULL) && (predlog_ptr->is_chosen())){
+   while ( (predlog_ptr != nullptr) && (predlog_ptr->is_chosen())){
           predlog_ptr = predlog_ptr->get_next_ptr();
    } // while preds are all chosen
 
-   if (predlog_ptr != NULL) {
+   if (predlog_ptr != nullptr) {
         max_rank = predlog_ptr->get_rank();
         max_predlog_ptr = predlog_ptr;
 
         predlog_ptr = predlog_ptr->get_next_ptr();
 
 
-        while (predlog_ptr != NULL) {
+        while (predlog_ptr != nullptr) {
 
              if ((!(predlog_ptr->is_chosen()) &&
                  (predlog_ptr->get_rank() > max_rank))) {
@@ -241,7 +248,7 @@ predicate_log_class *background_knowledge_class::get_max_unchosen_predlog()
         return max_predlog_ptr;   //NULL means all were chosen
    }//IF
    else {  //ALL WERE CHOSEN
-        return NULL;
+        return nullptr;
    } // ELSE
 }
 
@@ -296,7 +303,7 @@ int background_knowledge_class::is_in_mesh_any_order(atom_class *temp_atom_ptr)
       predlog_ptr = get_first_predlog_ptr();
 
       found = 0;
-      while (predlog_ptr != NULL) {
+      while (predlog_ptr != nullptr) {
 strcpy(pred_sym, predlog_ptr->get_predlog_symbol());
       if (predlog_ptr->is_member_of_mesh_any_order(temp_atom_ptr)==1)
                found = 1;

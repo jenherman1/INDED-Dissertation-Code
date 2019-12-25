@@ -1,3 +1,9 @@
+#pragma once
+
+#include <iostream>
+
+using namespace std;
+
 template <class T> 
 class list_class
     {
@@ -14,8 +20,8 @@ class list_class
    list_class() 
       {
        num_entries = 0;
-       first = NULL;
-       last = NULL;
+       first = nullptr;
+       last = nullptr;
        } 
 
 
@@ -28,21 +34,21 @@ class list_class
 
 void initialize()
    {
-       first = NULL;
-       last = NULL;
+       first = nullptr;
+       last = nullptr;
        num_entries = 0;
    }
 
 ////////////////////////////////////////////////////////////////////
 //  OUTPUT ROUTINES 
 ////////////////////////////////////////////////////////////////////
-void list_class::print()
+void print()
    {
         T *p_ptr;
         
         cout << "List has " << num_entries << ":\n";
         p_ptr = first;
-        while (p_ptr != NULL)  {
+        while (p_ptr != nullptr)  {
              p_ptr->output();
              p_ptr = p_ptr->get_next_ptr();
         } // WHILE
@@ -61,13 +67,13 @@ void cleanup()
 {
     T *p_ptr, *q_ptr;
 
-        if (first == NULL)
+        if (first == nullptr)
              return;
 
         p_ptr = (first->get_next_ptr());
         q_ptr = first;
 
-        while (p_ptr != NULL) {
+        while (p_ptr != nullptr) {
              q_ptr->clear();
              delete q_ptr;
              num_entries--;
@@ -78,7 +84,7 @@ void cleanup()
             q_ptr->clear();
             delete q_ptr;
             num_entries--;
-            first = NULL;
+            first = nullptr;
 } //CLEANUP
        
 
@@ -92,7 +98,7 @@ void add_ptr(T *node_ptr)
    {
         num_entries++;
 
-        if (first==NULL){
+        if (first==nullptr){
             first = node_ptr;
             last = node_ptr; 
         } // IF
@@ -125,12 +131,12 @@ void remove_node(int remove_val)
    {
     T *p_ptr, *q_ptr;
 
-        if (first == NULL)
+        if (first == nullptr)
              return;
         
      
       // ELIMINATE ALL INSTANCES OF THE VALUE FROM THE PREFIX OF THE LIST
-        while ((first != NULL) && (first->get_value() == remove_val)) {
+        while ((first != nullptr) && (first->get_value() == remove_val)) {
              first = first->get_next_ptr();
              num_entries--;
         }  //WHILE
@@ -138,7 +144,7 @@ void remove_node(int remove_val)
       // ELIMINATE THE VALUE FROM THE LIST AND ITS SUFFIX 
           p_ptr = first->get_next_ptr();
           q_ptr = first;
-          while (p_ptr != NULL)  {
+          while (p_ptr != nullptr)  {
                 if (p_ptr->get_value() == remove_val) {
                       if (p_ptr == last) 
                           last = q_ptr;
@@ -162,12 +168,12 @@ void remove_node(T *remove_ptr)
    {
     T *p_ptr, *q_ptr;
 
-        if (first == NULL)
+        if (first == nullptr)
              return;
 
         p_ptr = first->get_next_ptr();
         q_ptr = first;
-        while (p_ptr != NULL) {
+        while (p_ptr != nullptr) {
            if (p_ptr == remove_ptr) {
                if (p_ptr == last)
                     last = q_ptr;
@@ -189,8 +195,8 @@ T *dequeue()
 {
     T    *p_ptr;
 
-    if (first == NULL)
-        return NULL;
+    if (first == nullptr)
+        return nullptr;
     else {
         p_ptr = first;
         first = first->get_next_ptr();
@@ -209,7 +215,7 @@ void push(T *node_ptr)
         num_entries++;
 
         node_ptr->assign_next(first);
-        if (first==NULL){
+        if (first==nullptr){
             first = node_ptr;
             last = node_ptr; 
         } // IF
@@ -227,8 +233,8 @@ T *pop()
 {
     T    *p_ptr;
 
-    if (first == NULL)
-        return NULL;
+    if (first == nullptr)
+        return nullptr;
     else {
         p_ptr = first;
         first = first->get_next_ptr();
@@ -267,7 +273,7 @@ T *get_ith(int i)
 
      p_ptr = first;
   
-     while ((p_ptr != NULL) && (j < i)) {
+     while ((p_ptr != nullptr) && (j < i)) {
            p_ptr = p_ptr->get_next_ptr();
            j++;
      } // WHILE
@@ -294,10 +300,10 @@ T  *find_val_ptr(int find_val)
   {
          T *p_ptr, *q_ptr;
           p_ptr = first;
-          while ((p_ptr != NULL) && ((p_ptr->get_value()) != find_val))
+          while ((p_ptr != nullptr) && ((p_ptr->get_value()) != find_val))
                  p_ptr = p_ptr->get_next_ptr();
-          if (p_ptr==NULL)
-              return NULL;
+          if (p_ptr==nullptr)
+              return nullptr;
           else      
                return p_ptr;
    } 
@@ -314,12 +320,12 @@ T  *find_add_val_ptr(int find_val)
 
             p_ptr = first;
 
-        while ((p_ptr != NULL) && ((p_ptr->get_value()) != find_val))
+        while ((p_ptr != nullptr) && ((p_ptr->get_value()) != find_val))
         {
             p_ptr = p_ptr->get_next_ptr();
         }  // WHILE
 
-        if (p_ptr==NULL) {
+        if (p_ptr==nullptr) {
               p_ptr = new T(find_val);
               add_ptr(p_ptr);
         } // IF

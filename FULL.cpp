@@ -1,8 +1,14 @@
+#include <iostream>
+
+#include "FULL.H"
+
+using namespace std;
+
 //_________________________________________________________________________
 fullstring_class::fullstring_class()
 {
    val = 0;
-   fnextnode = NULL;
+   fnextnode = nullptr;
    IS_NEGATIVE = 0;
    strcpy(fullstring_symbol,"");
   }
@@ -11,7 +17,7 @@ fullstring_class::fullstring_class()
 fullstring_class::fullstring_class(int num)
 {
    val = num;
-   fnextnode = NULL;
+   fnextnode = nullptr;
    IS_NEGATIVE = 0;
    strcpy(fullstring_symbol,"");
   }
@@ -24,7 +30,7 @@ fullstring_class::fullstring_class(const char instr[LONG_STRING_LENGTH])
    char   instr2[LONG_STRING_LENGTH];  
 
    val = 0;
-   fnextnode = NULL;
+   fnextnode = nullptr;
    IS_NEGATIVE = 0;
   
    strcpy(instr2, instr);
@@ -59,7 +65,7 @@ void fullstring_class::output()
 
 void fullstring_class::clear()
   {
-   fnextnode = NULL;
+   fnextnode = nullptr;
    strcpy(fullstring_symbol,"");
    IS_NEGATIVE = 0;
   }

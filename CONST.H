@@ -1,3 +1,5 @@
+#pragma once
+
 //  Possible Body status values
 #define  UNDETERMINED 0;
 #define  ELIMINATED   1;
@@ -47,7 +49,7 @@ const   double  DEFAULT_SUFF = 0.30;
 const   double  DEFAULT_NEC  = 0.25;
 const   int     DEFAULT_POS_ALGO = 2;
 const   int     DEFAULT_PREDRANK_ALGO = 4;
-const   int     DEFAULT_INCONSISTENCY_COEF = 0.25;
+const   double  DEFAULT_INCONSISTENCY_COEF = 0.25;
 
 
 const   int    NUM_LINES_CLEARSCREEN = 25;

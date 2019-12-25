@@ -1,3 +1,12 @@
+#pragma once
+
+#include <iostream>
+
+#include "LOGIC_PR.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////////////
 ///   Show state displays the current state of the logic program
 ///   by displaying the atom information of all TRUE variables
@@ -61,7 +70,7 @@ void logic_program_class::print_truth_atoms(ostream& fout, int t_val)
    v_ptr = Vertexlist.get_first();
    
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        if ((v_ptr->get_truth())  == t_val)
            fout << neg_symbol << v_ptr->get_atominfo() << " ." << "\n";
        v_ptr = v_ptr->get_next_ptr();
@@ -89,14 +98,14 @@ vertex_class *logic_program_class::find_fullstring_in_graph(
    strcpy(tempstr1, instr);
    v_ptr = Vertexlist.get_first();
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        strcpy(tempstr2, v_ptr->get_atominfo());
        if (strcmp(tempstr1, tempstr2) == 0) 
               return v_ptr;
        v_ptr = v_ptr->get_next_ptr();
    }// WHILE
    
-   return NULL;
+   return nullptr;
 
 }
 
@@ -125,7 +134,7 @@ char                  tempstr[LONG_STRING_LENGTH];
 
 
   // READ IN FIRST EXTENSIONAL RULE
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
 
    while (gochar == '.') {
 
@@ -140,7 +149,7 @@ char                  tempstr[LONG_STRING_LENGTH];
        // DETERMINE WHETHER OR NOT FIRST ATOM ALREADY EXISTS
         head_v_ptr = find_fullstring_in_graph(tempstr);
 
-        if (head_v_ptr == NULL)   {        // CREATE NEW VERTEX
+        if (head_v_ptr == nullptr)   {        // CREATE NEW VERTEX
               head = vertex_count++; 
               head_v_ptr = new vertex_class(tempstr, head, f_ptr->get_IS_NEGATIVE());      
               Vertexlist.add_ptr(head_v_ptr); 
@@ -200,14 +209,14 @@ char                  tempstr[LONG_STRING_LENGTH];
          // FOR EACH SUBGOAL IN THE RULE BODY....
          f_ptr = f_ptr->get_next_ptr();
 
-         while (f_ptr != NULL) {
+         while (f_ptr != nullptr) {
 
             strcpy(tempstr,f_ptr->get_fullstring_symbol());        
 
             // DETERMINE WHETHER OR NOT SBUGOAL ATOM ALREADY EXISTS
             sub_v_ptr = find_fullstring_in_graph(tempstr);
 
-            if (sub_v_ptr == NULL)   {        // CREATE NEW VERTEX FOR CURRENT SUBGOAL
+            if (sub_v_ptr == nullptr)   {        // CREATE NEW VERTEX FOR CURRENT SUBGOAL
                   cur_sub_val = vertex_count++; 
                   sub_v_ptr = new vertex_class(tempstr, cur_sub_val);  
                   Vertexlist.add_ptr(sub_v_ptr); 
@@ -217,19 +226,34 @@ char                  tempstr[LONG_STRING_LENGTH];
             } // ELSE
 
            if (f_ptr->get_IS_NEGATIVE()) {    
-                 ext_b_ptr->add_neg_literal(cur_sub_val, sub_v_ptr, NULL); 
-                 sub_v_ptr->add_neg_appearance(head, head_v_ptr, ext_b_ptr);
+                 ext_b_ptr->add_neg_literal(cur_sub_val, sub_v_ptr, nullptr);
+
+                 //sub_v_ptr->add_neg_appearance(head, head_v_ptr, ext_b_ptr);
+                 rule_class *p_ptr = new rule_class();
+                 p_ptr->assign_val(head);
+                 p_ptr->assign_body_ptr(ext_b_ptr);
+                 p_ptr->assign_vertex_ptr(head_v_ptr);
+
+                 sub_v_ptr->neg_appearances.add_ptr(p_ptr);
    
            } // IF CURRENT SUBGOAL IS NEGATIVE
            else  {  // CUR SUBGOAL IS POSITIVE
-                 ext_b_ptr->add_pos_literal(cur_sub_val, sub_v_ptr, NULL); 
-                 sub_v_ptr->add_pos_appearance(head, head_v_ptr, ext_b_ptr);
+                 ext_b_ptr->add_pos_literal(cur_sub_val, sub_v_ptr, nullptr);
+
+                 //sub_v_ptr->add_pos_appearance(head, head_v_ptr, ext_b_ptr);
+                 rule_class *p_ptr = new rule_class();
+                 p_ptr->assign_val(head);
+                 p_ptr->assign_body_ptr(ext_b_ptr);
+                 p_ptr->assign_vertex_ptr(head_v_ptr);
+
+                 sub_v_ptr->pos_appearances.add_ptr(p_ptr);
+
            } // ELSE
 
           // ADVANCE TO THE NEXT FULLSTRING VERSIONED ATOM IN FULLSTRING LIST
           f_ptr = f_ptr->get_next_ptr();
 
-     } // WHILE THERE ARE MORE SUBGOAL ATOMS (f_ptr != null)
+     } // WHILE THERE ARE MORE SUBGOAL ATOMS (f_ptr != nullptr)
 
     //***************************************************************//
     // ADD THE RULE TO THE PROGRAM'S RULE LIST
@@ -238,7 +262,7 @@ char                  tempstr[LONG_STRING_LENGTH];
 
 
     // READ IN THE NEXT RULE IN STRING FORM
-    gochar = read_rule(infile, full_string);
+    gochar = *read_rule(infile, full_string);
 
     flist->cleanup();
 //    delete flist;
@@ -297,7 +321,7 @@ char                  tempstr[LONG_STRING_LENGTH];
    // DETERMINE WHETHER OR NOT FIRST ATOM ALREADY EXISTS
    head_v_ptr = find_fullstring_in_graph(tempstr);
 
-   if (head_v_ptr == NULL)   {        // CREATE NEW VERTEX
+   if (head_v_ptr == nullptr)   {        // CREATE NEW VERTEX
         head = (Vertexlist.get_length() + 1);
         head_v_ptr = new vertex_class(tempstr, head, f_ptr->get_IS_NEGATIVE());      
         Vertexlist.add_ptr(head_v_ptr); 
@@ -356,14 +380,14 @@ char                  tempstr[LONG_STRING_LENGTH];
          // FOR EACH SUBGOAL IN THE RULE BODY....
          f_ptr = f_ptr->get_next_ptr();
 
-         while (f_ptr != NULL) {
+         while (f_ptr != nullptr) {
 
             strcpy(tempstr,f_ptr->get_fullstring_symbol());        
 
             // DETERMINE WHETHER OR NOT SBUGOAL ATOM ALREADY EXISTS
             sub_v_ptr = find_fullstring_in_graph(tempstr);
 
-            if (sub_v_ptr == NULL)   {        // CREATE NEW VERTEX FOR CURRENT SUBGOAL
+            if (sub_v_ptr == nullptr)   {        // CREATE NEW VERTEX FOR CURRENT SUBGOAL
                   cur_sub_val = 
         (Vertexlist.get_length() + 1);
 
@@ -376,19 +400,34 @@ char                  tempstr[LONG_STRING_LENGTH];
             } // ELSE
 
            if (f_ptr->get_IS_NEGATIVE()) {    
-                 ext_b_ptr->add_neg_literal(cur_sub_val, sub_v_ptr, NULL); 
-                 sub_v_ptr->add_neg_appearance(head, head_v_ptr, ext_b_ptr);
+                 ext_b_ptr->add_neg_literal(cur_sub_val, sub_v_ptr, nullptr);
+
+                 //sub_v_ptr->add_neg_appearance(head, head_v_ptr, ext_b_ptr);
+                 rule_class *p_ptr = new rule_class();
+                 p_ptr->assign_val(head);
+                 p_ptr->assign_body_ptr(ext_b_ptr);
+                 p_ptr->assign_vertex_ptr(head_v_ptr);
+
+                 sub_v_ptr->neg_appearances.add_ptr(p_ptr);
    
            } // IF CURRENT SUBGOAL IS NEGATIVE
            else  {  // CUR SUBGOAL IS POSITIVE
-                 ext_b_ptr->add_pos_literal(cur_sub_val, sub_v_ptr, NULL); 
-                 sub_v_ptr->add_pos_appearance(head, head_v_ptr, ext_b_ptr);
+                 ext_b_ptr->add_pos_literal(cur_sub_val, sub_v_ptr, nullptr);
+
+                 //sub_v_ptr->add_pos_appearance(head, head_v_ptr, ext_b_ptr);
+                 rule_class *p_ptr = new rule_class();
+                 p_ptr->assign_val(head);
+                 p_ptr->assign_body_ptr(ext_b_ptr);
+                 p_ptr->assign_vertex_ptr(head_v_ptr);
+
+                 sub_v_ptr->pos_appearances.add_ptr(p_ptr);
+
            } // ELSE
 
           // ADVANCE TO THE NEXT FULLSTRING VERSIONED ATOM IN FULLSTRING LIST
           f_ptr = f_ptr->get_next_ptr();
 
-     } // WHILE THERE ARE MORE SUBGOAL ATOMS (f_ptr != null)
+     } // WHILE THERE ARE MORE SUBGOAL ATOMS (f_ptr != nullptr)
 
     //***************************************************************//
     // ADD THE RULE TO THE PROGRAM'S RULE LIST
@@ -411,7 +450,7 @@ char                  tempstr[LONG_STRING_LENGTH];
 
 void logic_program_class::nonmonotonically_update(istream& infile)   
 {
-   add_fact(infile); 
+   add_fact_to_stream(infile);
    update_state();
    show_state(cout);
 
@@ -456,7 +495,7 @@ int                   fact_found;
        // DETERMINE WHETHER OR NOT IT ALREADY EXISTS
         head_v_ptr = find_fullstring_in_graph(tempstr);
 
-        if (head_v_ptr == NULL)   {        // CREATE NEW VERTEX
+        if (head_v_ptr == nullptr)   {        // CREATE NEW VERTEX
               head = Vertexlist.get_length() + 1;
               head_v_ptr = new vertex_class(tempstr, head, is_negative_val);      
               Vertexlist.add_ptr(head_v_ptr); 
@@ -474,17 +513,17 @@ int                   fact_found;
 
         cur_b_ptr = head_v_ptr->get_first_body();
         fact_found = 0;
-        while ((cur_b_ptr != NULL) && (!fact_found)) {
+        while ((cur_b_ptr != nullptr) && (!fact_found)) {
              if (cur_b_ptr->is_bodiless_rule())
                        fact_found = 1;
              else
                        cur_b_ptr = cur_b_ptr->get_next_ptr();
         } // WHILE
         
-       if (cur_b_ptr == NULL) {  // FACT DOESN'T EXIST..CREATE ONE
+       if (cur_b_ptr == nullptr) {  // FACT DOESN'T EXIST..CREATE ONE
            cur_b_ptr = new body_node_class();
            head_v_ptr->add_body(cur_b_ptr);
-       } // IF cur_b_ptr is NULL
+       } // IF cur_b_ptr is nullptr
 
         //**************************************************
         // cur_b_ptr now points to the new FACT
@@ -532,7 +571,7 @@ int                   fact_found;
 ///                    
 ///           
 ///////////////////////////////////////////////////////////////////////////
-void logic_program_class::add_fact(istream& infile)
+void logic_program_class::add_fact_to_stream(istream& infile)
 {
 
 vertex_class           *head_v_ptr, *sub_v_ptr;
@@ -552,7 +591,7 @@ int                   fact_found;
 
    // READ IN THE FACT
    cout << endl << endl <<"Enter new fact.\n ";
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
    cout << endl;
 
    if (gochar == '.') {
@@ -568,7 +607,7 @@ int                   fact_found;
        // DETERMINE WHETHER OR NOT IT ALREADY EXISTS
         head_v_ptr = find_fullstring_in_graph(tempstr);
 
-        if (head_v_ptr == NULL)   {        // CREATE NEW VERTEX
+        if (head_v_ptr == nullptr)   {        // CREATE NEW VERTEX
               head = Vertexlist.get_length() + 1;
               head_v_ptr = new vertex_class(tempstr, head, f_ptr->get_IS_NEGATIVE());      
               Vertexlist.add_ptr(head_v_ptr); 
@@ -586,17 +625,17 @@ int                   fact_found;
 
         cur_b_ptr = head_v_ptr->get_first_body();
         fact_found = 0;
-        while ((cur_b_ptr != NULL) && (!fact_found)) {
+        while ((cur_b_ptr != nullptr) && (!fact_found)) {
              if (cur_b_ptr->is_bodiless_rule())
                        fact_found = 1;
              else
                        cur_b_ptr = cur_b_ptr->get_next_ptr();
         } // WHILE
         
-       if (cur_b_ptr == NULL) {  // FACT DOESN'T EXIST..CREATE ONE
+       if (cur_b_ptr == nullptr) {  // FACT DOESN'T EXIST..CREATE ONE
            cur_b_ptr = new body_node_class();
            head_v_ptr->add_body(cur_b_ptr);
-       } // IF cur_b_ptr is NULL
+       } // IF cur_b_ptr is nullptr
 
         //**************************************************
         // cur_b_ptr now points to the new FACT
@@ -648,10 +687,10 @@ void logic_program_class::display_ground_instantiation(ostream& fout)
    fout << "\n \n \n";
    fout << "GROUND INSTANTIATION \n \n ";
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
 
       b_ptr = v_ptr->get_first_body();
-      while (b_ptr != NULL) {
+      while (b_ptr != nullptr) {
             display_extensional_rule(v_ptr, b_ptr, fout);
             b_ptr = b_ptr->get_next_ptr();
        } // WHILE
@@ -693,7 +732,7 @@ void logic_program_class::display_extensional_rule
 
    // DISPLAY THE BODY ATOMS OF POSITIVE SUBGOALS
 
-   while (p_ptr != NULL) {
+   while (p_ptr != nullptr) {
          sub_v_ptr = p_ptr->get_vertex_ptr();  
 //fout << endl << endl ;
 //fout << "sub_v_ptr points to VERTEX...";        
@@ -704,7 +743,7 @@ void logic_program_class::display_extensional_rule
 
          // ADVANCE TO NEXT POSITIVE SUBGOAL
          p_ptr = p_ptr->get_next_ptr();
-         if ((p_ptr != NULL) || (n_ptr != NULL)) {
+         if ((p_ptr != nullptr) || (n_ptr != nullptr)) {
                    fout << ", \n";
                    fout << "                                ";
           } // IF                   
@@ -715,13 +754,13 @@ void logic_program_class::display_extensional_rule
    } // WHILE more positive subgoals      
 
 
-   while (n_ptr != NULL) {
+   while (n_ptr != nullptr) {
          sub_v_ptr = n_ptr->get_vertex_ptr();  
          fout << "~" << (sub_v_ptr->get_atominfo());
 
          // ADVANCE TO NEXT NEGATIVE SUBGOAL
          n_ptr = n_ptr->get_next_ptr();
-         if (n_ptr != NULL) {
+         if (n_ptr != nullptr) {
                    fout << ",  \n";
                    fout << "                       ";
           } // IF                   

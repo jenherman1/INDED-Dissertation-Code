@@ -1,10 +1,14 @@
+
+#include "CONST.H"
+#include "PREDLOG.H"
+
 predicate_log_class::predicate_log_class()
    { 
       val = 0;
       chosen = 0;
-      truth_val = BOTTOM;
-      predlogsymbol = NULL;
-      predlognextnode = NULL;
+      truth_val = BOTTOM
+      predlogsymbol = nullptr;
+      predlognextnode = nullptr;
 
    }
 
@@ -12,9 +16,9 @@ predicate_log_class::predicate_log_class(int n)
    {
       val = n;
       chosen = 0;
-      truth_val = BOTTOM;
-      predlogsymbol = NULL;
-      predlognextnode = NULL;
+      truth_val = BOTTOM
+      predlogsymbol = nullptr;
+      predlognextnode = nullptr;
 
    }
 
@@ -45,7 +49,7 @@ predicate_log_class::predicate_log_class(atom_class *newatom)
 
         atom_c_ptr = newatom->get_first_constant();
 
-        while (atom_c_ptr != NULL) {
+        while (atom_c_ptr != nullptr) {
            position_ID = constantposlist.get_length() + 1;
 
            //CREATE A NEW ARGUMENT POSITION
@@ -143,7 +147,7 @@ int predicate_log_class::get_predlog_truthval()
 }
 char *predicate_log_class::get_predlog_symbol()
 {
-    char     tempstr[STRING_LENGTH];
+    char     *tempstr = new char[STRING_LENGTH]; //TODO: issue-1 memory leak
 
     strcpy(tempstr, (predlogsymbol->get_predicate_symbol()) ); 
     return tempstr;
@@ -172,7 +176,7 @@ void predicate_log_class::add_new_atom(atom_class *newatom)
             atom_c_ptr = newatom->get_first_constant();
             pos_ptr = get_first_pos_ptr();
 
-            while (atom_c_ptr != NULL) {
+            while (atom_c_ptr != nullptr) {
          
                 //ADD THE CONSTANT TO THAT POSITION LIST
                 pos_ptr->add_constant(atom_c_ptr->get_constant_symbol());
@@ -201,13 +205,13 @@ void predicate_log_class::display(ostream& fout)
          << "   Chosen Status:   " << is_chosen() << endl;
     fout << "----------------   " << endl;
     pos_ptr = get_first_pos_ptr();  
-    while (pos_ptr != NULL ) {
+    while (pos_ptr != nullptr ) {
          fout << "        Position " << pos_ptr->get_value() << 
                  "   (variable " << pos_ptr->get_variable_name() << ")" 
               << "    Position Rank:   " << pos_ptr->get_posrank() <<   
                         endl;
          c_ptr = pos_ptr->get_first_poscon_ptr();
-         while (c_ptr != NULL) {
+         while (c_ptr != nullptr) {
              fout << "             ";
              c_ptr->display(fout);
              fout << endl;
@@ -230,7 +234,7 @@ int predicate_log_class::has_constant(constant_class *c_ptr)
    
     pos_ptr = get_first_pos_ptr();  
 
-    while ((pos_ptr != NULL ) && (found == 0))  {
+    while ((pos_ptr != nullptr ) && (found == 0))  {
          found =  pos_ptr->is_a_member(c_ptr);
          pos_ptr = pos_ptr->get_next_ptr();
     } // WHILE
@@ -247,7 +251,7 @@ int predicate_log_class::has_constant_in_position(int             position_num,
     position_class    *pos_ptr;
 
     pos_ptr = constantposlist.get_ith(position_num);
-    if (pos_ptr != NULL)
+    if (pos_ptr != nullptr)
         return   pos_ptr->is_a_member(c_ptr);
     else
         return 0;
@@ -261,7 +265,7 @@ int predicate_log_class::has_constant_in_pos_spot(int             position_num,
 {
     position_class  *pos_ptr;
     pos_ptr = constantposlist.get_ith(position_num);
-    if (pos_ptr != NULL)
+    if (pos_ptr != nullptr)
         return   pos_ptr->is_a_member_in_spot(spot_num, c_ptr);
     else
         return 0;
@@ -281,11 +285,11 @@ void predicate_log_class::verify_named_variables()
 
       LHS_pos_ptr = get_first_pos_ptr(); 
 
-      while (LHS_pos_ptr != NULL) {
+      while (LHS_pos_ptr != nullptr) {
              source_letter = LHS_pos_ptr->get_variable_name(); 
 
              RHS_pos_ptr = LHS_pos_ptr->get_next_ptr();
-             while (RHS_pos_ptr != NULL) {     
+             while (RHS_pos_ptr != nullptr) {
                    if (equal_positions(LHS_pos_ptr, RHS_pos_ptr)==1) 
                           RHS_pos_ptr->assign_variable_name(source_letter);
 
@@ -313,14 +317,14 @@ void predicate_log_class::name_variables(char start_char)
    
       LHS_pos_ptr = get_first_pos_ptr(); 
 
-      if (LHS_pos_ptr != NULL)  
+      if (LHS_pos_ptr != nullptr)
             LHS_pos_ptr->assign_variable_name(nextchar++);
 
-      while (LHS_pos_ptr != NULL) {
+      while (LHS_pos_ptr != nullptr) {
              source_letter = LHS_pos_ptr->get_variable_name(); 
 
              RHS_pos_ptr = LHS_pos_ptr->get_next_ptr();
-             while (RHS_pos_ptr != NULL) {     
+             while (RHS_pos_ptr != nullptr) {
                    if (equal_positions(LHS_pos_ptr, RHS_pos_ptr)==1) 
                           RHS_pos_ptr->assign_variable_name(source_letter);
                    else
@@ -369,7 +373,7 @@ void predicate_log_class::mark_mesh_NOT_taken()
    
     pos_ptr = get_first_pos_ptr();  
 
-    while (pos_ptr != NULL ) {
+    while (pos_ptr != nullptr ) {
            pos_ptr->mark_all_constants_NOT_taken();
            pos_ptr = pos_ptr->get_next_ptr();
     } //WHILE
@@ -384,7 +388,7 @@ void predicate_log_class::initialize_position_ranks()
 
    pos_ptr = get_first_pos_ptr();
 
-   while (pos_ptr != NULL) {
+   while (pos_ptr != nullptr) {
         pos_ptr->initialize_posrank();
         pos_ptr = pos_ptr->get_next_ptr();
    }// WHILE
@@ -397,7 +401,7 @@ void predicate_log_class::initialize_position_chosen_flags()
 
    pos_ptr = get_first_pos_ptr();
 
-   while (pos_ptr != NULL) {
+   while (pos_ptr != nullptr) {
         pos_ptr->initialize_position_chosen();
         pos_ptr = pos_ptr->get_next_ptr();
    }// WHILE
@@ -410,7 +414,7 @@ char predicate_log_class::get_max_variable_name()
    position_class       *pos_ptr;
 
    pos_ptr = get_first_pos_ptr();
-   if (pos_ptr != NULL)  {
+   if (pos_ptr != nullptr)  {
         maxchar = pos_ptr->get_variable_name();
         pos_ptr = pos_ptr->get_next_ptr();
    }
@@ -419,7 +423,7 @@ char predicate_log_class::get_max_variable_name()
         exit(1);
    }
 
-   while (pos_ptr != NULL) {
+   while (pos_ptr != nullptr) {
         if (maxchar < pos_ptr->get_variable_name())
                  maxchar = pos_ptr->get_variable_name();
         pos_ptr = pos_ptr->get_next_ptr();
@@ -437,21 +441,21 @@ position_class *predicate_log_class::get_max_ranked_unchosen_position_ptr()
    position_class       *pos_ptr, *max_pos_ptr;
 
    pos_ptr = get_first_pos_ptr();
-   while ((pos_ptr != NULL) && (pos_ptr->get_position_chosen()==1)){
+   while ((pos_ptr != nullptr) && (pos_ptr->get_position_chosen()==1)){
              pos_ptr = pos_ptr->get_next_ptr();
    } //WHILE
 
    // INITIALIZE MAX TO  POS_PTR
-   if (pos_ptr != NULL)  
+   if (pos_ptr != nullptr)
         max_rank = pos_ptr->get_posrank();
 
    max_pos_ptr = pos_ptr;
 
-   if (pos_ptr != NULL)
+   if (pos_ptr != nullptr)
         pos_ptr = pos_ptr->get_next_ptr();
    
 
-   while (pos_ptr != NULL) {
+   while (pos_ptr != nullptr) {
       if (pos_ptr->get_position_chosen()==0) {
 
           if (max_rank < pos_ptr->get_posrank() ) {
@@ -463,7 +467,7 @@ position_class *predicate_log_class::get_max_ranked_unchosen_position_ptr()
         pos_ptr = pos_ptr->get_next_ptr();
    }// WHILE
 
-   return max_pos_ptr;   // IF MAX_POS_PTR IS NULL, THEY WERE ALL CHOSEN
+   return max_pos_ptr;   // IF MAX_POS_PTR IS nullptr, THEY WERE ALL CHOSEN
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////  
@@ -491,7 +495,7 @@ int predicate_log_class::is_member_of_mesh(atom_class *example_a_ptr)
 
     spot_number = 1;
     covered_so_far = 0;
-    while ((mesh_LHS_c_ptr != NULL) && (!(covered_so_far))) {
+    while ((mesh_LHS_c_ptr != nullptr) && (!(covered_so_far))) {
         
        //SEARCH FOR NEXT OCCURENCE OF LHS_cons_str
        strcpy(new_cons_str, mesh_LHS_c_ptr->get_constant_symbol());
@@ -502,14 +506,14 @@ int predicate_log_class::is_member_of_mesh(atom_class *example_a_ptr)
 
             //...Initialize and advance past the LHS column
             pos_ptr = get_first_pos_ptr();  
-            if (pos_ptr != NULL)
+            if (pos_ptr != nullptr)
                  pos_ptr = pos_ptr->get_next_ptr();
 
             //GET THE NEXT CONSTANT IN THE GROUND EXAMPLE
             example_c_ptr = example_a_ptr->get_first_constant();
 
             covered_so_far = 1; 
-            while ((pos_ptr != NULL) && (covered_so_far))  {
+            while ((pos_ptr != nullptr) && (covered_so_far))  {
                  example_c_ptr = example_c_ptr->get_next_ptr();
                  if (pos_ptr->is_a_member_in_spot(spot_number,
                                            example_c_ptr)==0)
@@ -569,15 +573,15 @@ int predicate_log_class::is_member_of_mesh_any_order(atom_class *example_a_ptr)
     example_c_ptr = example_a_ptr->get_first_constant();
 
     // FIND THE EXAMPLE CONSTANT SOMEWHERE IN MESH
-    while (example_c_ptr != NULL) {
+    while (example_c_ptr != nullptr) {
 
           strcpy(example_cons_str, example_c_ptr->get_constant_symbol());       
 
           mesh_pos_ptr =  get_first_pos_ptr();   
-          while (mesh_pos_ptr != NULL) {
+          while (mesh_pos_ptr != nullptr) {
                mesh_c_ptr = mesh_pos_ptr->get_first_poscon_ptr();
                mesh_spot_number = 0;
-               while (mesh_c_ptr != NULL) {
+               while (mesh_c_ptr != nullptr) {
                     mesh_spot_number++;
                     strcpy(curmesh_cons_str, mesh_c_ptr->get_constant_symbol());
 
@@ -590,7 +594,7 @@ int predicate_log_class::is_member_of_mesh_any_order(atom_class *example_a_ptr)
                      //GET THE NEXT CONSTANT IN THE GROUND EXAMPLE
                       num_found = 1;
                       neigh_example_c_ptr = example_a_ptr->get_first_constant();
-                      while (neigh_example_c_ptr != NULL)   {
+                      while (neigh_example_c_ptr != nullptr)   {
 
                            if (neigh_example_c_ptr != example_c_ptr)  {
 
@@ -599,7 +603,7 @@ int predicate_log_class::is_member_of_mesh_any_order(atom_class *example_a_ptr)
                               found = 0;
                               neigh_pos_ptr = get_first_pos_ptr();        
                               neigh_pos_number = 1;
-                              while ((neigh_pos_ptr != NULL) && (found==0))  {
+                              while ((neigh_pos_ptr != nullptr) && (found==0))  {
                                   if( (neigh_pos_ptr->is_a_member_in_spot(mesh_spot_number,
                                            neigh_example_c_ptr)) != 0){
 

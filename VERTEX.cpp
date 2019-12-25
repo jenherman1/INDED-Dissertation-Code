@@ -1,59 +1,75 @@
+#include <iostream>
+
+#include "UTILITY1.H"
+#include "VERTEX.H"
+
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////
 ///      Constructors
 /////////////////////////////////////////////////////////////////////
 
-vertex_class::vertex_class() : node_class()
+vertex_class::vertex_class()
    { 
-      vnextnode = NULL;
-      truth_val = BOTTOM;
-       J_val = FALSE;
-       W_val = BOTTOM;
+      vnextnode = nullptr;
+      truth_val = BOTTOM
+       J_val = FALSE
+       W_val = BOTTOM
        guess = 0;
        access = 0;
        postorder_num = 0;
    }
-vertex_class::vertex_class(int n) : node_class(n)
+vertex_class::vertex_class(int n)
    {
-       vnextnode = NULL;
-       truth_val = BOTTOM;
-       J_val = FALSE;
-       W_val = BOTTOM;
+       val = n;
+       vnextnode = nullptr;
+       truth_val = BOTTOM
+       J_val = FALSE
+       W_val = BOTTOM
        guess = 0;
        access = 0;
        postorder_num = 0;
    }
 
-vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num)  : node_class(num)
+vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num)
    {
        char   tempstr[LONG_STRING_LENGTH];
 
-       vnextnode = NULL;
-       truth_val = BOTTOM;
-       J_val = FALSE;
-       W_val = BOTTOM;
+       val = num;
+       vnextnode = nullptr;
+       truth_val = BOTTOM
+       J_val = FALSE
+       W_val = BOTTOM
        guess = 0;
        access = 0;
        postorder_num = 0;
 
        strcpy(tempstr, f_str);
-       atominfo.assign_atom_info(tempstr, num);
+       atominfo = new atom_class(); //Issue 1: TODO memory leak
+       atominfo->assign_atom_info(tempstr, num);
    }
 vertex_class::vertex_class(char f_str[LONG_STRING_LENGTH], int num, 
-                          int is_negative_val)  : node_class(num)
+                          int is_negative_val)
    {
        char   tempstr[LONG_STRING_LENGTH];
 
-       vnextnode = NULL;
-       truth_val = BOTTOM;
-       J_val = FALSE;
-       W_val = BOTTOM;
+       val = num;
+       vnextnode = nullptr;
+       truth_val = BOTTOM
+       J_val = FALSE
+       W_val = BOTTOM
        guess = 0;
        access = 0;
        postorder_num = 0;
 
        strcpy(tempstr, f_str);
-       atominfo.assign_atom_info(tempstr, num, is_negative_val);
+       atominfo = new atom_class(); //Issue 1: TODO memory leak
+       atominfo->assign_atom_info(tempstr, num, is_negative_val);
    }
+
+int vertex_class::get_value(){
+    return val;
+}
 
 ////////////////////////////////////////////////////////////////////////////
 ///  Virtuals associated with NODE_CLASS
@@ -66,12 +82,13 @@ void vertex_class::assign_val(int n)
 
 void vertex_class::assign_atominfo(char full_s[LONG_STRING_LENGTH])
   {
-          atominfo.assign_fullstring(full_s);
+          atominfo = new atom_class(); //Issue 1: TODO memory leak
+          atominfo->assign_fullstring(full_s);
  }
 
 void vertex_class::assign_atom(atom_class newatom)
 {
-          atominfo = newatom;
+          atominfo = new atom_class(newatom); //Issue 1: TODO memory leak
  }
 
 
@@ -79,7 +96,7 @@ void vertex_class::output()
   {
      cout << "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV \n";   
      cout << "The ATOM Description information is...\n";
-     atominfo.output();
+     atominfo->output();
      cout << "val is " << val <<  "\n";
      switch (truth_val) {
         case 0: { cout << "truth_val is FALSE \n"; break;} 
@@ -160,17 +177,17 @@ void vertex_class:: print_postorder_num()
 
 char *vertex_class::get_atominfo()
  {
-       return atominfo.get_fullstring();
+       return atominfo->get_fullstring();
  }
 
 constant_class *vertex_class::get_first_atom_constant()
 {
-      return atominfo.get_first_constant();
+      return atominfo->get_first_constant();
 }
 
 char *vertex_class::get_predicate_symbol()
 {
-      return atominfo.get_predicate_symbol();
+      return atominfo->get_predicate_symbol();
 }
 
      
@@ -197,14 +214,20 @@ void vertex_class::add_neg_appearance(rule_class *p_ptr)
 ///////////////////////////////////////////////////////////////////////////
 void vertex_class::add_pos_appearance(vertex_class *v_ptr, body_node_class *b_ptr)
 {
-      rule_class *p_ptr;
-      p_ptr = new rule_class(v_ptr, b_ptr);
+      rule_class *p_ptr = new rule_class();
+      p_ptr->assign_val(0);
+      p_ptr->assign_body_ptr(b_ptr);
+      p_ptr->assign_vertex_ptr(v_ptr);
+
       pos_appearances.add_ptr(p_ptr);
 }
 void vertex_class::add_neg_appearance(vertex_class *v_ptr, body_node_class *b_ptr)
 {
-      rule_class *p_ptr;
-      p_ptr = new rule_class(v_ptr, b_ptr);
+      rule_class *p_ptr = new rule_class();
+      p_ptr->assign_val(0);
+      p_ptr->assign_body_ptr(b_ptr);
+      p_ptr->assign_vertex_ptr(v_ptr);
+
       neg_appearances.add_ptr(p_ptr);
 }
 
@@ -216,16 +239,22 @@ void vertex_class::add_neg_appearance(vertex_class *v_ptr, body_node_class *b_pt
 void vertex_class::add_pos_appearance( int head_val,
                                 vertex_class *v_ptr, body_node_class *b_ptr)
 {
-      rule_class *p_ptr;
-      p_ptr = new rule_class(head_val, v_ptr, b_ptr);
-      pos_appearances.add_ptr(p_ptr);
+    rule_class *p_ptr = new rule_class();
+    p_ptr->assign_val(head_val);
+    p_ptr->assign_body_ptr(b_ptr);
+    p_ptr->assign_vertex_ptr(v_ptr);
+
+    pos_appearances.add_ptr(p_ptr);
 }
 void vertex_class::add_neg_appearance( int head_val,
                                 vertex_class *v_ptr, body_node_class *b_ptr)
 {
-      rule_class *p_ptr;
-      p_ptr = new rule_class(head_val, v_ptr, b_ptr);
-      neg_appearances.add_ptr(p_ptr);
+    rule_class *p_ptr = new rule_class();
+    p_ptr->assign_val(head_val);
+    p_ptr->assign_body_ptr(b_ptr);
+    p_ptr->assign_vertex_ptr(v_ptr);
+
+    neg_appearances.add_ptr(p_ptr);
 }
 
 
@@ -379,7 +408,7 @@ int vertex_class::determine_new_J_val(logic_program_class *P)
          //  decide whether or not the status is higher than lub_so_far
 
          b_ptr = get_first_body();
-         while (b_ptr != NULL)  {
+         while (b_ptr != nullptr)  {
                b_ptr->determine_neg_assess(P);
                b_ptr->determine_pos_assess(P);
                b_val = b_ptr->determine_body_status();

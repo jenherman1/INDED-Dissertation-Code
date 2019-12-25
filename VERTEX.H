@@ -1,4 +1,19 @@
-class vertex_class : public node_class
+#pragma once
+
+#include "ATOM.H"
+#include "BODY.H"
+#include "CONST.H"
+#include "LIST.CC"
+#include "LOGIC_PR.H"
+#include "NODE.H"
+#include "RULE.H"
+
+class atom_class;
+class constant_class;
+class logic_program_class;
+class rule_class;
+
+class vertex_class
   {
   public:
       vertex_class();
@@ -7,6 +22,8 @@ class vertex_class : public node_class
       vertex_class(char f_str[LONG_STRING_LENGTH], int num,
                    int is_negative_val);
 
+
+      int       get_value();
 
       void assign_val(int n);
       void output();
@@ -62,10 +79,13 @@ class vertex_class : public node_class
       void            print_postorder_num();
 
 
+      list_class<rule_class>           pos_appearances;
+      list_class<rule_class>           neg_appearances;
 
   protected:
+      int val;
       vertex_class                    *vnextnode;
-      atom_class                       atominfo;
+      atom_class                      *atominfo;
       int                              truth_val;
       int                              J_val;            //CREDIBILITY
       int                              W_val;
@@ -73,7 +93,6 @@ class vertex_class : public node_class
       int                              access;
       int                              postorder_num;
       list_class<body_node_class>      bodylist;
-      list_class<rule_class>           pos_appearances;
-      list_class<rule_class>           neg_appearances; 
+
  };
  

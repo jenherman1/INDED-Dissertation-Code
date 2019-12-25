@@ -1,4 +1,4 @@
-
+#include "INDUC.H"
 
 ////////////////////////////////////////////////////////////////////////////
 /// RANK ALGORITHM 7:  Rank Predicates by Coverage .. POS ONLY
@@ -29,12 +29,12 @@ void inductive_engine_class::rank_predicates_by_coverage_pos_only()
                 
         background_cur_predlog_ptr = get_first_background_predlog_ptr();
 
-        while (background_cur_predlog_ptr != NULL) {
+        while (background_cur_predlog_ptr != nullptr) {
              background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
              // TRAVERSE POSITIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = positive_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -84,12 +84,12 @@ void inductive_engine_class::rank_predicates_by_coverage()
                 
         background_cur_predlog_ptr = get_first_background_predlog_ptr();
 
-        while (background_cur_predlog_ptr != NULL) {
+        while (background_cur_predlog_ptr != nullptr) {
              background_cur_predlog_ptr->mark_mesh_NOT_taken();
 
              // TRAVERSE POSITIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = positive_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)
@@ -99,7 +99,7 @@ void inductive_engine_class::rank_predicates_by_coverage()
 
              // TRAVERSE NEGATIVE EXAMPLE LIST TO UPDATE RANK
              cur_example_a_ptr = negative_examples->get_first_atom_ptr();        
-             while (cur_example_a_ptr != NULL) {
+             while (cur_example_a_ptr != nullptr) {
 
                 if (background_cur_predlog_ptr->
                      is_member_of_mesh_any_order(cur_example_a_ptr)==1)

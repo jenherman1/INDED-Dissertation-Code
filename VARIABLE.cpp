@@ -1,9 +1,13 @@
+#include "UTILITY1.H"
+#include "UTILITY2.H"
+#include "VARIABLE.H"
+
 //_________________________________________________________________________
 variable_class::variable_class()
 {
    val = 0;
-   varnextnode = NULL;
-   instantiated_constant_ptr = NULL;
+   varnextnode = nullptr;
+   instantiated_constant_ptr = nullptr;
    strcpy(variable_symbol,"");
   }
 
@@ -11,22 +15,23 @@ variable_class::variable_class()
 variable_class::variable_class(int num)
 {
    val = num;
-   varnextnode = NULL;
-   instantiated_constant_ptr = NULL;
+   varnextnode = nullptr;
+   instantiated_constant_ptr = nullptr;
    strcpy(variable_symbol,"");
   }
 
 //_________________________________________________________________________
 
-variable_class::variable_class(const char instr[STRING_LENGTH]) 
+variable_class::variable_class(char instr[STRING_LENGTH])
 {
    // AUTOMATICAALY CONVERTS VARIABLE STRINGS TO UPPER CASE
 
    char   upper[STRING_LENGTH];
 
    val = 0;
-   varnextnode = NULL;
-   instantiated_constant_ptr = NULL;
+   varnextnode = nullptr;
+   instantiated_constant_ptr = nullptr;
+
    strcpy(upper,(upper_string(instr))  );
    strcpy(variable_symbol,upper);
 
@@ -54,8 +59,8 @@ void variable_class::output()
 
 void variable_class::clear()
   {
-   varnextnode = NULL;
-   instantiated_constant_ptr = NULL;
+   varnextnode = nullptr;
+   instantiated_constant_ptr = nullptr;
    strcpy(variable_symbol,"");
   }
 //_________________________________________________________________________
@@ -74,7 +79,7 @@ void variable_class::assign_instantiated_constant_ptr(constant_class *c_ptr)
 //_________________________________________________________________________
 
 
-void variable_class::assign_symbol(const char instr[STRING_LENGTH])
+void variable_class::assign_symbol(char instr[STRING_LENGTH])
   {  
    // AUTOMATICAALY CONVERTS VARIABLE STRINGS TO UPPER CASE
 
@@ -126,7 +131,7 @@ int variable_class::advance_instantiated_constant_ptr
         instantiated_constant_ptr = 
            instantiated_constant_ptr->get_next_ptr();
 
-        if (instantiated_constant_ptr == NULL) {
+        if (instantiated_constant_ptr == nullptr) {
                advance_next_var = 1;
                instantiated_constant_ptr = first_cons_ptr;
         } // IF

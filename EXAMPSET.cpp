@@ -1,6 +1,14 @@
+#include <fstream>
+#include <iostream>
+
+#include "EXAMPSET.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 example_set_class::example_set_class()
 {
-        logpositionobject = NULL;
+        logpositionobject = nullptr;
 } // CONSTRUCTOR for example_set_class
 
 
@@ -20,11 +28,11 @@ char                          tempstr[LONG_STRING_LENGTH];
 atom_class                   *a_ptr;
 
 
-  logpositionobject = NULL;
+  logpositionobject = nullptr;
 
 
   // READ IN FIRST EXAMPLE 
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
 
 
    while (gochar == '.') {
@@ -32,7 +40,7 @@ atom_class                   *a_ptr;
         flist = new list_class<fullstring_class>();   
         extract_atom_strings(full_string, flist);       
         f_ptr = flist->get_first();      
-        while (f_ptr != NULL) {
+        while (f_ptr != nullptr) {
               strcpy(tempstr, f_ptr->get_fullstring_symbol());    
               a_ptr = new atom_class(tempstr, f_ptr->get_IS_NEGATIVE()); 
 
@@ -40,7 +48,7 @@ atom_class                   *a_ptr;
               atomexamplelist.add_ptr(a_ptr);
  
               //IF THIS IS FIRST EXAMPLE, CREATE THE PRED-LOG STRUCTURE
-              if (logpositionobject == NULL)   {
+              if (logpositionobject == nullptr)   {
                     // ADD NEW ATOM TO THE PREDICATE_LOG-VERSION SET
                        logpositionobject   = new predicate_log_class(a_ptr);   
               } // IF
@@ -50,7 +58,7 @@ atom_class                   *a_ptr;
               f_ptr = f_ptr->get_next_ptr();
         }//WHILE
         
-        gochar = read_rule(infile, full_string);
+        gochar = *read_rule(infile, full_string);
    } // WHILE
 
 } // CONSTRUCTOR for example_set_class
@@ -121,7 +129,7 @@ void example_set_class::display_atoms(ostream& fout)
 
      a_ptr = atomexamplelist.get_first();
 
-     while (a_ptr != NULL)  {
+     while (a_ptr != nullptr)  {
            a_ptr->display(fout);
            fout << "  . \n";
            a_ptr = a_ptr->get_next_ptr();
@@ -137,7 +145,7 @@ void example_set_class::display(ostream& fout)
 
      a_ptr = atomexamplelist.get_first();
 
-     while (a_ptr != NULL)  {
+     while (a_ptr != nullptr)  {
            a_ptr->display(fout);
            fout << "  . \n";
            a_ptr = a_ptr->get_next_ptr();
@@ -176,7 +184,7 @@ void example_set_class::name_example_variables()
 void example_set_class::clear()
 {
      logpositionobject->clear();
-//     logpositionobject = NULL;
+//     logpositionobject = nullptr;
      atomexamplelist.cleanup();
 }
 //------------------------------------------------------------
@@ -213,7 +221,7 @@ void example_set_class::initialize_coverage()
 
      cur_a_ptr = get_first_atom_ptr();
 
-     while (cur_a_ptr != NULL) {
+     while (cur_a_ptr != nullptr) {
           cur_a_ptr->initialize_covered();
           cur_a_ptr = cur_a_ptr->get_next_ptr();
      } //WHILE

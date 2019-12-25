@@ -1,3 +1,11 @@
+#pragma once
+
+#include "BODY.H"
+#include "VERTEX.H"
+
+class body_node_class;
+class vertex_class;
+
 class node_class
     {
  public:
@@ -8,10 +16,10 @@ class node_class
 
 
     virtual void      assign_val(int n);
-    int               get_value();
     virtual void      output();
     virtual void      clear();
 
+    int       get_value();
 
     void              assign_next(node_class *p_ptr);
     void              assign_vertex_ptr(vertex_class *v_ptr); 

@@ -1,0 +1,15 @@
+Makefile
+cmake_install.cmake
+CMakeFiles/**
+CMakeCache.txt
+CMakeLists.txt.user
+INDED.cbp
+header_checklist.txt
+rename_files.sh
+INDED
+
+#INDED-generated files
+cumint.mid
+newstate.bkg
+learned.int
+soap_example_background_file.txt

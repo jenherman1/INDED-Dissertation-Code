@@ -1,3 +1,9 @@
+#pragma once
+
+#include <fstream>
+
+#include "CONST.H"
+
 class fullstring_class 
    {
   public:
@@ -18,7 +24,7 @@ class fullstring_class
       char             *get_fullstring_symbol();
 
       void  display();
-      void  display(ostream& fout);
+      void  display(std::ostream& fout);
 
 
   protected:

@@ -1,8 +1,14 @@
+#include <fstream>
+
+#include "INTSET.H"
+#include "UTILITY2.H"
+
+using namespace std;
 
 int_ruleset_class::int_ruleset_class()
 {
-        intrulelist.set_first(NULL);
-        intrulelist.set_last(NULL);
+        intrulelist.set_first(nullptr);
+        intrulelist.set_last(nullptr);
         intrulelist.set_num_entries(0);
 
 } // CONSTRUCTOR for int_ruleset_class
@@ -23,12 +29,12 @@ intensional_rule_class   *i_ptr;
 
 
   // READ IN FIRST EXTENSIONAL RULE
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
 
    while (gochar == '.') {
         i_ptr = new intensional_rule_class(full_string);
         intrulelist.add_ptr(i_ptr);
-        gochar = read_rule(infile, full_string);
+        gochar = *read_rule(infile, full_string);
    } // WHILE
 
 } // CONSTRUCTOR for int_ruleset_class
@@ -50,22 +56,22 @@ intensional_rule_class   *i_ptr;
 
 
   // READ IN FIRST EXTENSIONAL RULE
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
 
    while (gochar == '.') {
         i_ptr = new intensional_rule_class(full_string);
         intrulelist.add_ptr(i_ptr);
-        gochar = read_rule(infile, full_string);
+        gochar = *read_rule(infile, full_string);
    } // WHILE
 
 
   // APPEND LEARNED INTENSIONAL RULES
-   gochar = read_rule(learnfile, full_string);
+   gochar = *read_rule(learnfile, full_string);
 
    while (gochar == '.') {
         i_ptr = new intensional_rule_class(full_string);
         intrulelist.add_ptr(i_ptr);
-        gochar = read_rule(learnfile, full_string);
+        gochar = *read_rule(learnfile, full_string);
    } // WHILE
 
 
@@ -112,7 +118,7 @@ void int_ruleset_class::display(ostream& fout)
 
      i_ptr = intrulelist.get_first();
 
-     while (i_ptr != NULL)  {
+     while (i_ptr != nullptr)  {
            i_ptr->display_intensional_rule(fout);
            i_ptr = i_ptr->get_next_ptr();
             

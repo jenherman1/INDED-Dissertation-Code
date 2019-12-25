@@ -1,10 +1,18 @@
+#include <fstream>
+#include <iostream>
+
+#include "KB.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 knowledge_base_class::knowledge_base_class()
 {
-        constantlist.set_first(NULL);
-        constantlist.set_last(NULL);
+        constantlist.set_first(nullptr);
+        constantlist.set_last(nullptr);
         constantlist.set_num_entries(0);
-        predexplist.set_first(NULL);
-        predexplist.set_last(NULL);
+        predexplist.set_first(nullptr);
+        predexplist.set_last(nullptr);
         predexplist.set_num_entries(0);
         ground_instantiation = new logic_program_class();
         IDB = new int_ruleset_class(); 
@@ -24,11 +32,11 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile)
         char                      tempconstr[STRING_LENGTH];
         intensional_rule_class   *cur_i_ptr;
 
-        constantlist.set_first(NULL);
-        constantlist.set_last(NULL);
+        constantlist.set_first(nullptr);
+        constantlist.set_last(nullptr);
         constantlist.set_num_entries(0);
-        predexplist.set_first(NULL);
-        predexplist.set_last(NULL);
+        predexplist.set_first(nullptr);
+        predexplist.set_last(nullptr);
         predexplist.set_num_entries(0);
 
         ground_instantiation = new logic_program_class(edbfile);
@@ -38,10 +46,10 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile)
        // CREATE LIST OF CONSTANTS USED IN INITIAL GROUND EDB 
        v_ptr = ground_instantiation->get_first_vertex();
 
-       while (v_ptr != NULL) {
+       while (v_ptr != nullptr) {
               cons_ptr =  v_ptr->get_first_atom_constant(); 
 
-              while (cons_ptr != NULL) {
+              while (cons_ptr != nullptr) {
                   strcpy(tempconstr, (cons_ptr->get_constant_symbol()) );
                   add_constant_edb(tempconstr);
                   cons_ptr = cons_ptr->get_next_ptr();
@@ -55,7 +63,7 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile)
        // AUGMENT THE EDB WITH THE INSTANTIATION OF EACH INTENSIONAL RULE
          cur_i_ptr = IDB->get_first_rule_ptr();   
 
-         while (cur_i_ptr != NULL) {
+         while (cur_i_ptr != nullptr) {
                  augment_ground_instantiation_ptr(cur_i_ptr);
                  cur_i_ptr = cur_i_ptr->get_next_ptr();
          } //WHILE more intensional rules to instantiate
@@ -65,13 +73,13 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile)
       //     DEPENDENCIES MANIFESTED AS APPEARANCES
        v_ptr = ground_instantiation->get_first_vertex();
 
-       constant_class    *KB_cons_ptr = NULL;
-       while (v_ptr != NULL) {
+       constant_class    *KB_cons_ptr = nullptr;
+       while (v_ptr != nullptr) {
 
               cons_ptr =  v_ptr->get_first_atom_constant(); 
               KB_cons_ptr = find_constant(cons_ptr);
 
-              while (cons_ptr != NULL) {
+              while (cons_ptr != nullptr) {
 
                  //FIND CONSTANT IN KB LIST
                   KB_cons_ptr = find_constant(cons_ptr);
@@ -100,11 +108,11 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile,
         char                      tempconstr[STRING_LENGTH];
         intensional_rule_class   *cur_i_ptr;
 
-        constantlist.set_first(NULL);
-        constantlist.set_last(NULL);
+        constantlist.set_first(nullptr);
+        constantlist.set_last(nullptr);
         constantlist.set_num_entries(0);
-        predexplist.set_first(NULL);
-        predexplist.set_last(NULL);
+        predexplist.set_first(nullptr);
+        predexplist.set_last(nullptr);
         predexplist.set_num_entries(0);
 
         ground_instantiation = new logic_program_class(edbfile);
@@ -114,10 +122,10 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile,
        // CREATE LIST OF CONSTANTS USED IN INITIAL GROUND EDB 
        v_ptr = ground_instantiation->get_first_vertex();
 
-       while (v_ptr != NULL) {
+       while (v_ptr != nullptr) {
               cons_ptr =  v_ptr->get_first_atom_constant(); 
 
-              while (cons_ptr != NULL) {
+              while (cons_ptr != nullptr) {
                   strcpy(tempconstr, (cons_ptr->get_constant_symbol()) );
                   add_constant_edb(tempconstr);
                   cons_ptr = cons_ptr->get_next_ptr();
@@ -131,7 +139,7 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile,
        // AUGMENT THE EDB WITH THE INSTANTIATION OF EACH INTENSIONAL RULE
          cur_i_ptr = IDB->get_first_rule_ptr();   
 
-         while (cur_i_ptr != NULL) {
+         while (cur_i_ptr != nullptr) {
                  augment_ground_instantiation_ptr(cur_i_ptr);
                  cur_i_ptr = cur_i_ptr->get_next_ptr();
          } //WHILE more intensional rules to instantiate
@@ -141,13 +149,13 @@ knowledge_base_class::knowledge_base_class(ifstream& edbfile, ifstream& idbfile,
       //     DEPENDENCIES MANIFESTED AS APPEARANCES
        v_ptr = ground_instantiation->get_first_vertex();
 
-       constant_class    *KB_cons_ptr = NULL;
-       while (v_ptr != NULL) {
+       constant_class    *KB_cons_ptr = nullptr;
+       while (v_ptr != nullptr) {
 
               cons_ptr =  v_ptr->get_first_atom_constant(); 
               KB_cons_ptr = find_constant(cons_ptr);
 
-              while (cons_ptr != NULL) {
+              while (cons_ptr != nullptr) {
 
                  //FIND CONSTANT IN KB LIST
                   KB_cons_ptr = find_constant(cons_ptr);
@@ -173,7 +181,7 @@ void knowledge_base_class::add_constant_edb(char cons_str[STRING_LENGTH])
 
         cur_cons_ptr = constantlist.get_first();
 
-        while ((cur_cons_ptr != NULL) && (!found)) {
+        while ((cur_cons_ptr != nullptr) && (!found)) {
 
                strcpy(tempstr, (cur_cons_ptr->get_constant_symbol()) );
                if ( (strcmp(cons_str,tempstr)) == 0 )
@@ -210,7 +218,7 @@ void knowledge_base_class::add_constant_and_appearance
 
         cur_cons_ptr = constantlist.get_first();
 
-        while ((cur_cons_ptr != NULL) && (!found)) {
+        while ((cur_cons_ptr != nullptr) && (!found)) {
 
                strcpy(tempstr, (cur_cons_ptr->get_constant_symbol()) );
                if ( (strcmp(cons_str,tempstr)) == 0 )
@@ -355,7 +363,7 @@ void knowledge_base_class::display_constant_appearances(ostream& fout)
          fout << "-------------------------------------------------------- \n";
 
          c_ptr = get_first_constant();
-         while (c_ptr != NULL) {
+         while (c_ptr != nullptr) {
              c_ptr->display_appearance_list(fout);
              c_ptr = c_ptr->get_next_ptr();
          } // WHILE
@@ -431,7 +439,7 @@ void knowledge_base_class::initialize_instantiated_constant_ptrs
     first_cons_ptr = get_first_constant();
     var_ptr = i_ptr->get_first_variable_ptr();
 
-    while (var_ptr != NULL) {
+    while (var_ptr != nullptr) {
        var_ptr->assign_instantiated_constant_ptr(first_cons_ptr);
        var_ptr = var_ptr->get_next_ptr();
     } //WHILE
@@ -447,19 +455,19 @@ int  knowledge_base_class::advance_instantiated_constant_ptrs
     variable_class     *var_ptr;
     variable_class     *col_var_ptr;
     constant_class     *first_constant_ptr;
-    int                 column_NULL = 1;
+    int                 column_nullptr = 1;
     int                 finished_instantiating = 0;
  
     first_constant_ptr = get_first_constant();
     col_var_ptr = i_ptr->get_first_variable_ptr();
 
-    while ((column_NULL) && (col_var_ptr != NULL))  {
-         column_NULL =  col_var_ptr->advance_instantiated_constant_ptr
+    while ((column_nullptr) && (col_var_ptr != nullptr))  {
+         column_nullptr =  col_var_ptr->advance_instantiated_constant_ptr
                                      (first_constant_ptr);
          col_var_ptr = col_var_ptr->get_next_ptr();
     }//WHILE
 
-    if ((col_var_ptr == NULL) && (column_NULL == 1)) {
+    if ((col_var_ptr == nullptr) && (column_nullptr == 1)) {
          finished_instantiating = 1; 
     } // IF
 
@@ -488,7 +496,7 @@ constant_class *knowledge_base_class::get_inst_constant_ptr
      //   source_var_ptr
 
      var_ptr = i_ptr->get_first_variable_ptr();
-     while ((var_ptr != NULL) && (!found)) {
+     while ((var_ptr != nullptr) && (!found)) {
            strcpy(dest_var_str, "");
            strcpy(dest_var_str, var_ptr->get_variable_symbol());
            if ( (strcmp(source_var_str, dest_var_str) == 0 ) )
@@ -498,10 +506,10 @@ constant_class *knowledge_base_class::get_inst_constant_ptr
 
      } // WHILE not found
  
-     if (var_ptr != NULL)
+     if (var_ptr != nullptr)
              return var_ptr->get_instantiated_constant_ptr();
      else
-             return NULL;
+             return nullptr;
 
      
 } // get_inst_constant_ptr
@@ -511,7 +519,7 @@ constant_class *knowledge_base_class::get_inst_constant_ptr
 char *knowledge_base_class::catenate_ground_rule(intensional_rule_class *i_ptr)
 {
 
-     char   new_ground_rule[EXTRA_LONG];
+     char   *new_ground_rule = new char[EXTRA_LONG];    //TODO issue-1 memory leak
                                            
      predicate_expression_class  *pred_ptr;
      variable_class              *pred_var_ptr;
@@ -530,17 +538,17 @@ char *knowledge_base_class::catenate_ground_rule(intensional_rule_class *i_ptr)
      //    ATTACH THE INSTANTIATED CONSTANTS TO THE GROUND RULE
 
      pred_var_ptr = pred_ptr->get_first_variable();
-     while ( pred_var_ptr != NULL ) {
+     while ( pred_var_ptr != nullptr ) {
          pred_inst_var_const_ptr = 
                 get_inst_constant_ptr(i_ptr, pred_var_ptr);
 
-         if (pred_inst_var_const_ptr != NULL)
+         if (pred_inst_var_const_ptr != nullptr)
          //ATTACH THE NEWLY FOUND CONSTANT 
            strcat(new_ground_rule, 
                      pred_inst_var_const_ptr->get_constant_symbol() );
 
          pred_var_ptr = pred_var_ptr->get_next_ptr();
-        if (pred_var_ptr != NULL)
+        if (pred_var_ptr != nullptr)
                  strcat(new_ground_rule, ",");
          
      } //WHILE more VARIABLES IN THE CURRENT PRED EXP
@@ -550,7 +558,7 @@ char *knowledge_base_class::catenate_ground_rule(intensional_rule_class *i_ptr)
      pred_ptr = pred_ptr->get_next_ptr();
 
      // CONSTRUCT GROUND RULE BODY
-     while (pred_ptr != NULL) {
+     while (pred_ptr != nullptr) {
 
          if (pred_ptr->get_IS_NEGATIVE()==1)
              strcat(new_ground_rule, "~");
@@ -562,7 +570,7 @@ char *knowledge_base_class::catenate_ground_rule(intensional_rule_class *i_ptr)
         //    ATTACH THE INSTANTIATED CONSTANTS TO THE GROUND RULE
 
          pred_var_ptr = pred_ptr->get_first_variable();
-         while ( pred_var_ptr != NULL ) {
+         while ( pred_var_ptr != nullptr ) {
              pred_inst_var_const_ptr = 
                     get_inst_constant_ptr(i_ptr, pred_var_ptr);
             //ATTACH THE NEWLY FOUND CONSTANT 
@@ -571,7 +579,7 @@ char *knowledge_base_class::catenate_ground_rule(intensional_rule_class *i_ptr)
 
 
              pred_var_ptr = pred_var_ptr->get_next_ptr();
-             if (pred_var_ptr != NULL)
+             if (pred_var_ptr != nullptr)
                      strcat(new_ground_rule, ",");
 
          } //WHILE more VARIABLES IN THE CURRENT PRED EXP
@@ -580,7 +588,7 @@ char *knowledge_base_class::catenate_ground_rule(intensional_rule_class *i_ptr)
 
          pred_ptr = pred_ptr->get_next_ptr();
 
-         if (pred_ptr != NULL)
+         if (pred_ptr != nullptr)
                 strcat(new_ground_rule, ",");
 
    } //WHILE there are more subgoals in BODY
@@ -704,7 +712,7 @@ void knowledge_base_class::add_fact_KB(istream& infile)
 
    // READ THE STRING VERSION OF THE FACT FROM THE INPUT STREAM
    cout << endl << endl <<"Enter new fact.\n ";
-   gochar = read_rule(infile, full_string);
+   gochar = *read_rule(infile, full_string);
    cout << endl;
 
 
@@ -721,6 +729,7 @@ void knowledge_base_class::add_fact_KB(istream& infile)
 //cout << fact_str << endl << endl;
 
         // ADD FACT TO GROUND INSTANTIATION in vertex *vertex_app_ptr
+
         vertex_app_ptr = 
              ground_instantiation->
                      add_fact(fact_str, f_ptr->get_IS_NEGATIVE());
@@ -734,11 +743,11 @@ void knowledge_base_class::add_fact_KB(istream& infile)
        // TRAVERSE THE ATOM's CONSTANTLIST TO FIND NEW CONSTANTS
         c_ptr = a_ptr->get_first_constant();
 
-        while (c_ptr != NULL) {
-              find_c_ptr = NULL;           // INITIALIZE
+        while (c_ptr != nullptr) {
+              find_c_ptr = nullptr;           // INITIALIZE
               find_c_ptr = find_constant(c_ptr); 
 
-              if (find_c_ptr == NULL) {  
+              if (find_c_ptr == nullptr) {
                   //CONSTANT DOES NOT EXIST IN KB
 
                    strcpy(new_c_string, "");
@@ -781,7 +790,7 @@ void knowledge_base_class::add_fact_KB(istream& infile)
 /// Traverses the KB constantlist to find the same constant string
 ///  as the string contained in *source_c_ptr.
 ///  Returns the pointer to the constant having the same string.
-///  If one doesn't exist, it returns NULL.
+///  If one doesn't exist, it returns nullptr.
 ///////////////////////////////////////////////////////////////////////
 
 constant_class  *knowledge_base_class::find_constant(constant_class *source_c_ptr)
@@ -794,7 +803,7 @@ constant_class  *knowledge_base_class::find_constant(constant_class *source_c_pt
     strcpy(source_str, source_c_ptr->get_constant_symbol());
     c_ptr = get_first_constant();  //INITIALIZE TO FIRST CONSTANT IN KB
 
-    while ((c_ptr != NULL) && (!found)) {
+    while ((c_ptr != nullptr) && (!found)) {
         strcpy(dest_str, "");
         strcpy(dest_str, c_ptr->get_constant_symbol());
         if  ( strcmp(source_str, dest_str) == 0 )
@@ -834,7 +843,7 @@ void knowledge_base_class::augment_GI_new_constant
    
   i_ptr  = get_first_intensional_rule();
 
-  while (i_ptr != NULL) {
+  while (i_ptr != nullptr) {
      done_instantiating = 0;
 
 //cout<< "inside WHILE of augment GI the rule is i_ptr" << i_ptr << endl;
@@ -900,7 +909,7 @@ int knowledge_base_class::new_constant_in_instantiation
 //new_c_ptr->output();
 //cout << endl << endl;
 
-    while ((!found) && (var_ptr != NULL)) {
+    while ((!found) && (var_ptr != nullptr)) {
 
         instantiation_c_ptr = var_ptr->get_instantiated_constant_ptr(); 
         strcpy(dest_string, instantiation_c_ptr->get_constant_symbol());

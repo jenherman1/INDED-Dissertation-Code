@@ -1,3 +1,12 @@
+#include <iostream>
+
+#include "LOGIC_PR.H"
+#include "LPCONS.CC"
+#include "UTILITY1.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 logic_program_class::logic_program_class()
 {
    rulelist.initialize();
@@ -177,7 +186,7 @@ while (InputFile.getline(line,80))
        while (done != 1) 
          {
              ind = intarray; 
-             neg_rule = FALSE;
+             neg_rule = FALSE
 
              // SKIP OVER THE "IF" SIGN AND BLANKS            
              while (*p == ' ' || *p == '<' || *p == '-' || *p == ',' )
@@ -193,11 +202,11 @@ while (InputFile.getline(line,80))
                          p++;
                   } // WHILE
 
-             // APPEND NULL CHAR TO EXTRACTED BODY STRING
+             // APPEND nullptr CHAR TO EXTRACTED BODY STRING
              *ind = '\0';
        
              if (*intarray == '~') 
-                   neg_rule = TRUE;
+                   neg_rule = TRUE
 
              if (*intarray != '\0') 
                 subgoal_val = bodystoi(intarray);
@@ -216,7 +225,7 @@ while (InputFile.getline(line,80))
                     p++; 
 
              if (*p == EOF || *p == '\n' || *p == '#')
-                  done = TRUE;  
+                  done = TRUE
 
         } // WHILE not done
 
@@ -254,9 +263,6 @@ while (InputFile.getline(line,80))
      InputFile.close();
 
 } // LOGIC_PROGRAM CONSTRUCTOR...INPUT FILE
-
-
-#include "lpcons.cc"
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -354,7 +360,12 @@ void logic_program_class::add_rule( int head_val,
 {
      rule_class *r_ptr;
      
-     r_ptr = new rule_class(head_val, v_ptr, b_ptr);
+     r_ptr = new rule_class();
+
+     r_ptr->assign_val(head_val);
+     r_ptr->assign_body_ptr(b_ptr);
+     r_ptr->assign_vertex_ptr(v_ptr);
+
      rulelist.add_ptr(r_ptr);
 }
 
@@ -372,10 +383,10 @@ int logic_program_class::already_included(int head_val)
 {
      rule_class *r_ptr;
 
-     r_ptr = NULL;
+     r_ptr = nullptr;
      r_ptr = rulelist.find_val_ptr(head_val);
 
-     if (r_ptr == NULL) 
+     if (r_ptr == nullptr)
           return 0;
      else
           return 1;
@@ -431,7 +442,7 @@ void logic_program_class::add_subgoals_outgoing_edge_pieces (int head_val,
      //  TRAVERSE LISTS OF POSITIVE LITERALS
      cur_lit_ptr = body_ptr->get_first_pos_lit_ptr();
 
-     while (cur_lit_ptr != NULL) {
+     while (cur_lit_ptr != nullptr) {
           // EXTRACT VALUE OF THE CURRENT LITERAL
           search_head = cur_lit_ptr->get_value();
           
@@ -439,7 +450,13 @@ void logic_program_class::add_subgoals_outgoing_edge_pieces (int head_val,
           search_vertex = find_add_vertex(search_head);
          
           // ADD A POSITIVE APPEARANCE TO THIS NEWLY FOUND VERTEX
-          search_vertex->add_pos_appearance(head_val, head_ptr, body_ptr);
+          //search_vertex->add_pos_appearance(head_val, head_ptr, body_ptr);
+          rule_class *p_ptr = new rule_class();
+          p_ptr->assign_val(head_val);
+          p_ptr->assign_vertex_ptr(head_ptr);
+          p_ptr->assign_body_ptr(body_ptr);
+
+          search_vertex->pos_appearances.add_ptr(p_ptr);
 
           // ADVANCE TO THE NEXT POSITIVE LITERAL IN BODY
           cur_lit_ptr = (cur_lit_ptr->get_next_ptr()); 
@@ -449,7 +466,7 @@ void logic_program_class::add_subgoals_outgoing_edge_pieces (int head_val,
      //  TRAVERSE LISTS OF NEGATIVE LITERALS
      cur_lit_ptr = body_ptr->get_first_neg_lit_ptr();
 
-     while (cur_lit_ptr != NULL) {
+     while (cur_lit_ptr != nullptr) {
           // EXTRACT VALUE OF THE CURRENT LITERAL
           search_head = cur_lit_ptr->get_value();
           
@@ -457,7 +474,13 @@ void logic_program_class::add_subgoals_outgoing_edge_pieces (int head_val,
           search_vertex = find_add_vertex(search_head);
          
           // ADD A NEGATIVE APPEARANCE TO THIS NEWLY FOUND VERTEX
-          search_vertex->add_neg_appearance(head_val, head_ptr, body_ptr);
+          //search_vertex->add_neg_appearance(head_val, head_ptr, body_ptr);
+          rule_class *p_ptr = new rule_class();
+          p_ptr->assign_val(head_val);
+          p_ptr->assign_vertex_ptr(head_ptr);
+          p_ptr->assign_body_ptr(body_ptr);
+
+          search_vertex->neg_appearances.add_ptr(p_ptr);
 
           // ADVANCE TO THE NEXT POSITIVE LITERAL IN BODY
           cur_lit_ptr = (cur_lit_ptr->get_next_ptr()); 
@@ -479,7 +502,7 @@ void logic_program_class::display()
    cout << "LOGIC PROGRAM DISPLAYED BY ORDER OF RULE GENERATION: \n";
    cout << "\n";
 
-   while (r_ptr != NULL) {
+   while (r_ptr != nullptr) {
        display_rule(r_ptr);
        r_ptr = r_ptr->get_next_ptr();
    }
@@ -503,9 +526,9 @@ void logic_program_class::display_head_groups()
    cout << "LOGIC PROGRAM DISPLAYED BY COMMON HEAD GROUPINGS: \n";
    cout << "\n";
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        b_ptr = v_ptr->get_first_body();
-       while (b_ptr != NULL) {
+       while (b_ptr != nullptr) {
            display_rule(v_ptr, b_ptr);
            b_ptr = b_ptr->get_next_ptr();
        } // WHILE
@@ -553,7 +576,7 @@ void logic_program_class::display_rule(rule_class *r_ptr)
 {
    vertex_class     *v_ptr;
    body_node_class  *b_ptr;
-   node_class       *rule_bod;
+   body_node_class  *rule_bod;
    int              head_val;
 
    head_val = r_ptr->get_value();
@@ -563,7 +586,7 @@ void logic_program_class::display_rule(rule_class *r_ptr)
    // FIND THE RULE BODY 
    b_ptr = v_ptr->get_first_body();
    
-   while ((rule_bod != b_ptr) && (rule_bod != NULL))
+   while ((rule_bod != b_ptr) && (rule_bod != nullptr))
        b_ptr = b_ptr->get_next_ptr();
 
 
@@ -639,14 +662,14 @@ int logic_program_class::determine_truths()
 
 
    v_ptr = Vertexlist.get_first();
-   if (v_ptr != NULL) {
+   if (v_ptr != nullptr) {
        next_truth_val = v_ptr->get_truth();
        next_guess = v_ptr->get_guess();
    } // IF
      
    changed = 0;                    // 0 means FALSE
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        switch (next_truth_val) {
           case 0  :  {   // FALSE 
 
@@ -654,12 +677,12 @@ int logic_program_class::determine_truths()
                       b_ptr = v_ptr->get_first_body();
 //                    topped = 0;
 
-                      while (b_ptr != NULL) {
+                      while (b_ptr != nullptr) {
                           current_body_stat = b_ptr->get_body_status();
                           if (current_body_stat == 2)  {   // 2 means ALL_TRUE 
                             v_ptr->assign_truth(3);    // 3 means TOP
                             changed = 1; 
-                            b_ptr = NULL;
+                            b_ptr = nullptr;
                             break;
                           } // IF
 //                          else if (current_body_stat == 3)  {  // 3 means TOPPED
@@ -690,12 +713,12 @@ int logic_program_class::determine_truths()
                       b_ptr = v_ptr->get_first_body();
 //                      topped = 0;
 
-                      while (b_ptr != NULL) {
+                      while (b_ptr != nullptr) {
                         current_body_stat = b_ptr->get_body_status();
                         if (current_body_stat == 2)  {   // 2 means ALL_TRUE 
                             v_ptr->assign_truth(1);    // 1 means TRUE
                             changed = 1; 
-                            b_ptr = NULL;
+                            b_ptr = nullptr;
                             break;
                         } // IF
 //                        else if (current_body_stat == 3)  {  // 3 means TOPPED
@@ -724,7 +747,7 @@ int logic_program_class::determine_truths()
 
         // ADVANCE TO NEXT VERT%EX IN GRAPH
         v_ptr = v_ptr->get_next_ptr();
-        if (v_ptr != NULL) {
+        if (v_ptr != nullptr) {
             next_truth_val = v_ptr->get_truth();
             next_guess = v_ptr->get_guess();
         } // IF
@@ -748,26 +771,26 @@ int logic_program_class::determine_truths()
 //
 //
 //   v_ptr = Vertexlist.get_first();
-//   if (v_ptr != NULL) {
+//   if (v_ptr != nullptr) {
 ///       next_truth_val = v_ptr->get_truth();
 //      next_guess = v_ptr->get_guess();
 //   } // IF
 //     
 //   changed = 0;                    // 0 means FALSE
 //
-//   while (v_ptr != NULL) {
+//   while (v_ptr != nullptr) {
 //    if (next_guess != 1) {  // IF THE NODE WAS NOT PREASSIGNED
 //         // DON'T UPDATE AN ALREADY TRUE OR FALSE NODE
 //         if ((next_truth_val != 1) && (next_truth_val != 0))  {
 //
 //             b_ptr = v_ptr->get_first_body();
 //
-//             while (b_ptr != NULL) {
+//             while (b_ptr != nullptr) {
 //                current_body_stat = b_ptr->get_body_status();
 //                if (current_body_stat == 2)  {   // 2 means ALL_TRUE 
 //                      v_ptr->assign_truth(1);    // 1 means TRUE
 //                      changed = 1; 
-//                      b_ptr = NULL;
+//                      b_ptr = nullptr;
 //                      break;
 //                } // IF
 //                b_ptr = b_ptr->get_next_ptr();
@@ -782,12 +805,12 @@ int logic_program_class::determine_truths()
 //              // DETERMINE WHETHER _ANY_ OF ITS BODIES ARE ALL_TRUE
 //               b_ptr = v_ptr->get_first_body();
 //
-//               while (b_ptr != NULL) {
+//               while (b_ptr != nullptr) {
 //                   current_body_stat = b_ptr->get_body_status();
 //                   if (current_body_stat == 2)  {   // 2 means ALL_TRUE
 //                         v_ptr->assign_truth(3);    // 3 means TOP
 //                         changed = 1;
-//                         b_ptr = NULL;
+//                         b_ptr = nullptr;
 //                         break;
 //                    } // IF
 //                    b_ptr = b_ptr->get_next_ptr();
@@ -796,7 +819,7 @@ int logic_program_class::determine_truths()
 //
 //      } // ELSE .. PREASSIGNED
 //        v_ptr = v_ptr->get_next_ptr();
-//        if (v_ptr != NULL) {
+//        if (v_ptr != nullptr) {
 //            next_truth_val = v_ptr->get_truth();
 //            next_guess = v_ptr->get_guess();
 //        } // IF
@@ -819,7 +842,7 @@ int logic_program_class::determine_truths()
 ///          All of its bodies have status ELIMINATED
 ///          (recall:  ELIMINATED is #defined as 1 in const.h)
 ///       OR
-///          its bodylist is NULL
+///          its bodylist is nullptr
 ///
 ///     Only vertices that are not currently TRUE or FALSE are checked.
 //////////////////////////////////////////////////////////////////////
@@ -836,12 +859,12 @@ int logic_program_class::determine_falsities_KK()
 
 
      v_ptr = Vertexlist.get_first();
-     if (v_ptr != NULL) {
+     if (v_ptr != nullptr) {
          next_truth_val = v_ptr->get_truth();
      } // IF
 
      changed = 0;       // 0 is FALSE
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
 
           // CONSIDER BOTTOM OR TRUE VERTICES...IGNORE FALSE AND TOP VERTICES
           if ((next_truth_val == 2) || (next_truth_val == 1)) {
@@ -849,10 +872,10 @@ int logic_program_class::determine_falsities_KK()
                b_ptr = v_ptr->get_first_body();
                all_eliminated = 1;
 
-               while (b_ptr != NULL) {
+               while (b_ptr != nullptr) {
                    current_body_stat = b_ptr->get_body_status();
                    if (current_body_stat != 1)  {   // 1 means ELIMINATED
-                       b_ptr = NULL;
+                       b_ptr = nullptr;
                        all_eliminated = 0;
                        break;
                     } // IF
@@ -876,7 +899,7 @@ int logic_program_class::determine_falsities_KK()
 
         // PROCEED TO THE NEXT VERTEX IN THE GRAPH
         v_ptr = v_ptr->get_next_ptr();
-        if (v_ptr != NULL) {
+        if (v_ptr != nullptr) {
              next_truth_val = v_ptr->get_truth();
         } // IF
      }// WHILE NOT END OF GRAPH
@@ -905,7 +928,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
     vertex_class           *appearance_v_ptr;
     body_node_class        *appearance_b_ptr;
     rule_class             *r_ptr;
-    node_class             *rule_bod;
+    body_node_class        *rule_bod;
     int                     appearance_head;
     int                     vertex_truth_val;
 
@@ -922,7 +945,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
     // EXCISE ALL POSITIVE APPEARANCES THROUGHOUT THE GRAPH
 
     r_ptr = v_ptr->get_first_pos_appearance();
-    while (r_ptr != NULL) {
+    while (r_ptr != nullptr) {
          appearance_head = r_ptr->get_value();
          appearance_v_ptr = Vertexlist.find_val_ptr(appearance_head);
          rule_bod = r_ptr->get_body_ptr();
@@ -934,7 +957,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
         // -----------------------------------------------------------
 
          appearance_b_ptr = appearance_v_ptr->get_first_body();
-         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != NULL))
+         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != nullptr))
                appearance_b_ptr = appearance_b_ptr->get_next_ptr();
 
          // appearance_b_ptr IS NOW POINTING TO THE CORRECT BODY	
@@ -955,7 +978,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
     // ELIMINATE ALL RULES WITH NEGATIVE APPEARANCES... THEY ARE FALSE
 
     r_ptr = v_ptr->get_first_neg_appearance();
-    while (r_ptr != NULL) {
+    while (r_ptr != nullptr) {
          appearance_head = r_ptr->get_value();
          appearance_v_ptr = Vertexlist.find_val_ptr(appearance_head);
          rule_bod = r_ptr->get_body_ptr();
@@ -967,7 +990,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
         // -----------------------------------------------------------
 
          appearance_b_ptr = appearance_v_ptr->get_first_body();
-         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != NULL))
+         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != nullptr))
                appearance_b_ptr = appearance_b_ptr->get_next_ptr();
 
          // appearance_b_ptr IS NOW POINTING TO THE CORRECT BODY
@@ -992,7 +1015,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
     // EXCISE ALL NEGATIVE APPEARANCES THROUGHOUT THE GRAPH
 
     r_ptr = v_ptr->get_first_neg_appearance();
-    while (r_ptr != NULL) {
+    while (r_ptr != nullptr) {
          appearance_head = r_ptr->get_value();
          appearance_v_ptr = Vertexlist.find_val_ptr(appearance_head);
          rule_bod = r_ptr->get_body_ptr();
@@ -1004,7 +1027,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
         // -----------------------------------------------------------
 
          appearance_b_ptr = appearance_v_ptr->get_first_body();
-         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != NULL))
+         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != nullptr))
                appearance_b_ptr = appearance_b_ptr->get_next_ptr();
 
          // appearance_b_ptr IS NOW POINTING TO THE CORRECT BODY	
@@ -1025,7 +1048,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
     // ELIMINATE ALL RULES WITH POSITIVE APPEARANCES... THEY ARE FALSE
 
     r_ptr = v_ptr->get_first_pos_appearance();
-    while (r_ptr != NULL) {
+    while (r_ptr != nullptr) {
          appearance_head = r_ptr->get_value();
          appearance_v_ptr = Vertexlist.find_val_ptr(appearance_head);
          rule_bod = r_ptr->get_body_ptr();
@@ -1037,7 +1060,7 @@ void logic_program_class::propogate_truthfulness_KK(vertex_class *v_ptr)
         // -----------------------------------------------------------
 
          appearance_b_ptr = appearance_v_ptr->get_first_body();
-         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != NULL))
+         while ((rule_bod != appearance_b_ptr) && (appearance_b_ptr != nullptr))
                appearance_b_ptr = appearance_b_ptr->get_next_ptr();
 
          // appearance_b_ptr IS NOW POINTING TO THE CORRECT BODY
@@ -1061,17 +1084,17 @@ void logic_program_class::update_graph()
      int                    next_truth_val;
 
      v_ptr = Vertexlist.get_first();
-     if (v_ptr != NULL)
+     if (v_ptr != nullptr)
         next_truth_val = v_ptr->get_truth();
 
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
        // DON'T PROPOGATE TRUTHFULNESS OF BOTTOM NODES
        if (next_truth_val != 2) {       //  WHERE 2 MEANS BOTTOM
              propogate_truthfulness_KK(v_ptr);
         } // IF TRUTH ESTABLISHED
 
        v_ptr = v_ptr->get_next_ptr();
-       if (v_ptr != NULL)
+       if (v_ptr != nullptr)
             next_truth_val = v_ptr->get_truth();
      }// WHILE NOT END OF GRAPH
 
@@ -1168,7 +1191,7 @@ void logic_program_class::print_truth_vals(int t_val)
 
    v_ptr = Vertexlist.get_first();
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        if ((v_ptr->get_truth())  == t_val) 
            cout << v_ptr->get_value() << "\n"; 
        v_ptr = v_ptr->get_next_ptr();
@@ -1188,7 +1211,7 @@ void logic_program_class::print_postorder_nums()
 
    v_ptr = Vertexlist.get_first();
 
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        v_ptr->print_postorder_num();
        v_ptr = v_ptr->get_next_ptr();
    }// WHILE
@@ -1223,7 +1246,7 @@ int logic_program_class::total(int *num_true,  int *num_false,
    *num_top = 0;
 
    v_ptr = Vertexlist.get_first();
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
        cur_t_val = v_ptr->get_truth();
        switch  (cur_t_val)  {
           case 0: { *num_false = *num_false + 1; break;}
@@ -1321,7 +1344,7 @@ void logic_program_class::determine_J()
     v_ptr = Vertexlist.get_first();
     next_access_val = v_ptr->get_access();
     changed = 0;                    // 0 means FALSE
-    while (v_ptr != NULL) {
+    while (v_ptr != nullptr) {
 
          // DON'T UPDATE VERTICES ALREADY IN J
          if (next_access_val != 1) {
@@ -1329,7 +1352,7 @@ void logic_program_class::determine_J()
            // EXAMINE BODYLIST FOR NON-ELIMINATED BODIES WHOSE POS LITS ARE IN_J 
            b_ptr = v_ptr->get_first_body();
 
-           while (b_ptr != NULL) {
+           while (b_ptr != nullptr) {
                 current_body_stat = b_ptr->get_body_status();
                 if (current_body_stat != 1)  {   // 1 means ELIMINATED 
                       in_J = check_all_pos_subgoals(b_ptr);
@@ -1338,7 +1361,7 @@ void logic_program_class::determine_J()
                           v_ptr->assign_access(1);    // 1 means TRUE
 
                           changed = 1; 
-                          b_ptr = NULL;
+                          b_ptr = nullptr;
                           break;
                        } // IF in_J = 1
                  } // IF CURRENT BODY NOT ELIMINATED
@@ -1350,7 +1373,7 @@ void logic_program_class::determine_J()
        } // IF NODE ISN'T ALREADY IN J
 
        v_ptr = v_ptr->get_next_ptr();
-       if (v_ptr != NULL)
+       if (v_ptr != nullptr)
             next_access_val = v_ptr->get_access();
 
      }// WHILE  STILL MORE VERTICES IN THE LIST
@@ -1373,12 +1396,12 @@ int logic_program_class::check_all_pos_subgoals(body_node_class *b_ptr)
     l_ptr = b_ptr->get_first_pos_lit_ptr();
 
     all_in_J = 1;
-    while (l_ptr != NULL) {
+    while (l_ptr != nullptr) {
       v_ptr = Vertexlist.find_val_ptr((l_ptr->get_value()));
 
       if ((v_ptr->get_access()) != 1) {
               all_in_J = 0;
-              l_ptr = NULL;
+              l_ptr = nullptr;
               break;
       } // IF
 
@@ -1412,7 +1435,7 @@ int logic_program_class::determine_falsities_WF()
     v_ptr = Vertexlist.get_first();
     changed = 0;
 
-    while (v_ptr != NULL) {
+    while (v_ptr != nullptr) {
        next_truth_val = v_ptr->get_truth();
        next_access_val = v_ptr->get_access(); 
 
@@ -1447,7 +1470,7 @@ void logic_program_class::reassign_access()
      int              cur_truth;
 
      v_ptr = Vertexlist.get_first();
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
           cur_truth = v_ptr->get_truth();
            
           // AUTOMATICALLY INCLUDE TRUE AND TOP VERTICES IN J
@@ -1506,7 +1529,7 @@ void logic_program_class::preassign_false_variables()
 
 
           // IF VERTEX EXISTS 
-          if (v_ptr != NULL) {
+          if (v_ptr != nullptr) {
 //DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd
 //cout << "inside WHILE/IF vertex is \n";
 //v_ptr->output();
@@ -1546,7 +1569,7 @@ void logic_program_class::transfer_W_to_truth()
      v_ptr = Vertexlist.get_first();
 
 
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
 
           v_ptr->assign_truth((v_ptr->get_W_val()));
           v_ptr = v_ptr->get_next_ptr();
@@ -1565,7 +1588,7 @@ void logic_program_class::initialize_graph()
 
 
     v_ptr = Vertexlist.get_first();
-    while (v_ptr != NULL) {
+    while (v_ptr != nullptr) {
            // RESET VERTEX FIELDS OF TRUTH_VAl, ACCESS, AND GUESS
            v_ptr->assign_truth(2);    // 2 means BOTTOM
            v_ptr->assign_W_val(2);    // 2 means BOTTOM
@@ -1577,7 +1600,7 @@ void logic_program_class::initialize_graph()
            // INITIALIZE BODYLIST
            b_ptr = v_ptr->get_first_body();
 
-           while (b_ptr != NULL) {
+           while (b_ptr != nullptr) {
               b_ptr->set_body_status(2);  // 2 means UNDETERMINED..BOTTOM
               if (b_ptr->get_negative_fact() == 1) {
                   b_ptr->set_pos_assess(0);   // 1 means TRUE.. init min to max
@@ -1692,7 +1715,7 @@ void logic_program_class::assign_all_false_variables()
 
      v_ptr = get_first_vertex();
 
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
         v_ptr->assign_W_val(0);
         v_ptr = v_ptr->get_next_ptr();
      } //WHILE
@@ -1711,7 +1734,7 @@ void logic_program_class::assign_binary(int model_num)
 
      v_ptr = get_first_vertex();
 
-     while ((model_num > 0) && (v_ptr != NULL)) {
+     while ((model_num > 0) && (v_ptr != nullptr)) {
         if ((model_num % 2)== 1) {
                 v_ptr->assign_W_val(1);
                 v_ptr->assign_J_val(1);
@@ -1784,7 +1807,7 @@ void logic_program_class::find_first_stable_model()
             // IF the wf_residual was able to be stably assigned...copy to original graph
             if (model_found) {
                  cur_factor_vertex = wf_residual->get_first_vertex();   
-                 while (cur_factor_vertex != NULL) {
+                 while (cur_factor_vertex != nullptr) {
                        orig_graph_vertex = find_vertex(cur_factor_vertex->get_value());
                        orig_graph_vertex->assign_truth(cur_factor_vertex->get_truth()); 
 
@@ -1809,13 +1832,13 @@ void logic_program_class::perform_neg_assess_on_bodies()
      
       v_ptr = Vertexlist.get_first();
 
-      while (v_ptr != NULL) {
+      while (v_ptr != nullptr) {
              
              // TRAVERSE BODY LIST SEARCHING FOR BODIES WITH NON-NIL
              //     NEGATIVE LITERAL LISTS
              b_ptr = v_ptr->get_first_body();
 
-             while (b_ptr != NULL) {
+             while (b_ptr != nullptr) {
                      b_ptr->determine_neg_assess(this);
                      b_ptr = b_ptr->get_next_ptr();
              } //WHILE
@@ -1836,7 +1859,7 @@ void logic_program_class::reinitialize_J_vals()
      vertex_class    *v_ptr;
 
      v_ptr = Vertexlist.get_first();
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
           v_ptr->assign_J_val(0);  // 0 is FALSE
           v_ptr = v_ptr->get_next_ptr();
      } // WHILE
@@ -1864,14 +1887,14 @@ int logic_program_class::determine_J_vals()
 
      v_ptr = Vertexlist.get_first();
      change = 0;
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          lub_so_far = 0;               // 0 is FALSE
          
          //Traverse bodylist and establish each body status;  Incrementally
          //  decide whether or not the status is higher than lub_so_far
 
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL)  {
+         while (b_ptr != nullptr)  {
                b_ptr->determine_pos_assess(this);  
                b_val = b_ptr->determine_body_status();
                lub_so_far = lub_t(lub_so_far, b_val);
@@ -1919,14 +1942,14 @@ void logic_program_class::determine_J_vals_optimize()
 
 
      v_ptr = Vertexlist.get_first();
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          lub_so_far = 0;               // 0 is FALSE
          
          //Traverse bodylist and establish each body status;  Incrementally
          //  decide whether or not the status is higher than lub_so_far
 
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL)  {
+         while (b_ptr != nullptr)  {
                b_ptr->determine_pos_assess(this);  
                b_val = b_ptr->determine_body_status();
                lub_so_far = lub_t(lub_so_far, b_val);
@@ -1939,7 +1962,7 @@ void logic_program_class::determine_J_vals_optimize()
 
                // TRAVERSE THE POSITIVE APPEARANCE LIST AND ENQUEUE EACH ONE 
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    tempbody = this->get_body_ptr(r_ptr);
@@ -1977,7 +2000,7 @@ void logic_program_class::determine_J_vals_optimize()
 
               ///  PROPOGATE THE CHANGE BY ENQUEUE THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    tempbody = this->get_body_ptr(r_ptr);
@@ -2012,7 +2035,7 @@ int logic_program_class::update_W_vals()
     v_ptr = Vertexlist.get_first();
     change = 0;
     
-    while (v_ptr != NULL)  {
+    while (v_ptr != nullptr)  {
          Jval = v_ptr->get_J_val();
          Wval = v_ptr->get_W_val();
          newWval = lub_k(Jval, Wval);
@@ -2108,13 +2131,13 @@ body_node_class *logic_program_class::get_body_ptr(rule_class *r_ptr)
      vertex_class   *search_vertex;
      int             search_head;
      body_node_class *b_ptr;
-     node_class      *n_ptr;
+     body_node_class *n_ptr;
 
 
      search_vertex = get_vertex_ptr(r_ptr);
      n_ptr = r_ptr->get_body_ptr();
      b_ptr = search_vertex->get_first_body();
-     while (b_ptr != NULL)  {
+     while (b_ptr != nullptr)  {
            if (b_ptr == n_ptr)
                     break;
            else
@@ -2194,7 +2217,7 @@ void logic_program_class::get_WF_linear_unit()
 */
 
    v_ptr = Vertexlist.get_first();
-   while (v_ptr != NULL)   {
+   while (v_ptr != nullptr)   {
         tempval = v_ptr->get_W_val();
 
         if ((tempval==0) || (tempval==1)) {
@@ -2203,7 +2226,7 @@ void logic_program_class::get_WF_linear_unit()
 
           // TRAVERSE THE NEGATIVE APPEARANCE LIST AND ENQUEUE EACH ONE OF VAL BOTTOM
                 r_ptr = v_ptr->get_first_neg_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    temptruth = tempvert->get_W_val();
@@ -2258,7 +2281,7 @@ void logic_program_class::get_WF_linear_unit()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    temptruth = tempvert->get_W_val();
@@ -2272,7 +2295,7 @@ void logic_program_class::get_WF_linear_unit()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUING THE NEGATIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_neg_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    temptruth = tempvert->get_W_val();
@@ -2372,7 +2395,7 @@ void logic_program_class::get_WF_linear_stack()
 
                ///  PROPOGATE THE CHANGE BY PUSHING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2412,7 +2435,7 @@ void logic_program_class::get_WF_linear_stack()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2460,7 +2483,7 @@ void logic_program_class::get_WF_linear_stack()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUEING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2497,7 +2520,7 @@ void logic_program_class::get_WF_linear_stack()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2582,7 +2605,7 @@ void logic_program_class::get_WF_linear_2()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUEING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2619,7 +2642,7 @@ void logic_program_class::get_WF_linear_2()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2663,7 +2686,7 @@ void logic_program_class::get_WF_linear_2()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUEING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2698,7 +2721,7 @@ void logic_program_class::get_WF_linear_2()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -2751,9 +2774,9 @@ void logic_program_class::initialize_Q_bodiless()
     // ENQUEUE ALL HEADS OF BODILESS RULES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->is_bodiless_rule()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -2762,10 +2785,10 @@ void logic_program_class::initialize_Q_bodiless()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_BODILESS
 
@@ -2790,9 +2813,9 @@ void logic_program_class::initialize_Q_bodiless_stack()
     // ENQUEUE ALL HEADS OF BODILESS RULES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->is_bodiless_rule()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -2801,10 +2824,10 @@ void logic_program_class::initialize_Q_bodiless_stack()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_BODILESS_STACK
 
@@ -2828,7 +2851,7 @@ void logic_program_class::initialize_Q_headless()
     // ENQUEUE ALL VARIABLES WITH NO HEAD APPEARANCES 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)  { 
+     while (v_ptr != nullptr)  {
         if ((v_ptr->no_head_appearance()==1)) {
               tempval = v_ptr->get_value();    
               cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -2836,7 +2859,7 @@ void logic_program_class::initialize_Q_headless()
          } // IF
 
          v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_HEADLESS
 
@@ -2860,7 +2883,7 @@ void logic_program_class::initialize_Q_headless_stack()
     // ENQUEUE ALL HEADS OF BODILESS RULES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
             no_appear = 0;  // INITIALIZE
             no_appear = v_ptr->no_head_appearance();
 
@@ -2870,7 +2893,7 @@ void logic_program_class::initialize_Q_headless_stack()
                   Q.push(cur_appear);
              } // IF
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_HEADLESS_STACK
 
@@ -2894,9 +2917,9 @@ void logic_program_class::initialize_Q_negatives()
 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->has_only_negative_subgoals()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -2905,10 +2928,10 @@ void logic_program_class::initialize_Q_negatives()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_NEGATIVE
 
@@ -2935,9 +2958,9 @@ void logic_program_class::initialize_Q_negatives_stack()
 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->has_only_negative_subgoals()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -2946,10 +2969,10 @@ void logic_program_class::initialize_Q_negatives_stack()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_NEGATIVES_STACK
 
@@ -2974,9 +2997,9 @@ void logic_program_class::initialize_Q_positives()
 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->has_only_positive_subgoals()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -2985,10 +3008,10 @@ void logic_program_class::initialize_Q_positives()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_POSITIVES_
 
@@ -3013,9 +3036,9 @@ void logic_program_class::initialize_Q_positives_stack()
 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->has_only_positive_subgoals()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -3024,10 +3047,10 @@ void logic_program_class::initialize_Q_positives_stack()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 } // INITIALIZE_Q_POSITIVES_STACK
 
@@ -3071,7 +3094,7 @@ void logic_program_class::get_WF_linear()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUEING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -3098,7 +3121,7 @@ void logic_program_class::get_WF_linear()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -3139,7 +3162,7 @@ void logic_program_class::get_WF_linear()
 
                ///  PROPOGATE THE CHANGE BY ENQUEUEING THE POSITIVE APPEARANCE LIST
                 r_ptr = v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempval = r_ptr->get_value();
                    tempvert = this->get_vertex_ptr(r_ptr);
                    cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -3166,7 +3189,7 @@ void logic_program_class::get_WF_linear()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -3204,7 +3227,7 @@ void logic_program_class::initialize_Q_all()
 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
           tempval = v_ptr->get_value();    
           cur_appear = new vertex_ptr_class(tempval, v_ptr);
           Q.add_ptr(cur_appear);
@@ -3235,9 +3258,9 @@ void logic_program_class::initialize_Q_appearances()
     // ENQUEUE ALL HEADS OF BODILESS RULES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->is_bodiless_rule()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -3246,10 +3269,10 @@ void logic_program_class::initialize_Q_appearances()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 //cout << "after heads_only() queue is... \n";
 //Q.print();
@@ -3258,14 +3281,14 @@ void logic_program_class::initialize_Q_appearances()
     // ENQUEUE ALL VARIABLES THAT DO NOT APPEAR AS HEADS
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          if( (v_ptr->no_head_appearance()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
                   Q.add_ptr(cur_appear);
           } // IF
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 //cout << "after no_head_appearance() queue is... \n";
 //Q.print();
@@ -3275,14 +3298,14 @@ void logic_program_class::initialize_Q_appearances()
     // ENQUEUE ALL VARIABLES THAT HAVE NEGATIVE APPEARANCES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          if( (v_ptr->has_negative_appearances()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
                   Q.add_ptr(cur_appear);
           } // IF
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 //cout << "after neg_appearnaces() queue is... \n";
 //Q.print();
@@ -3292,14 +3315,14 @@ void logic_program_class::initialize_Q_appearances()
     // ENQUEUE ALL VARIABLES THAT HAVE POSITIVE APPEARANCES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          if( (v_ptr->has_positive_appearances()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
                   Q.add_ptr(cur_appear);
           } // IF
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 //cout << "after pos_appearnaces() queue is... \n";
 //Q.print();
@@ -3325,9 +3348,9 @@ void logic_program_class::initialize_Q_only_neg_subgoals()
     // ENQUEUE ALL HEADS OF BODILESS RULES
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->is_bodiless_rule()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -3336,33 +3359,33 @@ void logic_program_class::initialize_Q_only_neg_subgoals()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 
 
     // ENQUEUE ALL VARIABLES THAT DO NOT APPEAR AS HEADS
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          if( (v_ptr->no_head_appearance()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
                   Q.add_ptr(cur_appear);
           } // IF
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 
     // ENQUEUE ALL VARIABLES THAT HAVE ANY NEGATIVE SUBGOALS
 
      v_ptr = Vertexlist.get_first();
 
-     while (v_ptr != NULL)   {
+     while (v_ptr != nullptr)   {
          b_ptr = v_ptr->get_first_body();
-         while (b_ptr != NULL) {
+         while (b_ptr != nullptr) {
             if( (b_ptr->has_only_negative_subgoals()) == 1) {
                   tempval = v_ptr->get_value();    
                   cur_appear = new vertex_ptr_class(tempval, v_ptr);
@@ -3371,10 +3394,10 @@ void logic_program_class::initialize_Q_only_neg_subgoals()
              } // IF
             b_ptr = b_ptr->get_next_ptr();
 
-          } // WHILE B-PTR NOT NULL
+          } // WHILE B-PTR NOT nullptr
 
           v_ptr = v_ptr->get_next_ptr();
-     } // WHILE  V-PTR NOT NULL
+     } // WHILE  V-PTR NOT nullptr
 
 
 
@@ -3395,7 +3418,7 @@ void logic_program_class::final_scan_W_vals_Q()
      int               new_W_val;
 
      v_ptr = Vertexlist.get_first();
-     while (v_ptr != NULL) {
+     while (v_ptr != nullptr) {
           current_J = v_ptr->get_J_val();
           current_W = v_ptr->get_W_val(); 
 
@@ -3406,7 +3429,7 @@ void logic_program_class::final_scan_W_vals_Q()
           ///  PROPOGATE THE CHANGE BY ENQUEUEING THE NEGATIVE APPEARANCE LIST
            r_ptr = v_ptr->get_first_neg_appearance();
 
-           while (r_ptr != NULL) {
+           while (r_ptr != nullptr) {
                 tempval = r_ptr->get_value();
                 tempvert = this->get_vertex_ptr(r_ptr);
                 cur_appear = new vertex_ptr_class(tempval, tempvert);
@@ -3446,7 +3469,7 @@ logic_program_class *logic_program_class::factor_out()
    //  TRAVERSE THE GRAPH AND COPY THOSE NODES OF VALUE BOTTOM (2)
 
    v_ptr = Vertexlist.get_first();
-   while (v_ptr != NULL) {
+   while (v_ptr != nullptr) {
       
       temp_truth = v_ptr->get_truth();
 
@@ -3461,14 +3484,14 @@ logic_program_class *logic_program_class::factor_out()
          // ATTACH BOTTOM BODIES TO NEW VERTEX 
            b_ptr = v_ptr->get_first_body();
         
-           while (b_ptr != NULL) {
+           while (b_ptr != nullptr) {
               body_val = b_ptr->get_value();
               if (body_val == 2) {
                  new_b_ptr = new body_node_class();
                  
                  // ATTACH BOTTOM POSITIVE SUBGOALS
                  l_ptr = b_ptr->get_first_pos_lit_ptr();
-                 while (l_ptr != NULL) {
+                 while (l_ptr != nullptr) {
                      lit_truth_val = get_lit_truth(l_ptr);
                      if (lit_truth_val == 2) {
                           lit_val = l_ptr->get_value();   
@@ -3480,7 +3503,7 @@ logic_program_class *logic_program_class::factor_out()
 
                  // ATTACH BOTTOM NEGATIVE SUBGOALS
                  l_ptr = b_ptr->get_first_neg_lit_ptr();
-                 while (l_ptr != NULL) {
+                 while (l_ptr != nullptr) {
                      lit_truth_val = get_lit_truth(l_ptr);
                      if (lit_truth_val == 2) {
                           lit_val = l_ptr->get_value();   
@@ -3499,7 +3522,7 @@ logic_program_class *logic_program_class::factor_out()
                } // IF BODY IS BOTTOM
              b_ptr = b_ptr->get_next_ptr();
 
-           } // WHILE b_ptr != NULL
+           } // WHILE b_ptr != nullptr
 
       } // IF v_ptr POINTS TO A BOTTOM VERTEX   
 
@@ -3507,7 +3530,7 @@ logic_program_class *logic_program_class::factor_out()
       v_ptr = v_ptr->get_next_ptr();
 
 
-   } // WHILE v_ptr != NULL
+   } // WHILE v_ptr != nullptr
 
    return F;
 }
@@ -3556,7 +3579,7 @@ void logic_program_class::compute_postorder_nums()
 
   v_ptr = Vertexlist.get_first();
 
-  while (v_ptr != NULL) {
+  while (v_ptr != nullptr) {
 
      /////////////////////////////////////////////////////////
      // if node is not marked, perform iterative dfs on this node
@@ -3586,7 +3609,7 @@ void logic_program_class::compute_postorder_nums()
                  // --------------------------------------------------
 
                 r_ptr = top_v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    tempvert = this->get_vertex_ptr(r_ptr);
                    if (tempvert->visited()==0) {
                          tempvert->mark();
@@ -3601,13 +3624,13 @@ void logic_program_class::compute_postorder_nums()
                 } // WHILE 
 
                 //-------------------------------------------------------
-                // if r_ptr is NULL then there was no unmarked neighbor
+                // if r_ptr is nullptr then there was no unmarked neighbor
                 // in the positive appearance list.  Now check the negative
                 // appearance list.
                 //-------------------------------------------------------
-                if (r_ptr == NULL) {
+                if (r_ptr == nullptr) {
                     r_ptr = top_v_ptr->get_first_neg_appearance();
-                    while (r_ptr != NULL) {
+                    while (r_ptr != nullptr) {
                        tempvert = this->get_vertex_ptr(r_ptr);
                        if (tempvert->visited()==0) {
                           tempvert->mark();
@@ -3620,13 +3643,13 @@ void logic_program_class::compute_postorder_nums()
                           r_ptr = r_ptr->get_next_ptr();
                         } // ELSE
                      } // WHILE
-                } // IF r_ptr NULL
+                } // IF r_ptr nullptr
 
                 //-------------------------------------------------------
-                // if r_ptr is NULL then there was no unmarked neighbor,
+                // if r_ptr is nullptr then there was no unmarked neighbor,
                 // so top_v_ptr should be POPPED.
                 //-------------------------------------------------------
-                if (r_ptr==NULL) {
+                if (r_ptr==nullptr) {
                      top_v_ptr->assign_postorder_num(Current_Postorder_Val);
                      Current_Postorder_Val++;
                      cur_top = Stack.pop(); // remove TOS
@@ -3637,7 +3660,7 @@ void logic_program_class::compute_postorder_nums()
         } // IF NODE NOT YET VISITED
                        
       v_ptr = v_ptr->get_next_ptr();
-      } // WHILE v_ptr NOT NULL
+      } // WHILE v_ptr NOT nullptr
 } // compute_postorder_nums
 
 
@@ -3684,7 +3707,7 @@ void logic_program_class::reinitialize_graph_for_spantree()
 
 
     v_ptr = Vertexlist.get_first();
-    while (v_ptr != NULL) {
+    while (v_ptr != nullptr) {
            // RESET VERTEX FIELDS OF TRUTH_VAl, ACCESS, AND GUESS
            v_ptr->assign_truth(2);    // 2 means BOTTOM
            v_ptr->assign_W_val(2);    // 2 means BOTTOM
@@ -3696,7 +3719,7 @@ void logic_program_class::reinitialize_graph_for_spantree()
            // INITIALIZE BODYLIST
            b_ptr = v_ptr->get_first_body();
 
-           while (b_ptr != NULL) {
+           while (b_ptr != nullptr) {
                   b_ptr->set_body_status(2);  // 2 means UNDETERMINED..BOTTOM
                   b_ptr->set_pos_assess(1);   // 1 means TRUE.. init min to max
                   b_ptr->set_neg_assess(1);   //  (same)
@@ -3809,7 +3832,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
          // Handle neighbors of INCOMING POSITIVE edges...
             current_b_ptr = current_v_ptr->get_first_body();
             l_ptr = current_b_ptr->get_first_pos_lit_ptr();
-            while (l_ptr != NULL) {
+            while (l_ptr != nullptr) {
 
 //cout << "Inside Case 1 " << endl;
 //cout << "The Q is...." << endl;
@@ -3855,7 +3878,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 
 
             l_ptr = current_b_ptr->get_first_neg_lit_ptr();
-            while (l_ptr != NULL) {
+            while (l_ptr != nullptr) {
                       neighbor_val = l_ptr->get_value();
                       neighbor_v_ptr = get_lit_vertex(l_ptr);
                       neighbor_truth_val = neighbor_v_ptr->get_truth();
@@ -3898,7 +3921,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 
 
                 r_ptr = current_v_ptr->get_first_neg_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    neighbor_val = r_ptr->get_value();
                    neighbor_v_ptr = this->get_vertex_ptr(r_ptr);
                    neighbor_truth_val = neighbor_v_ptr->get_truth();
@@ -3943,7 +3966,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 //Q.print();
 
                 r_ptr = current_v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    neighbor_val = r_ptr->get_value();
                    neighbor_v_ptr = this->get_vertex_ptr(r_ptr);
                    neighbor_truth_val = neighbor_v_ptr->get_truth();
@@ -3989,7 +4012,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 //Q.print();
 
                 r_ptr = current_v_ptr->get_first_pos_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    neighbor_val = r_ptr->get_value();
 //cout << "neighbor val is.." << neighbor_val << endl;
                    neighbor_v_ptr = this->get_vertex_ptr(r_ptr);
@@ -4086,7 +4109,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 
                l_ptr = current_b_ptr->get_first_pos_lit_ptr();
 
-               while (l_ptr != NULL) {
+               while (l_ptr != nullptr) {
 //DD
 //cout << "The literal being examined ..incoming pos edge is..." << endl;
 //l_ptr->output();
@@ -4143,7 +4166,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 //Q.print();
 
 
-              while (l_ptr != NULL) {
+              while (l_ptr != nullptr) {
                   neighbor_val = l_ptr->get_value();
                   neighbor_v_ptr = get_lit_vertex(l_ptr);
                   neighbor_truth_val = neighbor_v_ptr->get_truth();
@@ -4189,7 +4212,7 @@ spantree_class *logic_program_class::grow_spanning_tree(vertex_class *root_v_ptr
 //Q.print();
 
                 r_ptr = current_v_ptr->get_first_neg_appearance();
-                while (r_ptr != NULL) {
+                while (r_ptr != nullptr) {
                    neighbor_val = r_ptr->get_value();
                    neighbor_v_ptr = this->get_vertex_ptr(r_ptr);
                    neighbor_truth_val = neighbor_v_ptr->get_truth();
@@ -4274,9 +4297,9 @@ int logic_program_class::any_positive_lits()
 
      pos_lits_flag = 0;                // Initialize to FALSE
      v_ptr = Vertexlist.get_first();
-     while ((v_ptr != NULL) && (pos_lits_flag == 0)) {
+     while ((v_ptr != nullptr) && (pos_lits_flag == 0)) {
          b_ptr = v_ptr->get_first_body();
-         while ((b_ptr != NULL) && (pos_lits_flag == 0)) {
+         while ((b_ptr != nullptr) && (pos_lits_flag == 0)) {
             if (b_ptr->has_any_positive_subgoals() == 1) {
                  pos_lits_flag = 1;
             } //IF
@@ -4306,9 +4329,9 @@ int logic_program_class::any_negative_lits()
 
      neg_lits_flag = 0;                // Initialize to FALSE
      v_ptr = Vertexlist.get_first();
-     while ((v_ptr != NULL) && (neg_lits_flag == 0)) {
+     while ((v_ptr != nullptr) && (neg_lits_flag == 0)) {
          b_ptr = v_ptr->get_first_body();
-         while ((b_ptr != NULL) && (neg_lits_flag == 0)) {
+         while ((b_ptr != nullptr) && (neg_lits_flag == 0)) {
             if (b_ptr->has_any_negative_subgoals() == 1) {
                  neg_lits_flag = 1;
             } //IF
@@ -4348,7 +4371,7 @@ void logic_program_class::form_all_spanning_trees()
 
      Temp_vertex_pointer = F->get_first_vertex();
 
-     while (Temp_vertex_pointer != NULL) {
+     while (Temp_vertex_pointer != nullptr) {
                S_Tree = F->grow_spanning_tree(Temp_vertex_pointer, 1);
                this->add_spantree(S_Tree);
                S_Tree = F->grow_spanning_tree(Temp_vertex_pointer, 0);

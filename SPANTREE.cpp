@@ -1,3 +1,10 @@
+#include <iostream>
+
+#include "SPANTREE.H"
+#include "CONST.H"
+
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////
 ///      Constructors
 /////////////////////////////////////////////////////////////////////
@@ -5,15 +12,15 @@
 spantree_class::spantree_class()
    { 
       vertval = -99;
-      snextnode = NULL;
-      truth_val = BOTTOM;
+      snextnode = nullptr;
+      truth_val = BOTTOM
       conflict_val = -99;
        status = 0;                   // NONTOTAL
    }
 spantree_class::spantree_class(int n)
    {
-       snextnode = NULL;
-       truth_val = BOTTOM;
+       snextnode = nullptr;
+       truth_val = BOTTOM
        status = 0;
        conflict_val = -99;
        vertval = n;
@@ -21,7 +28,7 @@ spantree_class::spantree_class(int n)
 
 spantree_class::spantree_class(int val, int start_truth)
    {
-       snextnode = NULL;
+       snextnode = nullptr;
        truth_val = start_truth;
        status = 0;
        vertval = val;

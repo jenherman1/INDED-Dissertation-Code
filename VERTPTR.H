@@ -1,3 +1,8 @@
+#pragma once
+
+#include "BODY.H"
+#include "VERTEX.H"
+
 class vertex_ptr_class 
   {
   public:

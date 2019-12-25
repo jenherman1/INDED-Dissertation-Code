@@ -1,8 +1,14 @@
+#include <iostream>
+
+#include "PREDSYM.H"
+
+using namespace std;
+
 //_________________________________________________________________________
 predicate_symbol_class::predicate_symbol_class()
 {
    val = 0;
-   pnextnode = NULL;
+   pnextnode = nullptr;
    strcpy(predicate_symbol,"");
   }
 
@@ -10,7 +16,7 @@ predicate_symbol_class::predicate_symbol_class()
 predicate_symbol_class::predicate_symbol_class(int num)
 {
    val = num;
-   pnextnode = NULL;
+   pnextnode = nullptr;
    strcpy(predicate_symbol,"");
   }
 
@@ -19,7 +25,7 @@ predicate_symbol_class::predicate_symbol_class(int num)
 predicate_symbol_class::predicate_symbol_class(char instr[STRING_LENGTH]) 
 {
    val = 0;
-   pnextnode = NULL;
+   pnextnode = nullptr;
    strcpy(predicate_symbol,instr);
 }
 
@@ -38,7 +44,7 @@ void predicate_symbol_class::output()
 
 void predicate_symbol_class::clear()
   {
-   pnextnode = NULL;
+   pnextnode = nullptr;
    strcpy(predicate_symbol,"");
   }
 //_________________________________________________________________________

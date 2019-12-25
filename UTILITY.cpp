@@ -1,3 +1,10 @@
+#include <iostream>
+#include <cstring>
+
+#include "UTILITY1.H"
+#include "UTILITY2.H"
+
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////
 ///  output current run definitives to the output file.
@@ -193,8 +200,8 @@ void get_user_data()
   cin >> Num_Variables;
   cout << "\n";
 
-  Num_Rules = (Rule_to_Var_Ratio  *  Num_Variables);
-  Num_Bodiless_Rules = Bodiless_Percent * 0.01 * Num_Rules;
+  Num_Rules = static_cast<int>(Rule_to_Var_Ratio  *  Num_Variables);
+  Num_Bodiless_Rules = static_cast<int>(Bodiless_Percent * 0.01f * Num_Rules);
   Num_Trials = 1;
   Ratio_Change_Increment = 0.0;
   cout << "\n";
@@ -212,12 +219,12 @@ void get_percent_preassigned()
   cout << "Enter percentage of pre-assigned variables to FALSE:  \n";
   cin >> Preassign_False_Percent;
 
-  Num_Preassign_False = Preassign_False_Percent * Num_Variables * 0.01;
+  Num_Preassign_False = static_cast<int>(Preassign_False_Percent * Num_Variables * 0.01f);
 
   cout << "\n"; 
   cout << "Enter percentage of pre-assigned variables to TRUE:  \n";
   cin >> Preassign_True_Percent;
-  Num_Preassign_True = Preassign_True_Percent *  Num_Variables  * 0.01;
+  Num_Preassign_True = static_cast<int>(Preassign_True_Percent *  Num_Variables * 0.01f);
   cout << "\n"; 
 }
 
@@ -282,13 +289,13 @@ int get_random_val(int upper_bound)
 {
    float flt_temp;
 
-   flt_temp = (float) rand();
+   flt_temp = static_cast<float>(rand());
 
-   flt_temp = flt_temp / RANDOM_SCALE;    // **** activate this for LINUX
-   flt_temp = flt_temp / 32768.0;
+   flt_temp = flt_temp / RANDOM_SCALE    // **** activate this for LINUX
+   flt_temp = flt_temp / 32768.0f;
    flt_temp = flt_temp * (upper_bound + 1) ;
 
-   return  (int) flt_temp;
+   return  static_cast<int>(flt_temp);
 } 
 
 
@@ -303,13 +310,13 @@ int get_random_val(int upper_bound)
 //////////////////////////////////////////////////////////////////////////////
 float get_include_prob()
 {
-   double flt_temp;
+   float flt_temp;
 
-   flt_temp = (float) rand();
-   flt_temp = flt_temp / RANDOM_SCALE;   // **** activate this for LINUX
-   flt_temp = flt_temp / 32768.0;
+   flt_temp = static_cast<float>(rand());
+   flt_temp = flt_temp / RANDOM_SCALE   // **** activate this for LINUX
+   flt_temp = flt_temp / 32768.0f;
 
-   return  (float) flt_temp;
+   return flt_temp;
 
 }
 
@@ -522,11 +529,11 @@ char *read_rule(   istream& fin,
        readstr[i] = '\0';
 //cout << "about to return " << inchar << endl << endl;
 
-       return ('.');
+       return (new char('.')); //TODO issue-1: memory leak!
     } //IF
     else {
 //cout << "about to return " << inchar << endl << endl;
-       return ('@');
+       return (new char('@')); //TODO issue-1: memory leak!
     } // ELSE
 
 }  // FUNCTION READ_RULE
@@ -555,8 +562,8 @@ void extract_atom_strings(const char extensional_rule[EXTRA_LONG],
 
 
 
-    ptr = strtok( extensional_rule, ")<-" );
-    while (ptr != NULL) {
+    ptr = strtok( const_cast<char *>(extensional_rule), ")<-" );
+    while (ptr != nullptr) {
            strcpy(extracted_atom_str, ""); 
 
            atom_num++;
@@ -574,7 +581,7 @@ void extract_atom_strings(const char extensional_rule[EXTRA_LONG],
 
            flist->add_ptr(f_ptr);
 
-           ptr = strtok(NULL, ")<-." );
+           ptr = strtok(nullptr, ")<-." );
 
      }  //WHILE
 } // EXTRACT_ATOM_STRINGS       
@@ -583,7 +590,7 @@ char *upper_string(char instr[STRING_LENGTH])
 {
 
            char      inchar;
-           char      upperstring[STRING_LENGTH];
+           char* upperstring = new char[STRING_LENGTH]; //TODO: issue-1 memory leak
 
            int i = 0;
 
@@ -598,7 +605,7 @@ char *upper_string(char instr[STRING_LENGTH])
           } // IF
           upperstring[i] = '\0';
         
-          return upperstring;
+          return (upperstring);
 }
 /////////////////////////////////////////////////////////////////////////
 ///
@@ -658,7 +665,7 @@ int equal_positions(position_class *source_pos_ptr,
     int num_constants = source_pos_ptr->constantlist.get_length();
     double num_not_equal = 0.0;
 
-    while ((source_c_ptr != NULL)  && 
+    while ((source_c_ptr != nullptr)  &&
           ((num_not_equal/num_constants) <= EQUAL_FACTOR))  {
                strcpy(source_str, source_c_ptr->get_constant_symbol());
                strcpy(dest_str, dest_c_ptr->get_constant_symbol());

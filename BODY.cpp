@@ -1,15 +1,24 @@
+#include <iostream>
+
+#include "BODY.H"
+#include "LITERAL.H"
+#include "UTILITY1.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////////////
 //  Constructors
 ////////////////////////////////////////////////////////////////////////////
 
 
-body_node_class::body_node_class() : node_class()
+body_node_class::body_node_class()
 {
-   bnextnode = NULL;
-   pos_literals.set_first(NULL);
-   pos_literals.set_last(NULL);
-   neg_literals.set_first(NULL);
-   neg_literals.set_last(NULL);
+   bnextnode = nullptr;
+   pos_literals.set_first(nullptr);
+   pos_literals.set_last(nullptr);
+   neg_literals.set_first(nullptr);
+   neg_literals.set_last(nullptr);
    pos_literals.set_num_entries(0);
    neg_literals.set_num_entries(0);
    negative_fact = 0;
@@ -17,16 +26,16 @@ body_node_class::body_node_class() : node_class()
 
    neg_assess = 1;               // initialize glb (min_so_far) at TRUE (max)
    pos_assess = 1;              
-   val = BOTTOM;                      
+   val = BOTTOM
   }
 
-body_node_class::body_node_class(int dummy) : node_class()
+body_node_class::body_node_class(int dummy)
 {
-   bnextnode = NULL;
-   pos_literals.set_first(NULL);
-   pos_literals.set_last(NULL);
-   neg_literals.set_first(NULL);
-   neg_literals.set_last(NULL);
+   bnextnode = nullptr;
+   pos_literals.set_first(nullptr);
+   pos_literals.set_last(nullptr);
+   neg_literals.set_first(nullptr);
+   neg_literals.set_last(nullptr);
    pos_literals.set_num_entries(0);
    neg_literals.set_num_entries(0);
 
@@ -36,7 +45,7 @@ body_node_class::body_node_class(int dummy) : node_class()
 
    neg_assess = 1;               // initialize glb (min_so_far) at TRUE (max)
    pos_assess = 1;              
-   val = BOTTOM;                      
+   val = BOTTOM
   }
 
 
@@ -64,12 +73,13 @@ body_node_class::body_node_class(int distribution, int head_val)
 ///  --------------------------
 ///  node_class initializations
 
-   nextnode = NULL;
-   vertex_ptr = NULL;
-   body_ptr  = NULL;
+  //Issue 1: are these unused?
+//   nextnode = nullptr;
+//   vertex_ptr = nullptr;
+//   body_ptr  = nullptr;
 
 ///---------------------
-   bnextnode = NULL;
+   bnextnode = nullptr;
    switch (distribution){ 
 //       case NODIST 
          case 0: {
@@ -176,11 +186,11 @@ body_node_class::body_node_class(int distribution, int head_val)
      
      num_literals_sat = 0;
        
-     neg_assess = TRUE;  // Initialize the glb at MAX
-     pos_assess = TRUE;
+     neg_assess = true;  // Initialize the glb at MAX
+     pos_assess = true;
      negative_fact = 0;
  
-     val = BOTTOM;
+     val = BOTTOM
      
 
 }    
@@ -192,7 +202,7 @@ body_node_class::body_node_class(int distribution, int head_val)
 
 void body_node_class::assign_val (int n)
   {
-     node_class::assign_val(n);
+     val = n;
   }
 
 void body_node_class::assign_negative_fact(int n)
@@ -258,6 +268,11 @@ int body_node_class::get_negative_fact()
      return negative_fact;
   }
      
+int body_node_class::get_value()
+   {
+      return val;
+   }
+
 ///////////////////////////////////////////////////////////////////
 //  Add positive or negative literals specified by pointers
 //  to their respective lists
@@ -293,16 +308,25 @@ void body_node_class::add_neg_literal(int k)
 void body_node_class::add_neg_literal(int k, vertex_class *v_ptr,
                                              body_node_class *b_ptr) 
 {
-      literal_class *p1_ptr;
-      p1_ptr = new literal_class(k, v_ptr, b_ptr);
+
+      literal_class *p1_ptr = new literal_class();
+
+      p1_ptr->assign_val(k);
+      p1_ptr->assign_vertex_ptr(v_ptr);
+      p1_ptr->assign_body_ptr(b_ptr);
+
       neg_literals.add_ptr(p1_ptr);
 }
 
 void body_node_class::add_pos_literal(int k, vertex_class *v_ptr,
                                              body_node_class *b_ptr) 
 {
-      literal_class *p1_ptr;
-      p1_ptr = new literal_class(k, v_ptr, b_ptr);
+      literal_class *p1_ptr = new literal_class();
+
+      p1_ptr->assign_val(k);
+      p1_ptr->assign_vertex_ptr(v_ptr);
+      p1_ptr->assign_body_ptr(b_ptr);
+
       pos_literals.add_ptr(p1_ptr);
 }
 
@@ -338,7 +362,7 @@ void body_node_class::find_add_pos_literal( int k)
 
      p_ptr = pos_literals.find_val_ptr(k);
      
-     if (p_ptr == NULL) {
+     if (p_ptr == nullptr) {
           p_ptr = new literal_class(k);
           pos_literals.add_ptr(p_ptr);
      } //IF
@@ -351,7 +375,7 @@ void body_node_class::find_add_neg_literal( int k)
 
      p_ptr = neg_literals.find_val_ptr(k);
      
-     if (p_ptr == NULL) {
+     if (p_ptr == nullptr) {
           p_ptr = new literal_class(k);
           neg_literals.add_ptr(p_ptr);
      } //IF
@@ -410,7 +434,7 @@ void body_node_class::determine_pos_assess(logic_program_class *P)
 //
 //  curlit_ptr = get_first_pos_lit_ptr();
 //
-//  if (curlit_ptr == NULL)
+//  if (curlit_ptr == nullptr)
 //         pos_assess = 1;
 //  else
 //  {
@@ -425,7 +449,7 @@ void body_node_class::determine_pos_assess(logic_program_class *P)
 //  literal_class    *curlit_ptr;
 //  
 //  curlit_ptr = get_first_pos_lit_ptr();
-//  if (curlit_ptr == NULL)
+//  if (curlit_ptr == nullptr)
 //   {
 //         neg_assess = 1;
 //   }
@@ -475,19 +499,19 @@ void body_node_class::display_body()
     n_ptr = neg_literals.get_first();
 
     // DISPLAY POSITIVE LITERALS
-    while (p_ptr != NULL) {
+    while (p_ptr != nullptr) {
         cout << (p_ptr->get_value());
         p_ptr = p_ptr->get_next_ptr();
-        if ((p_ptr != NULL) || (n_ptr != NULL)) {
+        if ((p_ptr != nullptr) || (n_ptr != nullptr)) {
                 cout << ", ";
         } // IF
     } // WHILE
 
     // DISPLAY NEGATIVE LITERALS
-    while (n_ptr != NULL) {
+    while (n_ptr != nullptr) {
         cout << "~" << (n_ptr->get_value());
         n_ptr = n_ptr->get_next_ptr();
-        if (n_ptr != NULL) {
+        if (n_ptr != nullptr) {
                 cout << ", ";
         } // IF
     } // WHILE
@@ -537,12 +561,12 @@ int body_node_class::glb_pos_lits(logic_program_class *P)
   literal_class    *curlit_ptr;
   vertex_class      *curlit_v_ptr;
   
-  glb_so_far = TRUE;                     // Initialize Min_so_far at the Max
+  glb_so_far = TRUE                     // Initialize Min_so_far at the Max
 
   curlit_ptr = get_first_pos_lit_ptr();
 //DD 
 //cout << "Inside glb_pos_lits...." << endl;
-     while (curlit_ptr != NULL)  {
+     while (curlit_ptr != nullptr)  {
 //cout << "curlit_ptr is.............";
 //curlit_ptr->output();
         curlit_J = P->get_lit_Jval(curlit_ptr);
@@ -570,7 +594,7 @@ int body_node_class::glb_neg_lits(logic_program_class *P)
 
   curlit_ptr = get_first_neg_lit_ptr();
 
-     while (curlit_ptr != NULL)  {
+     while (curlit_ptr != nullptr)  {
         curlit_neg_W  = P->get_neg_lit_Wval(curlit_ptr);
         glb_so_far = glb_t(glb_so_far, curlit_neg_W);
         curlit_ptr = curlit_ptr->get_next_ptr();

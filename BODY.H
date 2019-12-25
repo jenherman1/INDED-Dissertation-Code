@@ -1,4 +1,10 @@
-class body_node_class : public node_class
+#pragma once
+
+#include "LITERAL.H"
+#include "LOGIC_PR.H"
+#include "VERTEX.H"
+
+class body_node_class
    {
   public:
       body_node_class();
@@ -8,6 +14,8 @@ class body_node_class : public node_class
       void assign_val(int n);
       void output();
       void clear();
+
+      int       get_value();
 
       void assign_next(body_node_class *b_ptr);
       body_node_class *get_next_ptr();
@@ -66,6 +74,9 @@ class body_node_class : public node_class
 
 
   protected:
+      //Issue 1: from node_class
+      int val;
+
       body_node_class                 *bnextnode;
       int num_literals_sat;           //  NUMBER LITERALS TRUE
       int pos_assess;

@@ -1,8 +1,18 @@
+#pragma once
+
+#include <fstream>
+
+#include "ATOM.H"
+#include "CONST.H"
+#include "LIST.CC"
+#include "PREDEXP.H"
+#include "PREDLOG.H"
+
 class background_knowledge_class
 {
    public:
         background_knowledge_class();
-        background_knowledge_class(ifstream& infile);
+        background_knowledge_class(std::ifstream& infile);
   
         ~background_knowledge_class();
 
@@ -10,7 +20,7 @@ class background_knowledge_class
         predicate_log_class  *get_first_predlog_ptr();
         
         void output();
-        void display(ostream& fout);
+        void display(std::ostream& fout);
         void clear();
         predicate_log_class   *get_max_unchosen_predlog();
         void                   reinitialize_chosen_mesh();

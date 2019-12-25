@@ -1,3 +1,13 @@
+#pragma once
+
+#include <fstream>
+
+#include "ATOM.H"
+#include "CONCLASS.H"
+#include "LIST.CC"
+#include "POS.H"
+#include "PREDSYM.H"
+
 class predicate_log_class 
   {
   public:
@@ -10,7 +20,7 @@ class predicate_log_class
 
       void output();
       void clear();
-      void display(ostream& fout);
+      void display(std::ostream& fout);
 
       int                  get_value();
       int                  get_chosen();

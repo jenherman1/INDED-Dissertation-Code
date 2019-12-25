@@ -1,11 +1,17 @@
+#include <iostream>
+
+#include "CONAPP.H"
+
+using namespace std;
+
 //////////////////////////////////////////////////////////////////////////////
 ///  Constructors
 //////////////////////////////////////////////////////////////////////////////
 constant_appearance_class::constant_appearance_class()
      {
          val = 0;
-         appearance_v_ptr = NULL;
-         cappnextnode = NULL;
+         appearance_v_ptr = nullptr;
+         cappnextnode = nullptr;
      }
 
 //____________________________________________________________________________
@@ -13,8 +19,8 @@ constant_appearance_class::constant_appearance_class()
 constant_appearance_class::constant_appearance_class(int n) 
      {
          val = n;
-         appearance_v_ptr = NULL;
-         cappnextnode = NULL;
+         appearance_v_ptr = nullptr;
+         cappnextnode = nullptr;
      }
 
 //____________________________________________________________________________
@@ -23,7 +29,7 @@ constant_appearance_class::constant_appearance_class(vertex_class *v_ptr)
     {
           val = 0;
           appearance_v_ptr = v_ptr;
-          cappnextnode = NULL;
+          cappnextnode = nullptr;
     }
 
 //____________________________________________________________________________
@@ -32,7 +38,7 @@ constant_appearance_class::constant_appearance_class(int rule_head, vertex_class
     {
           val = rule_head; 
           appearance_v_ptr = v_ptr;
-          cappnextnode = NULL;
+          cappnextnode = nullptr;
     }
 
 
@@ -61,7 +67,7 @@ void constant_appearance_class::display_appearance(ostream& fout)
 {
      char    neg_symbol = ' ';
 
-     if (appearance_v_ptr != NULL) {
+     if (appearance_v_ptr != nullptr) {
          if (appearance_v_ptr->get_truth()==0)
             neg_symbol = '~';
          fout << "      ";
@@ -69,7 +75,7 @@ void constant_appearance_class::display_appearance(ostream& fout)
          fout << endl;
      } //IF
      else {
-          fout << "### WATCH ### appearance node is NULL \n";   
+          fout << "### WATCH ### appearance node is nullptr \n";
      } //ELSE
 }
 
@@ -78,8 +84,8 @@ void constant_appearance_class::display_appearance(ostream& fout)
 void constant_appearance_class::clear()
     {
        val = 0;
-       appearance_v_ptr = NULL;
-       cappnextnode = NULL;
+       appearance_v_ptr = nullptr;
+       cappnextnode = nullptr;
     }
 
 //____________________________________________________________________________

@@ -1,10 +1,12 @@
+#include "POS.H"
+
 /////////////////////////////////////////////////////////////////////////////
 //  Constructors
 ////////////////////////////////////////////////////////////////////////////
 position_class::position_class()
 {
    val = 0;
-   posnextnode = NULL;
+   posnextnode = nullptr;
    variable_name = ' ';
    posrank = 0;
    position_chosen_flag = 0;
@@ -13,7 +15,7 @@ position_class::position_class()
 position_class::position_class(int n)
 {
    val = n;
-   posnextnode = NULL;
+   posnextnode = nullptr;
    variable_name = ' ';
    posrank = 0;
    position_chosen_flag = 0;
@@ -21,10 +23,10 @@ position_class::position_class(int n)
 
 }
 
-position_class::~position_class(int n)
+position_class::~position_class()
 {
    val = 0;
-   posnextnode = NULL;
+   posnextnode = nullptr;
    constantlist.cleanup();
 
 }
@@ -150,7 +152,7 @@ constant_class *position_class::find_constant(constant_class *source_c_ptr,
     c_ptr = get_first_poscon_ptr();  //INITIALIZE TO FIRST CONSTANT IN POS LIST
 
 
-    while ((c_ptr != NULL) && (!found)) {
+    while ((c_ptr != nullptr) && (!found)) {
         strcpy(dest_str, "");
         strcpy(dest_str, c_ptr->get_constant_symbol());
         if  ( strcmp(source_str, dest_str) == 0 ) {
@@ -182,7 +184,7 @@ constant_class *position_class::find_constant_taken(constant_class *source_c_ptr
     c_ptr = get_first_poscon_ptr();  //INITIALIZE TO FIRST CONSTANT IN POS LIST 
 
 
-    while ((c_ptr != NULL) && (!found)) {
+    while ((c_ptr != nullptr) && (!found)) {
         strcpy(dest_str, "");
         strcpy(dest_str, c_ptr->get_constant_symbol());
         if  ( strcmp(source_str, dest_str) == 0 ) {
@@ -212,7 +214,7 @@ int position_class::is_a_member(constant_class *source_c_ptr)
      int              new_spot;
 
      found_ptr = find_constant_taken(source_c_ptr, new_spot );
-     if (found_ptr != NULL)
+     if (found_ptr != nullptr)
          return new_spot;
      else 
          return 0;
@@ -232,7 +234,7 @@ int position_class::is_a_member_in_spot(int             spot_number,
 
      dest_c_ptr = constantlist.get_ith(spot_number);
       
-     if (dest_c_ptr != NULL) {
+     if (dest_c_ptr != nullptr) {
          strcpy(dest_str, dest_c_ptr->get_constant_symbol());
 
          //CHECK FOR EQUALITY
@@ -265,7 +267,7 @@ int position_class::number_times_constant_found(constant_class *source_c_ptr)
     c_ptr = get_first_poscon_ptr();  //INITIALIZE TO FIRST CONSTANT IN POS LIST 
 
 
-    while (c_ptr != NULL)  {
+    while (c_ptr != nullptr)  {
         strcpy(dest_str, "");
         strcpy(dest_str, c_ptr->get_constant_symbol());
         if  ( strcmp(source_str, dest_str) == 0 ) {
@@ -302,7 +304,7 @@ void  position_class::mark_all_constants_NOT_taken()
 
     c_ptr = get_first_poscon_ptr();           //INITIALIZE TO FIRST CONSTANT IN POS LIST 
 
-    while (c_ptr != NULL)  {
+    while (c_ptr != nullptr)  {
         c_ptr->mark_NOT_taken();
         c_ptr = c_ptr->get_next_ptr();
     } //WHILE

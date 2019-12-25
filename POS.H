@@ -1,3 +1,9 @@
+#pragma once
+
+#include "CONCLASS.H"
+#include "CONST.H"
+#include "LIST.CC"
+
 class position_class 
    {
   public:

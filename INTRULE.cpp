@@ -1,3 +1,10 @@
+#include <iostream>
+
+#include "INTRULE.H"
+#include "UTILITY2.H"
+
+using namespace std;
+
 /////////////////////////////////////////////////////////////////////
 ///      Constructors
 /////////////////////////////////////////////////////////////////////
@@ -5,17 +12,17 @@
 intensional_rule_class::intensional_rule_class()
    { 
       val = 0;
-      inextnode = NULL;
-      variablelist.set_first(NULL);
-      predexplist.set_first(NULL);
+      inextnode = nullptr;
+      variablelist.set_first(nullptr);
+      predexplist.set_first(nullptr);
 
    }
 intensional_rule_class::intensional_rule_class(int n)
    {
        val = 0;
-       inextnode = NULL;
-       variablelist.set_first(NULL);
-       predexplist.set_first(NULL);
+       inextnode = nullptr;
+       variablelist.set_first(nullptr);
+       predexplist.set_first(nullptr);
 
    }
 
@@ -32,10 +39,10 @@ intensional_rule_class::intensional_rule_class(char f_str[EXTRA_LONG])
        variable_class                  *var_ptr;
 
 
-       variablelist.set_first(NULL);
-       predexplist.set_first(NULL);
+       variablelist.set_first(nullptr);
+       predexplist.set_first(nullptr);
        val = Intensional_Rule_Count++;
-       inextnode = NULL;
+       inextnode = nullptr;
 
        strcpy(full_string, f_str);
 
@@ -48,7 +55,7 @@ intensional_rule_class::intensional_rule_class(char f_str[EXTRA_LONG])
         f_ptr = flist->get_first();
 
 
-        while (f_ptr != NULL)  {
+        while (f_ptr != nullptr)  {
             strcpy(tempstr, "");
             strcpy(tempstr, (f_ptr->get_fullstring_symbol())  );
             pred_ptr = new predicate_expression_class(tempstr);
@@ -61,10 +68,10 @@ intensional_rule_class::intensional_rule_class(char f_str[EXTRA_LONG])
    // CREATE LIST OF VARIABLES USED IN ALL RULE'S PRED EXPRESSIONS
        pred_ptr = get_first_predexp_ptr();
 
-       while (pred_ptr != NULL) {
+       while (pred_ptr != nullptr) {
               var_ptr =  pred_ptr->get_first_variable(); 
 
-              while (var_ptr != NULL) {
+              while (var_ptr != nullptr) {
                   strcpy(tempvarstr, (var_ptr->get_variable_symbol()) );
                   add_variable(tempvarstr);
                   var_ptr = var_ptr->get_next_ptr();
@@ -120,13 +127,13 @@ void intensional_rule_class::display_intensional_rule(ostream& fout)
      pred_ptr = pred_ptr->get_next_ptr();
 
      // DISPLAY BODY
-     while (pred_ptr != NULL) {
+     while (pred_ptr != nullptr) {
          if (pred_ptr->get_IS_NEGATIVE()==1)
              fout << '~';
 
          fout << (pred_ptr->get_fullstring());
          pred_ptr = pred_ptr->get_next_ptr();
-         if (pred_ptr != NULL) {
+         if (pred_ptr != nullptr) {
                fout << ", \n";
                fout << "                           "; 
          } //IF
@@ -187,7 +194,7 @@ void intensional_rule_class::add_variable(char var_str[STRING_LENGTH])
 //cout << "cur_var_ptr points to list on which to add:..." << cur_var_ptr << endl;
 
         
-        while ((cur_var_ptr != NULL) && (!found)) {
+        while ((cur_var_ptr != nullptr) && (!found)) {
 
                strcpy(tempstr, (cur_var_ptr->get_variable_symbol()) );
                if ( (strcmp(var_str,tempstr)) == 0 )
@@ -219,10 +226,10 @@ void intensional_rule_class::assign_intensional_rule(char f_str[EXTRA_LONG])
        variable_class                  *var_ptr;
 
 
-       variablelist.set_first(NULL);
-       predexplist.set_first(NULL);
+       variablelist.set_first(nullptr);
+       predexplist.set_first(nullptr);
        val = Intensional_Rule_Count++;
-       inextnode = NULL;
+       inextnode = nullptr;
 
        strcpy(full_string, f_str);
 
@@ -238,7 +245,7 @@ flist->print();
 
 //cout << "entering while where predicate_expression_classes created.. \n";
 
-        while (f_ptr != NULL)  {
+        while (f_ptr != nullptr)  {
             strcpy(tempstr, (f_ptr->get_fullstring_symbol())  );
 //cout << "about to create a predicate_expression with string..." << tempstr << endl;
             pred_ptr = new predicate_expression_class(tempstr);
@@ -255,7 +262,7 @@ flist->print();
 //cout << "about to create a list of variables for this intensionalruelclass \n";
        pred_ptr = get_first_predexp_ptr();
 
-       while (pred_ptr != NULL) {
+       while (pred_ptr != nullptr) {
 //cout << "top of WHILE.. \n";
 //cout << "pred_ptr is pointing to...";
 //pred_ptr->display();
@@ -264,7 +271,7 @@ flist->print();
 //cout << "the first variable of predicate: ";
 //var_ptr->display();
 
-              while (var_ptr != NULL) {
+              while (var_ptr != nullptr) {
                   strcpy(tempvarstr, (var_ptr->get_variable_symbol()) );
 
 //cout << "the variable is now is tempvarstr which is.." << tempvarstr << endl;
