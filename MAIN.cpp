@@ -128,8 +128,10 @@ int main(int argc, char **argv)
             char *arg = argv[i];
             if (strcmp(arg, "-edb") == 0) {
                 strcpy(domedb_filename_str, argv[i+1]);
+                domedb_ifstream.open(domedb_filename_str);
             } else if (strcmp(arg, "-idb") == 0) {
                 strcpy(domidb_filename_str, argv[i+1]);
+                domidb_ifstream.open(domidb_filename_str);
             }
         }
     }
@@ -138,28 +140,32 @@ int main(int argc, char **argv)
     // ------------------------
     clear_screen(NUM_LINES_CLEARSCREEN);
 
-    cout << "Enter input file name of the EDB:   ";
-    cin >> domedb_filename_str;
-    domedb_ifstream.open(domedb_filename_str);
-    while (!domedb_ifstream) {
-           domedb_ifstream.close();
-           cout << "Nonexistent File...Please enter EDB file again.\n";
-           cin >> domedb_filename_str;
-           domedb_ifstream.open(domedb_filename_str);
-    } // WHILE
+    if (!domedb_ifstream) {
+        cout << "Enter input file name of the EDB:   ";
+        cin >> domedb_filename_str;
+        domedb_ifstream.open(domedb_filename_str);
+        while (!domedb_ifstream) {
+               domedb_ifstream.close();
+               cout << "Nonexistent File...Please enter EDB file again.\n";
+               cin >> domedb_filename_str;
+               domedb_ifstream.open(domedb_filename_str);
+        } // WHILE
+    }
 
 
 //------ ESTABLISH IDB SOURCE ------------------
 
-    cout << "Enter input file name of the IDB:   ";
-    cin >> domidb_filename_str;
-    domidb_ifstream.open(domidb_filename_str);
-    while (!domidb_ifstream) {
-           domidb_ifstream.close();
-           cout << "Nonexistent File...Please enter IDB file again.\n";
-           cin >> domidb_filename_str;
-           domidb_ifstream.open(domidb_filename_str);
-    } // WHILE
+    if (!domidb_ifstream) {
+        cout << "Enter input file name of the IDB:   ";
+        cin >> domidb_filename_str;
+        domidb_ifstream.open(domidb_filename_str);
+        while (!domidb_ifstream) {
+               domidb_ifstream.close();
+               cout << "Nonexistent File...Please enter IDB file again.\n";
+               cin >> domidb_filename_str;
+               domidb_ifstream.open(domidb_filename_str);
+        } // WHILE
+    }
 
 //---------------
 
