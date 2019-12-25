@@ -142,7 +142,7 @@ int main(int argc, char **argv)
         }
     }
 
-    if (posexamp_ifstream && negexamp_ifstream) {
+    if (posexamp_ifstream.is_open() && negexamp_ifstream.is_open()) {
         choice = 'L';
     }
 
@@ -150,11 +150,11 @@ int main(int argc, char **argv)
     // ------------------------
     clear_screen(NUM_LINES_CLEARSCREEN);
 
-    if (!domedb_ifstream) {
+    if (!domedb_ifstream.is_open()) {
         cout << "Enter input file name of the EDB:   ";
         cin >> domedb_filename_str;
         domedb_ifstream.open(domedb_filename_str);
-        while (!domedb_ifstream) {
+        while (!domedb_ifstream.is_open()) {
                domedb_ifstream.close();
                cout << "Nonexistent File...Please enter EDB file again.\n";
                cin >> domedb_filename_str;
@@ -165,11 +165,11 @@ int main(int argc, char **argv)
 
 //------ ESTABLISH IDB SOURCE ------------------
 
-    if (!domidb_ifstream) {
+    if (!domidb_ifstream.is_open()) {
         cout << "Enter input file name of the IDB:   ";
         cin >> domidb_filename_str;
         domidb_ifstream.open(domidb_filename_str);
-        while (!domidb_ifstream) {
+        while (!domidb_ifstream.is_open()) {
                domidb_ifstream.close();
                cout << "Nonexistent File...Please enter IDB file again.\n";
                cin >> domidb_filename_str;
@@ -265,11 +265,11 @@ int main(int argc, char **argv)
 
                          //------ ESTABLISH POSITIVE EXAMPLE SOURCE ------------------
 
-                         if (!posexamp_ifstream) {
+                         if (!posexamp_ifstream.is_open()) {
                              cout << "Enter input file name of the POSITIVE EXAMPLE Set:   ";
                              cin >> posexamp_filename_str;
                              posexamp_ifstream.open(posexamp_filename_str);
-                             while (!posexamp_ifstream) {
+                             while (!posexamp_ifstream.is_open()) {
                                  posexamp_ifstream.close();
                                  cout << "Nonexistent File...Please enter POSITIVE EXAMPLE file again.\n";
                                  cin >> posexamp_filename_str;
@@ -279,11 +279,11 @@ int main(int argc, char **argv)
 
                         //------ ESTABLISH NEGATIVE EXAMPLE SOURCE ------------------
 
-                         if (!negexamp_ifstream) {
+                         if (!negexamp_ifstream.is_open()) {
                              cout << "Enter input file name of the NEGATIVE EXAMPLE Set:   ";
                              cin >> negexamp_filename_str;
                              negexamp_ifstream.open(negexamp_filename_str);
-                             while (!negexamp_ifstream) {
+                             while (!negexamp_ifstream.is_open()) {
                                  negexamp_ifstream.close();
                                  cout << "Nonexistent File...Please enter NEGATIVE EXAMPLE file again.\n";
                                  cin >> negexamp_filename_str;
