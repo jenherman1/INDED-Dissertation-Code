@@ -123,7 +123,16 @@ int main(int argc, char **argv)
     char              cummulative_intset_filename_str[STRING_LENGTH] = "cumint.mid";  //DED output; DED input
     
 
-
+    if (argc > 1) {
+        for (int i = 0; i < argc-1; i++) {
+            char *arg = argv[i];
+            if (strcmp(arg, "-edb") == 0) {
+                strcpy(domedb_filename_str, argv[i+1]);
+            } else if (strcmp(arg, "-idb") == 0) {
+                strcpy(domidb_filename_str, argv[i+1]);
+            }
+        }
+    }
 
     // CREATE DEDUCTION ENGINE
     // ------------------------
