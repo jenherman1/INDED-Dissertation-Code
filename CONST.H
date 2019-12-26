@@ -40,9 +40,9 @@
 
 #define RATIO_LIMIT         5.2;
 
-const   int    STRING_LENGTH = 50;
-const   int    LONG_STRING_LENGTH = 80;
-const   int    EXTRA_LONG = 500;
+const   int    STRING_LENGTH = 1024;
+const   int    LONG_STRING_LENGTH = 2048;
+const   int    EXTRA_LONG = 2096;
 
 const   double  EQUAL_FACTOR = 0.05; // % below which two positions are deemed equal
 const   double  DEFAULT_SUFF = 0.30;

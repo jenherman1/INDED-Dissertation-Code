@@ -123,34 +123,59 @@ int main(int argc, char **argv)
     char              cummulative_intset_filename_str[STRING_LENGTH] = "cumint.mid";  //DED output; DED input
     
 
+    if (argc > 1) {
+        for (int i = 0; i < argc-1; i++) {
+            char *arg = argv[i];
+            if (strcmp(arg, "-edb") == 0) {
+                strcpy(domedb_filename_str, argv[i+1]);
+                domedb_ifstream.open(domedb_filename_str);
+            } else if (strcmp(arg, "-idb") == 0) {
+                strcpy(domidb_filename_str, argv[i+1]);
+                domidb_ifstream.open(domidb_filename_str);
+            } else if (strcmp(arg, "-pos") == 0) {
+                strcpy(posexamp_filename_str, argv[i+1]);
+                posexamp_ifstream.open(posexamp_filename_str);
+            } else if (strcmp(arg, "-neg") == 0) {
+                strcpy(negexamp_filename_str, argv[i+1]);
+                negexamp_ifstream.open(negexamp_filename_str);
+            }
+        }
+    }
 
+    if (posexamp_ifstream.is_open() && negexamp_ifstream.is_open()) {
+        choice = 'L';
+    }
 
     // CREATE DEDUCTION ENGINE
     // ------------------------
     clear_screen(NUM_LINES_CLEARSCREEN);
 
-    cout << "Enter input file name of the EDB:   ";
-    cin >> domedb_filename_str;
-    domedb_ifstream.open(domedb_filename_str);
-    while (!domedb_ifstream) {
-           domedb_ifstream.close();
-           cout << "Nonexistent File...Please enter EDB file again.\n";
-           cin >> domedb_filename_str;
-           domedb_ifstream.open(domedb_filename_str);
-    } // WHILE
+    if (!domedb_ifstream.is_open()) {
+        cout << "Enter input file name of the EDB:   ";
+        cin >> domedb_filename_str;
+        domedb_ifstream.open(domedb_filename_str);
+        while (!domedb_ifstream.is_open()) {
+               domedb_ifstream.close();
+               cout << "Nonexistent File...Please enter EDB file again.\n";
+               cin >> domedb_filename_str;
+               domedb_ifstream.open(domedb_filename_str);
+        } // WHILE
+    }
 
 
 //------ ESTABLISH IDB SOURCE ------------------
 
-    cout << "Enter input file name of the IDB:   ";
-    cin >> domidb_filename_str;
-    domidb_ifstream.open(domidb_filename_str);
-    while (!domidb_ifstream) {
-           domidb_ifstream.close();
-           cout << "Nonexistent File...Please enter IDB file again.\n";
-           cin >> domidb_filename_str;
-           domidb_ifstream.open(domidb_filename_str);
-    } // WHILE
+    if (!domidb_ifstream.is_open()) {
+        cout << "Enter input file name of the IDB:   ";
+        cin >> domidb_filename_str;
+        domidb_ifstream.open(domidb_filename_str);
+        while (!domidb_ifstream.is_open()) {
+               domidb_ifstream.close();
+               cout << "Nonexistent File...Please enter IDB file again.\n";
+               cin >> domidb_filename_str;
+               domidb_ifstream.open(domidb_filename_str);
+        } // WHILE
+    }
 
 //---------------
 
@@ -167,10 +192,12 @@ int main(int argc, char **argv)
     // ASSUME INTERACTIVE MODE ... ALLOW USER TO CHOOSE
     // ------------------------------------------------
 
-    clear_screen(NUM_LINES_CLEARSCREEN);
-    display_menu();
-    cout << "Enter menu choice for operation.  Enter 'Q' to quit. \n";
-    cin >> choice;
+    if (choice == ' ') {
+        clear_screen(NUM_LINES_CLEARSCREEN);
+        display_menu();
+        cout << "Enter menu choice for operation.  Enter 'Q' to quit. \n";
+        cin >> choice;
+    }
  
     while ( (choice != 'q') && (choice != 'Q') ) {
           switch (choice) {
@@ -238,27 +265,31 @@ int main(int argc, char **argv)
 
                          //------ ESTABLISH POSITIVE EXAMPLE SOURCE ------------------
 
-                         cout << "Enter input file name of the POSITIVE EXAMPLE Set:   ";
-                         cin >> posexamp_filename_str;
-                         posexamp_ifstream.open(posexamp_filename_str);
-                         while (!posexamp_ifstream) {
-                             posexamp_ifstream.close();
-                             cout << "Nonexistent File...Please enter POSITIVE EXAMPLE file again.\n";
+                         if (!posexamp_ifstream.is_open()) {
+                             cout << "Enter input file name of the POSITIVE EXAMPLE Set:   ";
                              cin >> posexamp_filename_str;
                              posexamp_ifstream.open(posexamp_filename_str);
-                         } // WHILE
+                             while (!posexamp_ifstream.is_open()) {
+                                 posexamp_ifstream.close();
+                                 cout << "Nonexistent File...Please enter POSITIVE EXAMPLE file again.\n";
+                                 cin >> posexamp_filename_str;
+                                 posexamp_ifstream.open(posexamp_filename_str);
+                             } // WHILE
+                         }
 
                         //------ ESTABLISH NEGATIVE EXAMPLE SOURCE ------------------
 
-                         cout << "Enter input file name of the NEGATIVE EXAMPLE Set:   ";
-                         cin >> negexamp_filename_str;
-                         negexamp_ifstream.open(negexamp_filename_str);
-                         while (!negexamp_ifstream) {
-                             negexamp_ifstream.close();
-                             cout << "Nonexistent File...Please enter NEGATIVE EXAMPLE file again.\n";
+                         if (!negexamp_ifstream.is_open()) {
+                             cout << "Enter input file name of the NEGATIVE EXAMPLE Set:   ";
                              cin >> negexamp_filename_str;
                              negexamp_ifstream.open(negexamp_filename_str);
-                         } // WHILE
+                             while (!negexamp_ifstream.is_open()) {
+                                 negexamp_ifstream.close();
+                                 cout << "Nonexistent File...Please enter NEGATIVE EXAMPLE file again.\n";
+                                 cin >> negexamp_filename_str;
+                                 negexamp_ifstream.open(negexamp_filename_str);
+                             } // WHILE
+                         }
 
                         //-------------------------
 

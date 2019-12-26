@@ -137,7 +137,10 @@ predicate_log_class *background_knowledge_class::find_predicate_log
 
    predlog_ptr = predicateloglist.get_first();
 
+   int entry_counter = 0;
    while ((predlog_ptr != nullptr) && (!found)) {
+       entry_counter++;
+
        cur_truth_val = predlog_ptr->get_predlog_truthval();
        if (truth_p_val == cur_truth_val) {
             strcpy(predstr1, predlog_ptr->get_predlog_symbol());
@@ -145,8 +148,19 @@ predicate_log_class *background_knowledge_class::find_predicate_log
                    found = 1;
              } // INNER IF
        } // OUTER IF
-       if (!found)
-              predlog_ptr = predlog_ptr->get_next_ptr();
+
+       if (!found) {
+           predlog_ptr = predlog_ptr->get_next_ptr();
+
+           //Issue 3: Avoid seg fault by manually stopping at the end of the list_class
+           if (predicateloglist.get_num_entries() == entry_counter) {
+               //did not find the predicate_log_class anywhere in the list
+               predlog_ptr = nullptr;
+               break;
+           }
+       }
+
+
    }// WHILE
 
    return predlog_ptr;
