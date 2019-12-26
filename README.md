@@ -6,6 +6,11 @@ C++ code implementing a Non-monotonic Knowledge base serving an Inductive Logic 
 cmake CMakeLists.txt
 make -Bj16
 ```
+Or 
+```
+mv EEEKS.cpp EEEKS.cpp.bak
+clang++ *.cpp -o INDED -I.
+```
 
 After installation, `./INDED` to launch `INDED` executable.
 
